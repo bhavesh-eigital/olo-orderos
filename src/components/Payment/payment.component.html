@@ -1,0 +1,484 @@
+<div class="modal">
+  <div class="v-dialog v-dialog--active" style="transform-origin: center center; max-width: 630px;">
+    <div class="flex-column">
+      <div class="top-bar position-sticky" style="z-index: 1000;top:0">
+        <div class="ofm-p-8">
+          <div class="d-flex">
+            <div class="title">RefundReceived</div>
+            <button type="button"
+                    class="white--text"
+                    (click)="goBack()"
+            >
+            <span class="btn-content">
+              <i class="mdi mdi-close"></i>
+            </span></button>
+          </div>
+        </div>
+      </div>
+      <div class="p-3" style="background-color: white">
+
+        <div class="pad-box">
+          <div class="card border-card ofm-mb-8 mb-4 mt-3" *ngIf="!tableNumber">
+            <div class="d-flex ofm-p-12 title m-auto">Order Type</div>
+            <div class="line"></div>
+            <div class="p-3 d-flex" style="justify-content: center">
+              <div class="tip-card d-flex">
+                <button
+                  [disabled]="!isSettingActive('OnlineStoreDineIn') ||  tableNumber"
+                  (click)="setOrderType(1)"
+                  [ngClass]="orderType===1?'active-b text-s first-btn order-btn': 'first-btn order-btn border-- '"
+                  type="button">
+                  <span>Delivery</span>
+                </button>
+                <button
+                  [disabled]="!isSettingActive('OnlineStoreDineIn')"
+                  (click)="setOrderType(4)"
+                  style="border-radius: 0 !important;"
+                  [ngClass]="orderType===4?'active-b text-s first-btn order-btn': 'first-btn order-btn border-- '"
+                  type="button">
+                  <span>Dine In</span>
+                </button>
+                <button
+                  [disabled]="!isSettingActive('OnlineStoreTakeOut')"
+                  (click)="setOrderType(2)"
+                  [ngClass]="orderType===2?'last-btn active-b text-s order-btn':
+            'last-btn order-btn border--'" type="button">
+                  <span>Pick Up</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="card border-card ofm-mb-8 mb-4" *ngIf="!tableNumber">
+            <div class="d-flex ofm-p-12 title m-auto">Prep Time</div>
+            <div class="line"></div>
+            <div class="p-3 d-flex" style="justify-content: space-between">
+              <div class=" mr-2 mb-2" style="width: 100%">
+                <div style="cursor: pointer" class="input-group form--2 ">
+                  <div class="prep-icon">
+                    <div style="padding-top: 3px">
+                      <i class="mdi mdi-clock-outline"></i>
+                    </div>
+                  </div>
+                  <div style="position: relative;flex:1 1 auto;line-height: 50px"
+                       class="text-schedule-time"
+                       id="time"
+                  >15 to 20 min
+                  </div>
+                </div>
+              </div>
+              <div (click)="openSchedule()" style="cursor: pointer" class="input-group form--2 mb-2">
+                <div class="prep-icon">
+                  <div style="padding-top: 3px">
+                    <i class="mdi mdi-calendar-month-outline"></i>
+                  </div>
+                </div>
+                <div [style]="isSettingActive('OnlineStoreAllowScheduledOrders') === true  ? '' : 'display:none'"
+                     class="text-schedule" style="line-height: 50px">Schedule for later
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card border-card ofm-mb-8 mb-4">
+            <div class="d-flex ofm-p-12 title m-auto">Order summary</div>
+            <hr class="line" style="margin-top: 3px;margin-bottom: 1px">
+            <div class="d-flex ofm-pr-12 ofm-pl-12">
+              <div class="col-12 p-0 ">
+                <div class="row text--weight-bold pb-3" style="justify-content: space-evenly">
+                  <div class=" p-0 pl-3" style="padding-top: 11px!important;">Qty</div>
+                  <div class="col-6 p-0 " style="padding-top: 11px!important;">Description</div>
+                  <div class="col-4 p-0 pr-3 text-end" style="padding-top: 11px!important;">Amount</div>
+                </div>
+
+                <div *ngFor="let product of cart" class="row text--weight-bold ofm-pl-12 "
+                     style="justify-content: space-evenly">
+                  <div class=" p-2 pl-1">{{product.quantity}}</div>
+                  <div class="col-6 p-0  flex-column">
+                    {{product.productName}}
+                    <div class="d-flex">
+                      <span style="cursor: pointer"
+                            (click)="redirectEditProduct(product.generalInformation.productId,product.productCartId)"
+                            class="t-edit pr-4">EDIT</span>
+                      <span style="cursor: pointer" (click)="removeProduct(product)" class="t-delete ">DELETE</span>
+                    </div>
+                  </div>
+                  <div class="col-4 p-2  text-end">
+                    <p class="header--size-small">
+                      $ {{(product.totalAmount * product.quantity).toFixed(2)}}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="!tableNumber"
+               [style]="isSettingActive('OnlineStoreAllowGratuity') === true  ? '' : 'display:none'"
+               class="card border-card ofm-mb-8 mb-4">
+            <div class="d-flex ofm-p-12 title m-auto">Tips</div>
+            <div class="line"></div>
+            <div class="p-3 d-flex" style="align-items: center;justify-content: center;">
+              <div class="d-flex justify-content-between">
+                <div class="col px-0" *ngFor="let tip of tipsOptions,let i=index">
+                  <div
+                    [ngClass]="tipSelected===i?'tip-button active-b ':'tip-button  border--'"
+                    (click)="selectTip(i, tip)">
+                    <div class="d-flex flex-column">
+                      <span class="d-flex justify-content-center align-items-center pb-2">{{tip}}%</span>
+                      <span class="t-price ">$ {{(getTotalAmount() * tip / 100).toFixed(2)}}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col px-0">
+                  <div
+                    (click)="selectTip(66,0)"
+                    [ngClass]="tipSelected===66?'tip-button active-b':'tip-button border--'">
+                    <div class="d-flex flex-column  w-100 " style="text-align: center;align-items: center">
+                      <label for="input-196" style="margin-bottom: 0"
+                             class="pb-2 custom-s d-flex justify-content-center align-items-center">
+                        CUSTOM
+                      </label>
+                      <div class="ml-0 d-flex align-items-center justify-content-center">
+                        <div class="w-100" style="display: flex;justify-content: center;align-content: center;">
+                          <span>$</span>
+                          <input min="0" max="100" maxlength="9999" onKeyPress="if(this.value.length==4) return false;"
+                                 [(ngModel)]="tipsOption" (ngModelChange)="setCustomTips()"
+                                 id="input-196" type="number" placeholder="0.00" class="border--none"
+                                 style="outline: 0!important; width: inherit;max-width: 35px; min-width: 0;">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card border-card ofm-mb-8 mb-4">
+            <div class="d-flex ofm-p-12 title m-auto">Total</div>
+            <hr class="line" style="margin-top: 3px;margin-bottom: 1px">
+            <div class="d-flex ofm-pr-12 ofm-pl-12" style="padding-top: 10px">
+              <div class="w-100 justify-content-between text--weight-bold">
+                <div [style]="isSettingActive('OnlineStoreAllowGratuity') === true  ? '' : 'display:none'"
+                     class="row  ofm-pink-primary-text pad-h-tab" style="padding-bottom: 10px!important;">
+                  <div class="w-50 ">Tip</div>
+                  <div class="w-50 text-end">${{tips.toFixed(2)}}</div>
+                </div>
+                <div class="row pad-h-tab">
+                  <div class="w-50 flex-column">
+                    Sub total
+                  </div>
+                  <div class="w-50 text-end ">
+                    <p class="primary-text">
+                      ${{getTotalAmount().toFixed(2)}}
+                    </p>
+                  </div>
+                </div>
+                <div class="row pad-h-tab">
+                  <div class="w-50 flex-column">
+                    Tax
+                  </div>
+                  <div class="w-50 text-end ">
+                    <p class="primary-text">
+                      $0.00
+                    </p>
+                  </div>
+                </div>
+                <div class="row pad-h-tab ">
+                  <div class="w-50 flex-column">
+                    Total Amount
+                  </div>
+                  <div class="w-50 text-end">
+                    <p class="primary-text ">
+                      ${{(this.getTotalAmount() + this.tips).toFixed(2)}}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card border-card ofm-mb-8 mb-4">
+            <div class="d-flex ofm-p-12 title m-auto">Customer Information</div>
+            <hr class="line" style="margin-top: 3px;margin-bottom: 1px">
+            <div class="d-flex ofm-pr-12 ofm-pl-12" style="padding-top: 20px!important;">
+              <div class="col-12 pad-0">
+                <div class="flex-column " style="padding-bottom: 10px;">
+                  <label class="label-form text--weight-bold ">First Name*</label>
+                  <div class="input-group form-- mb-2">
+                    <div class="input-group-prepend">
+                      <div class="input-group-addon">
+                        <i class="mdi mdi-account"></i>
+                      </div>
+                    </div>
+                    <label for="loginEmail"></label>
+                    <input
+                      type="text"
+                      class="form-control input-addon-prepend primary-text"
+                      id="loginEmail"
+                      [value]="customer  ? customer.customerFirstName : ''"
+                      placeholder="First Name"
+                      [(ngModel)]="customerFirstName"
+                      aria-describedby="Email"
+                      autocomplete="email"
+                    />
+                  </div>
+                </div>
+                <div class="flex-column " style="padding-bottom: 10px;">
+                  <label class="label-form text--weight-bold ">Last Name*</label>
+                  <div class="input-group form-- mb-2">
+                    <div class="input-group-prepend">
+                      <div class="input-group-addon">
+                        <i class="mdi mdi-account"></i>
+                      </div>
+                    </div>
+                    <label for="last_name"></label><input
+                    type="text"
+                    class="form-control input-addon-prepend"
+                    id="last_name"
+                    [(ngModel)]="customerLastName"
+                    placeholder="Last Name"
+                    aria-describedby="Email"
+                    autocomplete="email"
+                  />
+                  </div>
+                </div>
+                <div class="flex-column " style="padding-bottom: 10px;">
+                  <label class="label-form text--weight-bold ">Phone*</label>
+                  <div class="input-group form-- mb-2">
+                    <div style="min-width: 100%;">
+                      <ngx-intl-tel-input
+                        [inputId]="''"
+                        [(ngModel)]="this.customerMobile"
+                        [cssClass]="'flag-Payments'"
+                        [preferredCountries]="preferredCountries"
+                        [enableAutoCountrySelect]="true"
+                        [enablePlaceholder]="true"
+                        [searchCountryFlag]="true"
+                        [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                        [selectFirstCountry]="false"
+                        [selectedCountryISO]="CountryISO.UnitedStates"
+                        [maxLength]="15"
+                        [tooltipField]="TooltipLabel.Name"
+                        [phoneValidation]="true"
+                        [separateDialCode]="separateDialCode">
+                      </ngx-intl-tel-input>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="flex-column " style="padding-bottom: 10px;">
+                  <label class="label-form  text--weight-bold ">Email*</label>
+                  <div class="input-group form-- mb-2">
+                    <div class="input-group-prepend">
+                      <div class="input-group-addon">
+                        <i class="mdi mdi-email"></i>
+                      </div>
+                    </div>
+                    <label for="email"></label><input
+                    type="email"
+                    class="form-control input-addon-prepend"
+                    id="email"
+                    placeholder="Email"
+                    [(ngModel)]="customerEmail"
+                    aria-describedby="Email"
+                    autocomplete="email"
+                  />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card border-card ofm-mb-8 mb-4" *ngIf="!tableNumber">
+            <div class="d-flex ofm-p-12 title m-auto text--weight-bold">Payment Method</div>
+            <hr class="line" style="margin-top: 3px;margin-bottom: 1px">
+            <div class="col-12" style="padding-top: 10px">
+              <div class="d-flex w-100">
+
+                <div
+                  (click)="cardSelected(1)"
+                  [style]="isSettingActive('OnlineStoreAllowVisa') === true  ? '' : 'display:none'"
+                  [className]="isMethodCardSelected === 1 ? 'pay-card mr-2 p-1 pd-credit active-b' : 'pay-card mr-2 p-1 pd-credit'">
+                  <img alt="img" id="wallet" src="../../assets/payment/pay.png">
+                </div>
+
+
+                <div
+                  (click)="cardSelected(2)"
+                  [style]="isSettingActive('OnlineStoreAllowGooglePay') === true  ? '' : 'display:none'"
+                  [className]="isMethodCardSelected === 2 ? 'pay-card mr-2 p-1 pd-credit active-b' : 'pay-card mr-2 p-1 pd-credit'">
+                  <app-payment-request (click)="generateOrderGoogle()"
+                                       [AMOUNT]="(getTotalAmount() + tips) * 100"></app-payment-request>
+                </div>
+
+                <div
+                  (click)="cardSelected(3)"
+                  [style]="isSettingActive('OnlineStoreAllowApplePay') === true  ? '' : 'display:none'"
+                  [className]="isMethodCardSelected === 3 ? 'pay-card mr-2 p-1 pd-credit active-b' : 'pay-card mr-2 p-1 pd-credit'">
+                  <img alt="img" id="apple" height="48" width="60" src="../../assets/payments/apple.png">
+                </div>
+
+                <div
+                  (click)="cardSelected(4)"
+                  [style]="isSettingActive('OnlineStoreAllowAmericanExpress') === true  ? '' : 'display:none'"
+                  [className]="isMethodCardSelected === 4 ? 'pay-card mr-2 p-1 pd-credit active-b' : 'pay-card mr-2 p-1 pd-credit'">
+                  <img alt="img" id="American" height="48" width="60" src="../../assets/payments/american.png">
+                </div>
+
+                <div
+                  (click)="cardSelected(5)"
+                  [style]="isSettingActive('OnlineStoreAllowCash') === true  ? '' : 'display:none'"
+                  [className]="isMethodCardSelected === 5 ? 'pay-card mr-2 p-1 pd-credit active-b' : 'pay-card mr-2 p-1 pd-credit'">
+                  <img alt="img" id="cash" height="48" width="60" src="../../assets/payments/cash.png">
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <div class="card border-card ofm-mb-8" *ngIf="!tableNumber">
+            <div class="d-flex ofm-p-12 title m-auto text--weight-bold">Card Details <i class="mdi mdi-lock"
+                                                                                        style="margin-left: 5px;"></i>
+            </div>
+            <hr class="line" style="margin-top: 3px;margin-bottom: 1px">
+            <div class="d-flex ofm-pr-12 ofm-pl-12" style="padding-top: 20px;padding-bottom: 15px">
+              <div class="col-12 pad-0">
+                <div class="flex-column ">
+                  <label class="label-form text--weight-bold ">Credit Card Number</label>
+                  <div class="input-group form-- mb-2">
+                    <div class="input-group-prepend">
+                      <div class="input-group-addon">
+                        <i class="mdi mdi-credit-card"></i>
+                      </div>
+                    </div>
+                    <div id="card-number"></div>
+                  </div>
+                </div>
+                <div class="row pad-0" style="padding-top: 10px!important;">
+                  <div class="flex-column w-50 pr-2">
+                    <label class="label-form text--weight-bold">Security Code</label>
+                    <div class="input-group form-- mb-2">
+                      <div class="input-group-prepend">
+                        <div class="input-group-addon">
+                          <i class="mdi mdi-key"></i>
+                        </div>
+                      </div>
+                      <div id="card-cvc"></div>
+                    </div>
+                  </div>
+                  <div class="flex-column w-50 pl-2">
+                    <label class="label-form text--weight-bold ">Expiration Date</label>
+                    <div class="input-group form-- mb-2">
+                      <div class="input-group-prepend">
+                        <div class="input-group-addon" style="padding-right: 0!important;padding-left: 4px">
+                          <i class="mdi mdi-calendar-blank"></i>
+                        </div>
+                      </div>
+                      <div id="card-expiry"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="p-2 position-sticky" style="bottom: 0px; width: 100%; z-index: 1000 ;background-color: #FFFFFF"
+           *ngIf="!tableNumber">
+        <div class="w-100  d-flex justify-content-around">
+          <button
+            mat-button
+            [disabled]="
+            disabled() === true||
+            cart.length === 0||
+            pauseOrder === 'true'||
+            customerFirstName === ''||
+            customerLastName === ''||
+            customerMobile === ''||
+            customerEmail === ''"
+            (click)="generateOrder($event)"
+            [ngClass]="
+            cart.length === 0 ||
+            disabled() === true||
+            customerFirstName === ''||
+            customerLastName === ''||
+            customerMobile === ''||
+            customerEmail === '' ||
+            pauseOrder === 'true' ? 'place-h-btn-empty' : 'place-h-btn' "
+            class="text--weight-bold">
+            <div class="d-flex justify-content-between">
+              <div></div>
+              <div
+                [ngClass]="cart.length === 0 ||
+                  customerFirstName === '' ||
+                  disabled() === true||
+                  customerLastName === ''||
+                  customerMobile === ''||
+                  customerEmail === '' ||
+                pauseOrder === 'true'  ? 'pay-and-place-order-empty' : 'pay-and-place-order'">
+                {{pauseOrder === "true" ? 'Restaurant not available' : cart.length === 0 ? 'No product in the cart' : 'Pay and Place Order'}}
+              </div>
+              <div
+                [ngClass]="
+                 cart.length === 0 ||
+                  disabled() === true||
+                  customerFirstName === '' ||
+                  customerLastName === ''||
+                  customerMobile === ''||
+                  customerEmail === '' ||
+                 pauseOrder === 'true' ? 'pay-and-place-order-empty' : 'pay-and-place-order'">
+                <div *ngIf="pauseOrder === 'false'">$ {{(this.getTotalAmount() + this.tips).toFixed(2)}}</div>
+              </div>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <div class="p-2 position-sticky" style="bottom: 0px; width: 100%; z-index: 1000 ;background-color: #FFFFFF"
+           *ngIf="tableNumber !== null">
+        <div class="w-100  d-flex justify-content-around">
+          <button
+            mat-button
+            (click)="generateOrder($event)"
+            [ngClass]="
+            cart.length === 0 ||
+            customerFirstName === ''||
+            customerLastName === ''||
+            customerMobile === ''||
+            customerEmail === '' ||
+            pauseOrder === 'true' ? 'place-h-btn-empty' : 'place-h-btn' "
+            class="text--weight-bold">
+            <div class="d-flex justify-content-between">
+              <div></div>
+              <div
+                [ngClass]="cart.length === 0 ||
+                  customerFirstName === '' ||
+                  customerLastName === ''||
+                  customerMobile === ''||
+                  customerEmail === '' ||
+                pauseOrder === 'true'  ? 'pay-and-place-order-empty' : 'pay-and-place-order'">
+                {{pauseOrder === "true" ? 'Restaurant not available' : cart.length === 0 ? 'No product in the cart' : 'Place Order'}}
+              </div>
+              <div
+                [ngClass]="
+                 cart.length === 0 ||
+                  customerFirstName === '' ||
+                  customerLastName === ''||
+                  customerMobile === ''||
+                  customerEmail === '' ||
+                 pauseOrder === 'true' ? 'pay-and-place-order-empty' : 'pay-and-place-order'">
+                <div *ngIf="pauseOrder === 'false'">$ {{(this.getTotalAmount() + this.tips).toFixed(2)}}</div>
+              </div>
+            </div>
+          </button>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+<div class="modal" style="background-color: #FBFBFB" *ngIf="loading === true">
+  <div>
+    <loading></loading>
+    <p
+      class=" loading-text ml-2 d-flex justify-content-center align-items-center align-content-center"> {{checkoutProcess}}</p>
+  </div>
+</div>

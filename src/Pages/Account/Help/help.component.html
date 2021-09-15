@@ -1,0 +1,160 @@
+<mat-drawer-container class="example-container" style="height:100%">
+  <mat-drawer #drawer position="end" style="height:100vh;position:fixed">
+    <account-mobile></account-mobile>
+  </mat-drawer>
+  <mat-drawer-content style="background-color: white">
+    <div class="space" style="min-height: 90vh;">
+      <div style="background-color: white !important;">
+        <nav class="space navbar navbar-top fixed-top topbar"
+             style="background-color: white !important;">
+          <div class="w-100 h-100 d-flex justify-content-between" style="background-color: white;">
+            <div class="d-flex">
+              <div class="d-flex flex-column" style="align-items: center;margin: auto">
+                <div class="navbar-toggler p-0" type="button" data-target="#navbarNav"
+                     (click)="goBack()"
+                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                  <Logo-NavBar></Logo-NavBar>
+                </div>
+              </div>
+            </div>
+            <div class="d-lg-flex d-sm-none account-button"
+                 style="display:flex;justify-content: center;align-items: center">
+              <account></account>
+            </div>
+
+            <div class="d-lg-none d-sm-flex" style="display:flex;justify-content: center;align-items: center">
+              <img *ngIf="customer.length === 0 "
+                   (click)="drawer.toggle()" src="assets/IconsSVG/Account.svg" alt="">
+              <div *ngIf="customer.length !== 0" (click)="drawer.toggle()">
+                <img *ngIf="customer.customerPhoto"
+                     height="32" width="32" style="border-radius: 50%;border: 1px solid #000000"
+                     [src]="getCustomerPhoto()" alt="">
+                <img *ngIf="!customer.customerPhoto"
+                     height="32" width="32" style="border-radius: 50%;"
+                     src="assets/IconsSVG/Account.svg" alt="">
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+
+      <div style="width: 100%;justify-content: center;align-items: center">
+        <div class="mt-5 d-flex" style="width:100%;border-bottom: 1px solid #D8D8D8;width: 100%">
+          <h1 class="myAccount pl-4">HELP</h1>
+        </div>
+        <div>
+          <mat-vertical-stepper [linear]="isLinear" #stepper class="w-100">
+            <mat-step [stepControl]="firstFormGroup">
+              <div>
+                <ng-template matStepLabel class="labelForm">
+                  <div class="text-header">Report An Issue</div>
+                </ng-template>
+                <div class="w-full-screen">
+                  <div class="box-buttons mb-3">
+                    <div class="mb-2" (click)="selectOption(1)"
+                         [ngClass]="issueReason === 1 ? 'btn-issue-selected' :'btn-issue'">
+                      Restaurant Never Received My Order
+                    </div>
+                    <div class="mb-2" [ngClass]="issueReason === 2 ? 'btn-issue-selected' :'btn-issue'"
+                         (click)="selectOption(2)">
+                      Issue with My Item(s)
+                    </div>
+                    <div class="mb-2" [ngClass]="issueReason === 3 ? 'btn-issue-selected' :'btn-issue'"
+                         (click)="selectOption(3)">
+                      Leave a Comment for the Restaurant
+                    </div>
+                  </div>
+                  <div style="text-align:end;">
+                    <button mat-button class="mr-2" (click)="cancel()">CANCEL</button>
+                    <button mat-button matStepperNext
+                            [ngClass]="issueReason !== 0 ? 'btn-next-selected' : 'btn-next'"
+                            [disabled]="issueReason === 0">
+                      CONTINUE
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </mat-step>
+            <mat-step [stepControl]="secondFormGroup">
+              <div>
+                <ng-template matStepLabel>
+                  <div class="text-header">
+                    Please provide any additional notes or explanation for the restaurant regarding your missing order.
+                  </div>
+                </ng-template>
+                <div class="w-full-screen">
+                  <mat-form-field class="box-notes" appearance="outline">
+                  <textarea #notes maxlength="200"
+                            class="box-notes"
+                            [(ngModel)]="this.currentNotes"
+                            placeholder="Add any additional notes about your experience."
+                            matInput></textarea>
+                    <mat-hint align="end">{{notes.value.length}} / 200</mat-hint>
+                  </mat-form-field>
+                </div>
+                <div class="w-full-screen" style="text-align: end;margin-top: 35px;">
+                  <button mat-button matStepperPrevious>BACK</button>
+                  <button mat-button matStepperNext [disabled]="notes.value.length===0">CONTINUE</button>
+                </div>
+              </div>
+            </mat-step>
+            <mat-step>
+              <ng-template matStepLabel>
+                <div class="text-header">
+                  Please provide your email, phone number or both in order for a restaurant manager to get in touch with
+                  you as soon as possible.
+                </div>
+              </ng-template>
+              <div class="w-full-screen">
+                <mat-form-field style="width: 100%;" color="accent">
+                  <mat-label>Email</mat-label>
+                  <input matInput placeholder="Email"
+                         type="email"
+                         [formControl]="emailFormControl"
+                         [(ngModel)]="customerEmail" required>
+                  <mat-error
+                    *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                    Please enter a valid email address
+                  </mat-error>
+                </mat-form-field>
+                <div style="width: 100%;margin-top: 8px" color="accent">
+                  <mat-label>Phone Number</mat-label>
+                  <ngx-intl-tel-input
+                    [inputId]="'adsasd'"
+                    [cssClass]="'flag-code'"
+                    [(ngModel)]="customerPhone"
+                    [preferredCountries]="preferredCountries"
+                    [enableAutoCountrySelect]="true"
+                    [enablePlaceholder]="true"
+                    [searchCountryFlag]="true"
+                    [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                    [selectFirstCountry]="true"
+                    [selectedCountryISO]="CountryISO.UnitedStates"
+                    [maxLength]="10"
+                    [tooltipField]="TooltipLabel.Name"
+                    [phoneValidation]="true"
+                    [separateDialCode]="separateDialCode"
+                    placeholder="Phone Number"
+                    matInput
+                    required
+                  ></ngx-intl-tel-input>
+                </div>
+              </div>
+              <div class="mt-2 w-full-screen" style="text-align: end">
+                <button mat-button matStepperPrevious>BACK</button>
+                <button mat-button (click)="reportIssue()"
+                        [ngClass]="customerPhone !== '' && !emailFormControl.hasError('email') && customerEmail !== ''  ? 'btn-next-selected' : 'btn-next'"
+                        [disabled]="emailFormControl.hasError('email') && !emailFormControl.hasError('required')
+                          || customerEmail === '' || customerPhone === ''">
+                  REPORT ISSUE
+                </button>
+              </div>
+            </mat-step>
+          </mat-vertical-stepper>
+        </div>
+
+      </div>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>
+<app-footer appConditionalFooter></app-footer>

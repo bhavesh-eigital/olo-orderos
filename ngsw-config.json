@@ -1,0 +1,45 @@
+{
+  "$schema": "./node_modules/@angular/service-worker/config/schema.json",
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "resources": {
+        "files": [
+          "/favicon.ico",
+          "/index.html",
+          "/manifest.webmanifest",
+          "/*.scss",
+          "/*.js",
+          "/assets/*.png",
+          "/assets/profile/*.png",
+          "/assets/loading/eatos.gif",
+          "/main.ts",
+          "/polyfills.ts"
+        ]
+      }
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "resources": {
+        "files": [
+          "/favicon.ico",
+          "/index.html",
+          "/assets/**",
+          "/assets/*.png",
+          "/assets/profile/*.png",
+          "/assets/loading/eatos.gif",
+          "/*.scss",
+          "/*.js",
+          "/manifest.webmanifest",
+          "/main.ts",
+          "/polyfills.ts",
+          "/*.(eot|svg|cur|jpg|png|webp|gif|otf|ttf|woff|woff2|ani)"
+        ]
+      }
+    }
+  ]
+}

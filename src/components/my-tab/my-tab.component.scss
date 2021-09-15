@@ -1,0 +1,251 @@
+.myTabModal__modalHeader {
+  text-align: center;
+  position: relative;
+  padding: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border-bottom: 1px solid #e2e2e2;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+
+  background-color: white;
+
+  z-index: 10;
+}
+
+.myTabModal__modalHeader > p {
+  font-family: Montserrat;
+  font-size: 24px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #4caf50;
+  margin: 0;
+}
+
+.myTabModal__modalHeader > .mat-icon {
+  width: 28px;
+  height: 28px;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+#liked {
+  color: var(--theme-global-var);
+}
+
+.myTabsModal__mainWrapper {
+  padding: 0 20px 24px;
+  margin-top: 86px;
+}
+
+.myTabModal__tabDetails {
+  min-height: 125px;
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+
+  border: solid 0.8px #e0e0e0;
+  margin-bottom: 16px;
+}
+
+.myTabModal__tabDetails > div:nth-of-type(1) {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.myTabModal__tabDetails > div:nth-of-type(1) > div > span:nth-of-type(1) {
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #212121;
+}
+
+.myTabModal__tabDetails > div:nth-of-type(1) > div > span:nth-of-type(2) {
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #757575;
+
+  display: block;
+  margin-top: 4px;
+}
+
+.myTabModal__tabDetails > div:nth-of-type(1) > span {
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #212121;
+
+  display: block;
+  margin-top: 16px;
+}
+
+.myTabModal__tabDetails > img {
+  width: 40%;
+  object-fit: cover;
+  margin-left: 16px;
+}
+
+.myTabModal__options {
+  margin-top: 5px;
+}
+
+.myTabModal__options > div {
+  border-bottom: 1px solid #e2e2e2;
+
+  display: flex;
+  justify-content: space-between;
+
+  padding: 11px;
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #212121;
+}
+
+.add-ons {
+  display: block !important;
+  padding: 0 !important;
+
+  border-bottom: none !important;
+}
+
+.add-ons > div {
+  border-bottom: 1px solid #e2e2e2;
+
+  display: flex;
+  justify-content: space-between;
+
+  padding: 11px;
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #212121;
+}
+
+.addOnsTitle {
+  display: block !important;
+}
+
+.addOnsTitle span:first-child {
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #212121;
+
+  display: block;
+  margin-bottom: 4px;
+
+  padding-top: 16px;
+  padding-bottom: 8px;
+}
+
+.addOnsTitle span:last-child {
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #424242;
+
+  padding: 16px 0 8px;
+}
+
+.add-ons > .special-request {
+  display: block;
+  border-bottom: none !important;
+}
+
+.add-ons > .special-request > div {
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0 0 8px;
+
+  cursor: pointer;
+}
+
+.add-ons > .special-request > div > span:first-child {
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #212121;
+}
+
+.add-ons > .special-request > div > span:last-child {
+  font-family: Montserrat;
+  font-size: 10px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: right;
+  color: #212121;
+}
+
+.add-ons > .special-request > textarea {
+  width: 100%;
+  border-top: 2px solid #e2e2e2;
+  border-bottom: 2px solid #e2e2e2;
+  border-right: none;
+  border-left: none;
+
+  margin-top: 8px;
+  padding: 8px;
+
+  resize: none;
+  outline: none;
+
+  font-family: Montserrat;
+  font-size: 12px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #424242;
+}

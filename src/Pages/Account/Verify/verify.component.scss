@@ -1,0 +1,263 @@
+.primary-text {
+  color: var(--ofm-primary-text) !important;
+}
+
+.dialog {
+  align-items: center;
+  justify-content: center;
+  padding: 8%;
+}
+
+.mdi {
+  color: #dfe2e6 !important;
+}
+
+.input-addon-append {
+  height: 20px !important;
+}
+
+.input-group-prepend {
+  height: 30px !important;
+}
+
+.label {
+  height: 13px;
+  color: #000000;
+  font-size: 10px;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 13px;
+}
+
+.footer {
+  height: 56px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-content: center;
+}
+
+.btnContinue {
+  width: 100%;
+  height: 56px;
+  background-color: var(--theme-global-var);
+  color: #ffffff;
+  font-weight: bold;
+  border-radius: 0px !important;
+  margin-top: 28px;
+}
+
+.btnContinue-disabled {
+  width: 100%;
+  height: 56px;
+  background-color: #d4d4d4;
+  color: #6d7278;
+  font-weight: bold;
+  border-radius: 0px !important;
+  margin-top: 28px;
+}
+
+.login-Container {
+  border-radius: 13.87px;
+  background-color: #ffffff;
+  width: 395px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.5);
+}
+
+.topbar {
+  background-color: #ffffff !important;
+}
+
+.btn-corner {
+  box-sizing: border-box;
+  font-weight: bold;
+  border: 1.5px solid #df1683;
+  border-radius: 4px;
+  background-color: #ffffff;
+}
+
+.title-store {
+  color: #000000;
+  font-family: Montserrat;
+  font-size: 21px;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 25px;
+  margin-left: -9%;
+}
+
+#inputEmail::placeholder {
+  color: #dfe2e6;
+  font-size: 12px;
+}
+
+.full-input {
+  width: 100%;
+  height: 51px;
+  color: #000000;
+}
+
+.input-code {
+  height: 100%;
+  width: 70px;
+  font-size: 24px;
+  text-align: center;
+}
+
+.content-codeNumber {
+  padding-top: 22px;
+  margin-bottom: 10px;
+}
+
+.back {
+  color: var(--theme-global-var);
+  cursor: pointer;
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 19px;
+  text-align: center;
+}
+
+@media (max-width: 992px) {
+  .max-screen {
+    width: 56vw;
+  }
+}
+
+@media (min-width: 520px) {
+  .max-screen {
+    width: 91vw;
+  }
+}
+
+@media (max-width: 992px) {
+  .max-screen {
+    width: 91vw;
+  }
+}
+
+@media (min-width: 550px) {
+  .max-screen {
+    width: 465px;
+  }
+}
+
+// ::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+//   padding: 0.5em !important;
+// }
+
+@media (width: 320px) {
+  #partitioned {
+    padding-left: 20px !important;
+    letter-spacing: 40px !important;
+    border: 0;
+    background-image: linear-gradient(to left, black 70%, rgba(255, 255, 255, 0) 0%);
+    background-position: bottom;
+    background-repeat: repeat-x;
+  }
+}
+
+@media (max-width: 500px) {
+  #partitioned {
+    padding-left: 30px !important;
+    letter-spacing: 6rem !important;
+    border: 0;
+    background-image: linear-gradient(to left, black 70%, rgba(255, 255, 255, 0) 0%);
+    background-position: bottom;
+    background-size: 21% 1px !important;
+    background-repeat: repeat-x;
+    background-position-x: 45% !important;
+    width: 130%;
+  }
+}
+
+@media screen and (max-width: 465px) {
+  #partitioned {
+    letter-spacing: 5.5rem !important;
+  }
+}
+
+@media screen and (max-width: 433px) {
+  #partitioned {
+    padding-left: 23px !important;
+    letter-spacing: 5.1rem !important;
+  }
+}
+
+
+@media screen and (max-width: 400px) {
+  #partitioned {
+    padding-left: 19px !important;
+    letter-spacing: 4.4rem !important;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  #partitioned {
+    letter-spacing: 4.1rem !important;
+  }
+}
+
+@media screen and (max-width: 355px) {
+  #partitioned {
+    letter-spacing: 3.7rem !important;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  #partitioned {
+    letter-spacing: 3.2rem !important;
+  }
+}
+
+@media screen and (max-width: 299px) {
+  #partitioned {
+    letter-spacing: 3rem !important;
+  }
+}
+
+@media screen and (max-width: 285px) {
+  #partitioned {
+    letter-spacing: 2.8rem !important;
+  }
+}
+
+#partitioned {
+  padding-left: 35px;
+  letter-spacing: 101px;
+  border: 0;
+  background-image: linear-gradient(to left, black 70%, rgba(255, 255, 255, 0) 0%);
+  background-position: bottom;
+  background-size: 115px 1px;
+  background-repeat: repeat-x;
+  background-position-x: 195px;
+  width: 130%;
+  min-width: 220px;
+}
+
+#divInner {
+  left: 0;
+  position: sticky;
+}
+
+#divOuter {
+  width: 100%;
+  overflow: hidden;
+}
+
+input:focus {
+  outline: none;
+}
+
+.text-otp {
+  height: 50px;
+  font-size: 24px;
+  line-height: 29px;
+  font-family: Montserrat;
+}

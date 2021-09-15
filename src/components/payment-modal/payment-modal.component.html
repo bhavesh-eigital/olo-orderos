@@ -1,0 +1,173 @@
+<ng-container>
+  <button
+    mat-raised-button
+    (click)="closeModal()"
+    id="closeBtn"
+    [ngStyle]="{
+      'transform': showScheduleModal ? 'translate(620px, 18px)' : showDefaultModal ? 'translate(530px, 18px)' : 'translate(530px, 18px)',
+      'display': innerWidth < 855 || showCloseModal ? 'none' : 'block'
+    }"
+    aria-label="closeModel"
+  >
+    <mat-icon>close</mat-icon>
+  </button>
+  <div *ngIf="showDefaultModal && !loading" class="paymentModal">
+    <div>
+      <div class="modal__fixedHeader">
+        <div class="modal__header">
+          <mat-icon (click)="close()" style="cursor: pointer;">close</mat-icon>
+          <p>{{subTotalAmount * quantity | currency}}</p>
+          <mat-icon *ngIf="!isFav(currentProduct.product?.productId)" (click)="addFavoriteProduct(currentProduct.product)">favorite_border</mat-icon>
+          <mat-icon *ngIf="isFav(currentProduct.product?.productId)" id="liked" (click)="deleteFavoriteProduct(currentProduct.product)">favorite</mat-icon>
+        </div>
+
+        <div class="actionPanel">
+          <div>
+            <app-decrement-button *ngIf="quantity > 1" (click)="addOrRemove('remove')" class="qtyBtn"></app-decrement-button>
+            <img src="assets/remove-disabled.svg" *ngIf="quantity === 1" id="qtyDisabledBtn">
+            <span [ngClass]="{'translateQty': quantity <= 1}">{{quantity}}</span>
+            <app-increment-button (click)="addOrRemove('add')" class="qtyBtn"></app-increment-button>
+          </div>
+          <div>
+            <button
+              mat-stroked-button color="accent"
+              (click)="productAction()"
+              [disabled]="isClosed || isDisabled"
+            > {{this.currentProduct.action === 'add' ? 'ADD TO CART' : 'UPDATE PRODUCT'}}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="paymentModal__itemDetailsMobile">
+        <div>
+          <div>
+            <span>{{currentProduct.product.productName}}</span>
+            <span>{{currentProduct.product.productDescription}}</span>
+          </div>
+          <span>{{subTotalAmount * quantity | currency}}</span>
+        </div>
+
+        <img
+          *ngIf="currentProduct.product.productImage"
+          [src]="'https://' + product.productImage"
+          alt=""
+          #itemImage
+          >
+      </div>
+
+      <div class="paymentModal__itemDetails">
+        <h1>{{currentProduct.product.productName}}</h1>
+        <span>{{currentProduct.product.productDescription}}</span>
+        <img
+          *ngIf="product.productImage"
+          [src]="'https://' + product.productImage"
+          [alt]="currentProduct.product.productName"
+        >
+      </div>
+
+      <div class="options">
+        <app-collapse (variantEmit)="setVariant($event)" [items]="product.variants" [title]="'SIZE'" [variantSelected]="variantSelected">
+        </app-collapse>
+
+        <div style="margin-top: 16px" *ngIf="this.product.ingredients.length !== 0">
+          <app-collapse-with-checkboxes
+            (ingredientsEmit)="setIngredients($event)"
+            [items]="this.product.ingredients"
+            [ingredientsSelected]="ingredients"
+            [title]="'INGREDIENTS'"
+            [type]="'ingredients'"
+            [description]="addOnsDescription"
+          >
+          </app-collapse-with-checkboxes>
+        </div>
+
+        <app-collapse-with-checkboxes
+          (modifiersSelectedChange)="setModifiers($event)"
+          *ngFor="let modifiers of product.modifierGroups; index as i"
+          [items]="modifiers.selectedModifiers"
+          [title]="modifiers.modifierGroupName"
+          [modifiersGroup]="product.modifierGroups"
+          [(modifiersSelected)]="modifiersSelected"
+          [modifierGroupIndex]="i"
+          [type]="'modifiers'"
+          [description]="getModifierLabel(product.modifierGroups[i])"
+          [disabled]="inputsDisabled"
+        >
+        </app-collapse-with-checkboxes>
+
+        <div class="special-request">
+          <div>
+            <span>SPECIAL REQUESTS</span>
+            <span>{{note?.length}} /200</span>
+          </div>
+          <div class="textareaWrapper">
+            <textarea
+              rows="4"
+              [(ngModel)]="note"
+              placeholder="No substitutes. Additions may be charged extra."
+              maxlength="200"
+            ></textarea>
+            <mat-icon *ngIf="note?.length" (click)="clearNote()">
+              close
+            </mat-icon>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="paymentModal__footer">
+      <div>
+
+        <app-decrement-button *ngIf="quantity > 1" (click)="addOrRemove('remove')" style="cursor: pointer;"></app-decrement-button>
+        <img src="assets/remove-disabled.svg" *ngIf="quantity === 1" style="width: 48px; transform: translateX(5px);">
+        <span [ngStyle]="{'transform': quantity === 1 ? 'translateX(5px)' : 'translateX(0)'}">{{quantity}}</span>
+        <app-increment-button (click)="addOrRemove('add')" style="cursor: pointer;"></app-increment-button>
+      </div>
+      <div>
+        <button mat-stroked-button  (click)="productAction()" [disabled]="isClosed || isDisabled">
+          <div class="d-flex justify-content-between">
+            <span>
+              {{this.currentProduct.action === 'add' ? 'ADD TO CART' : 'UPDATE PRODUCT'}}
+            </span>
+
+            <span>{{subTotalAmount * quantity | currency}}</span>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="showScheduleModal && !loading" class="closedModal">
+    <h1>Restaurant is closed. But you can schedule an order</h1>
+    <h5>Do you want to schedule an order?</h5>
+
+    <div>
+      <button mat-stroked-button class="closedModal__btn" (click)="closeModal()">
+          Cancel
+      </button>
+
+      <button mat-stroked-button class="closedModal__btn" (click)="openDefaultModal()">
+        {{innerWidth > 489 ? 'Schedule Product' : 'Schedule'}}
+    </button>
+    </div>
+  </div>
+
+  <div *ngIf="showCloseModal && !loading" class="closedModal">
+    <h1>Restaurant is closed</h1>
+    <h5>Please try again later</h5>
+
+    <div>
+      <button mat-stroked-button class="closedModal__btn" style="width: 100% !important;" (click)="closeModal()">
+        Close
+      </button>
+    </div>
+  </div>
+
+  <loading *ngIf="loading"></loading>
+</ng-container>
+
+
+
+

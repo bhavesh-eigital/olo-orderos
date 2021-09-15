@@ -1,0 +1,102 @@
+.paymentFailed {
+  padding: 0 20px;
+}
+
+.paymentFailed > span:first-child {
+  font-family: Montserrat;
+  font-size: 64px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 1px;
+  text-align: center;
+  color: #212121;
+
+  display: block;
+  margin: 124px auto 4px;
+}
+
+.paymentFailed > div {
+  margin: 0 auto 32px;
+
+  display: flex;
+  justify-content: center;
+}
+
+.paymentFailed > div > span {
+  font-family: Montserrat;
+  font-size: 24px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #545454;
+}
+
+.paymentFailed > img {
+  display: block;
+  margin: 0 auto 32px;
+}
+
+#description {
+  font-size: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+#description > span:first-child {
+  font-family: Montserrat;
+
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #212121;
+
+  display: block;
+  margin: 0 auto;
+}
+
+#description > span:last-child {
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #545454;
+
+  display: block;
+  width: 250px;
+  margin-top: 4px;
+}
+
+.back-btn {
+  width: calc(100%);
+  height: 48px;
+
+  border-radius: 5px;
+  box-shadow: 0 10px 40px -10px rgba(33, 33, 33, 0.5);
+  border: solid 2px var(--theme-global-var);
+  background-color: #ffffff;
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: var(--theme-global-var);
+
+  margin: 109px auto 70px;
+}

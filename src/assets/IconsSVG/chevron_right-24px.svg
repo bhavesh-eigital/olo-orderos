@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink">
+  <title>chevron_right-24px</title>
+  <g id="Checkout-V2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <g id="Homepage-Scroll-&amp;-Note" transform="translate(-1243.000000, -100.000000)">
+      <g id="chevron_right-24px" transform="translate(1243.000000, 100.000000)">
+        <polygon id="Path" points="0 0 24 0 24 24 0 24"></polygon>
+        <polygon id="Path" fill="#000000" fill-rule="nonzero"
+                 points="10 6 8.59 7.41 13.17 12 8.59 16.59 10 18 16 12"></polygon>
+      </g>
+    </g>
+  </g>
+</svg>

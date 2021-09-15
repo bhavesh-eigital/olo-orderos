@@ -1,0 +1,26 @@
+<div class="yourProduct">
+  <span>{{product.productQuantity}}</span>
+  <div>
+      <div>
+          <span>{{product.productName}}</span>
+          <span>{{currency}}{{(product.productCalculatedPrice).toFixed(2)}}</span>
+      </div>
+
+      <div *ngFor="let modifier of product.productModifiers">
+          <span>{{modifier.modifierName}}</span>
+          <span>{{currency}}{{modifier.modifierPrice.toFixed(2)}}</span>
+      </div>
+
+      <div *ngFor="let ingredient of product.productIngredients">
+          <span>NO {{ingredient.ingredientName}}</span>
+          <span>{{currency}}{{ingredient.ingredientPrice.toFixed(2)}}</span>
+      </div>
+
+      <div *ngIf="product.note" class="yourProduct__noteContainer">
+          <div>Note:</div>
+          <div>
+              {{product.note}}
+          </div>
+      </div>
+  </div>
+</div>

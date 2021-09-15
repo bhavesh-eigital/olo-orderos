@@ -1,0 +1,40 @@
+<div class="scannerOrTable" #mainWrapper>
+  <img src="assets/qr/close.svg" (click)="goToDinein()">
+
+  <div [ngStyle]="{'display': !currentScreen ? 'block': 'none'}" class="scannerOrTable__scanner">
+    <div>
+      <video id="video"></video>
+    </div>
+
+    <div>
+      Scan QR Code to View Menu & Order
+    </div>
+  </div>
+
+
+  <div [ngStyle]="{'display': currentScreen ? 'block': 'none'}" class="scannerOrTable__tableCode">
+    <div>Dine in Made Easy</div>
+    <img src="assets/qr/love-burger.svg" alt="" id="love-burger">
+    
+    <div class="materialInputWrapper" [class.borderColorOnError]="!tableInput.valid">
+      <label>ENTER TABLE CODE TO VIEW MENU</label>
+      <input 
+        class="materialInput" 
+        name="table" 
+        [(ngModel)]="tableNumber" 
+        #tableInput="ngModel" 
+        (keyup.enter)="enterTable()" 
+        required
+      >
+    </div>
+    <mat-error *ngIf="tableInput.touched && tableInput.hasError('required')"></mat-error>
+
+    <button mat-stroked-button color="accent" (click)="enterTable()" [disabled]="!tableInput.valid">ENTER</button>
+  </div>
+
+  <div class="scannerOrTable__slider" #slider>
+    <div (click)="toggleSlider(0)" #scannerButton>Scan</div>
+    <div (click)="toggleSlider(1)" #tableButton>Table Code</div>
+    <div class="indicator" #indicator></div>
+  </div>
+</div>

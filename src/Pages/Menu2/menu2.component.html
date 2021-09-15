@@ -1,0 +1,108 @@
+<div class="menu" #menu>
+
+  <app-header
+    (openSidebar)="open=true"
+    [fixed]="true"
+    [placeholder]="'Search restaurant menu...'"
+    (onKeyUp)="setSearchBox($event)"
+    (onSearcherClose)="searchResults=[]"
+  >
+  </app-header>
+
+  <div class="banner" [ngStyle]="{ 'background-image':'url(' + storeInformation.storeFrontRestaurantHeroPhoto + ')'}">
+    <h3>{{this.storeInformation.storeFrontName}}</h3>
+    <p>{{storeInformation.storeFrontAddress1}}</p>
+    <p
+      [id]="popularProducts.length ? 'popular' : 0"
+      *ngIf="!openRestaurantHours || !closeRestaurantHours">
+      Closed
+    </p>
+    <p
+      [id]="popularProducts.length ? 'popular' : 0"
+      *ngIf="openRestaurantHours && closeRestaurantHours">
+      {{changeFormatHours(openRestaurantHours) + " - " + changeFormatHours(closeRestaurantHours)}}
+    </p>
+
+    <button
+      name="favorite restaurant"
+      aria-label="favorite restaurant"
+      mat-mini-fab
+      [class.like]="!isFav(storeInformation?.storeId)"
+      [class.unlike]="isFav(storeInformation?.storeId)"
+      (click)="handleFavoriteClick()"
+    >
+      <mat-icon *ngIf="!isFav(storeInformation?.storeId)">favorite_border</mat-icon>
+      <mat-icon *ngIf="isFav(storeInformation?.storeId)">favorite</mat-icon>
+    </button>
+  </div>
+
+
+  <div class="tabs">
+    <div #tabsWrapper>
+      <div [ngClass]="{'selected': currentCategory === 'popular'}" *ngIf="popularProducts?.length">
+        <span (click)="scrollInToView('popular', 0)">Popular</span>
+      </div>
+      <div
+        *ngFor="let category of categories; index as idx"
+        [ngClass]="{'selected': currentCategory === category.categoryName}"
+        [id]="'category'+idx"
+      >
+        <span (click)="scrollInToView(category.categoryName, idx)">{{category.categoryName}}</span>
+      </div>
+    </div>
+  </div>
+
+  <main *ngIf="!searchResults.length" #main>
+
+    <div *ngIf="(!popularProducts || !popularProducts.length) && (!categories || !categories.length)">
+      No products available
+    </div>
+
+    <app-menu-section
+      [isPopular]="true"
+      [items]="popularProducts"
+      [categoryName]="'popular'"
+      [favorites]="favorites"
+      (addFavorite)="addFavoriteProduct($event)"
+      (deleteFavorite)="deleteFavoriteProduct($event)"
+      [OnlineStoreDineIn]="OnlineStoreDineIn"
+      (productModalIsOpened)="showBottomBar=!$event"
+    >
+    </app-menu-section>
+    <app-menu-section
+      *ngFor="let category of categories; index as i"
+      [isPopular]="false"
+      [items]="category"
+      [categoryName]="category.categoryName"
+      [index]="i"
+      [favorites]="favorites"
+      [OnlineStoreDineIn]="OnlineStoreDineIn"
+      [thereArePopular]="popularProducts.length > 0"
+      (addFavorite)="addFavoriteProduct($event)"
+      (deleteFavorite)="deleteFavoriteProduct($event)"
+      (productModalIsOpened)="showBottomBar=!$event"
+      [index]="i"
+    >
+    </app-menu-section>
+
+  </main>
+
+  <main *ngIf="searchResults.length" style="box-shadow: none !important;">
+    <app-menu-section
+      [isPopular]="false"
+      [items]="searchResults"
+      [categoryName]="''"
+      [isSearchResult]="true"
+      [favorites]="favorites"
+      (addFavorite)="addFavoriteProduct($event)"
+      (deleteFavorite)="deleteFavoriteProduct($event)"
+      [OnlineStoreDineIn]="OnlineStoreDineIn"
+      (productModalIsOpened)="showBottomBar=!$event"
+    >
+    </app-menu-section>
+  </main>
+
+  <app-bottom-bar *ngIf="showBottomBar"></app-bottom-bar>
+</div>
+
+<app-sidebar [(open)]="open"></app-sidebar>

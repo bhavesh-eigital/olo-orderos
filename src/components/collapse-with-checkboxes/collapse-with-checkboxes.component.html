@@ -1,0 +1,80 @@
+<div *ngIf="type === 'ingredients'">
+  <div class="toggle__header" #toggleHeader>
+    <span>{{title}}</span>
+    <img src="assets/collapse/collapse.svg" alt="" #toggleArrow>
+  </div>
+
+  <div class="toggle__pannel show" #togglePannel>
+    <p *ngIf="description">{{description}}</p>
+    <div *ngFor="let ingredient of items" class="toggle__item" (click)="setIngredients(ingredient)">
+      <div (click)="ingredient.checked=!ingredient.checked">
+        <app-unchecked-checkbox *ngIf="isIngredientSelected(ingredient) !== true"></app-unchecked-checkbox>
+        <app-checked-checkbox *ngIf="isIngredientSelected(ingredient) === true"></app-checked-checkbox>
+        <span [ngClass]="{'activated': isIngredientSelected(ingredient) === true}">{{ingredient.ingredientName}}</span>
+      </div>
+      <span
+        [ngClass]="{'activated': isIngredientSelected(ingredient) === true}"
+        style="white-space: nowrap;"
+      > + {{0 | currency}}
+    </span>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="type === 'modifiers' && items.length">
+  <div class="toggle__header" #toggleHeader>
+    <span>{{title}}</span>
+    <img src="assets/collapse/collapse.svg" alt="" #toggleArrow>
+  </div>
+
+  <div class="toggle__pannel show" #togglePannel>
+    <p>{{description}}</p>
+<!--    <div *ngFor="let modifier of items; index as i" class="toggle__item" (click)="setModifiers(modifier, i)">-->
+<!--      <div>-->
+<!--        <app-unchecked-checkbox *ngIf="isModifiersSelected(modifier,modifiersGroup[modifierGroupIndex]) !== true"></app-unchecked-checkbox>-->
+<!--        <app-checked-checkbox *ngIf="isModifiersSelected(modifier,modifiersGroup[modifierGroupIndex]) === true"></app-checked-checkbox>-->
+<!--        <span-->
+<!--          [ngClass]="{'activated': isModifiersSelected(modifier,modifiersGroup) === true}">{{modifier.modifierName}}</span>-->
+<!--      </div>-->
+<!--      <span [ngClass]="{'activated': isModifiersSelected(modifier,modifiersGroup) === true}">-->
+<!--        {{modifier.modifierOptions[0].modifierOptionsValue | currency}}-->
+<!--      </span>-->
+<!--    </div>-->
+    <ng-container *ngFor="let modifier of items; index as i" > 
+      <div class="toggle__header" #toggleHeader>
+        <span>{{modifier.modifierName}}</span>
+      </div>
+
+      <div class="toggle__pannel show" #togglePannel>
+        <div *ngFor="let options of modifier.modifierOptions;let last = last"
+             (click)="setModifiers(modifier,options, i)"
+             class="toggle__item"
+             [ngStyle]="{
+               cursor: disabled && !isOptionModifierSelected(modifier, options) === true ? 'default': 'pointer'
+              }"
+          >
+          <div>
+            <app-unchecked-radio-button 
+              *ngIf="isOptionModifierSelected(modifier, options) !== true"
+              [disabled]="disabled"
+            >
+            </app-unchecked-radio-button>
+            <app-checked-radio-button *ngIf="isOptionModifierSelected(modifier, options) === true"></app-checked-radio-button>
+            <span class="ml-3"
+                  [ngClass]=" {'activated' : isOptionModifierSelected(modifier, options) }"
+                  [ngStyle]="{
+                    'color': disabled && !isOptionModifierSelected(modifier, options) === true ? '#ccc' : '#212121'
+                  }"
+            >{{ options.modifierOptionsName}}</span>
+          </div>
+          <span 
+            [ngClass]=" {'activated' : isOptionModifierSelected(modifier, options) }"
+            [ngStyle]="{
+              'color': disabled && !isOptionModifierSelected(modifier, options) === true ? '#ccc' : '#212121'
+            }"
+          > {{options.modifierOptionsValue | currency}} </span>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

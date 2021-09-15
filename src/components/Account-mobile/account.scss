@@ -1,0 +1,47 @@
+.profile2 {
+  background-color: white;
+  width: 270px;
+  height: 100%;
+  box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.5);
+}
+
+.customer {
+  color: #000000;
+  font-family: Montserrat;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 22px;
+}
+
+.table-number {
+  color: #000000;
+  font-family: Montserrat;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 22px;
+}
+
+.rectangle {
+  height: 2px;
+  width: 100%;
+  background-color: var(--theme-global-var);
+}
+
+.menu-option {
+  color: #000000;
+  margin-left: 8px;
+  margin-top: 1px;
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 19px;
+}
+
+.rectangle-menu {
+  height: 1px;
+  width: 100%;
+  background-color: #D8D8D8;
+}

@@ -1,0 +1,139 @@
+.yelp__container {
+    background-color: white;
+    padding: 16px;
+}
+
+.yelp__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+
+    & > h3 {
+        font-family: Montserrat;
+        color: #000;
+        font-family: 18px;
+        font-size: 18px;
+        font-weight: 800;
+        margin: 0;
+    }
+
+    & > .mat-icon {
+        cursor: pointer;
+    }
+}
+
+.yelp__item {
+    display: flex;
+    & > img {
+        width: 80px;
+        height: 80px;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+    & > div {
+        display: flex;
+        flex-direction: column;
+        margin-left: 15px;
+
+        & > h3 {
+            font-size: 16px;
+            font-weight: bold;
+            letter-spacing: normal;
+            font-family: Montserrat;
+            margin: 0;
+            cursor: pointer;
+        }
+
+        & > p {
+            font-size: 14px;
+            font-family: Montserrat;
+
+            & > strong {
+                font-weight: bold;
+            }
+            & > span {
+                display: inline-block;
+                margin-left: 6px;
+                color: #2e849e;
+                font-family: Montserrat;
+                font-weight: bold;
+                letter-spacing: normal;
+                font-size: 14px;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+.converPage__yelp {
+    display: flex;
+    align-items: center;
+
+    cursor: pointer;
+
+    & > div {
+        padding: 6px;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:not(:last-of-type) {
+            margin-right: 8px;
+        }
+
+        position: relative;
+
+        & > img {
+            z-index: 2;
+        }
+    }
+
+    & > .filled {
+        background-color: #f4523d;
+    }
+
+    & > .empty {
+        background-color: rgba(200, 200, 200, 0.3);
+    }
+
+    & > .middle {
+        background-color: rgba(200, 200, 200, 0.3);
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            background-color: #f4523d;
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+        }
+    }
+
+    & > span {
+        color: #bbb;
+        font-size: 12px;
+        font-family: Montserrat;
+        font-weight: 600;
+        letter-spacing: normal;
+
+        display: inline-block;
+        margin-left: 8px;
+    }
+}
+
+.seeMore {
+    display: block;
+    width: fit-content;
+    margin: 16px auto 0;
+    color: #2e849e;
+    font-family: Montserrat;
+    font-weight: bold;
+    letter-spacing: normal;
+    font-size: 14px;
+    cursor: pointer;
+}

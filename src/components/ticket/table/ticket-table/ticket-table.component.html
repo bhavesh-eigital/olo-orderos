@@ -1,0 +1,118 @@
+<div style="height: 100vh">
+  <loading *ngIf="loading === true"></loading>
+  <div *ngIf="loading===false" style="height:100%;">
+    <nav class="navbar">
+      <Logo-NavBar
+        (click)="storeInformation?.storeFrontNavbarLogo ? goBack() : null"
+        [ngStyle]="{'cursor': storeInformation?.storeFrontNavbarLogo ? 'pointer' : 'default'}"
+      >
+      </Logo-NavBar>
+      <div class="d-lg-flex d-sm-none account-button"
+           style="display:flex;justify-content: center;align-items: center">
+        <account></account>
+      </div>
+    </nav>
+    <main>
+
+      <div class="box-container">
+        <div class="title">
+          <span>See your tickets </span>
+        </div>
+        <!--  TICKET'S TABLE-->
+        <div class="table">
+          <mat-table #table [dataSource]="dataSource" class="mat-cell">
+            <!-- TICKET ID Column-->
+            <ng-container matColumnDef="ticketId">
+              <mat-header-cell *matHeaderCellDef > Id </mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                {{row.ticketId}}
+              </mat-cell>
+            </ng-container>
+            <!-- TICKET STATUS Column-->
+            <ng-container matColumnDef="status">
+              <mat-header-cell *matHeaderCellDef > Status </mat-header-cell>
+              <mat-cell *matCellDef="let row">
+              <span >{{row.status | uppercase}}</span>
+              </mat-cell>
+            </ng-container>
+            <!-- CONTACT REASON Column-->
+            <ng-container matColumnDef="contactReason">
+              <mat-header-cell class="pr-3" *matHeaderCellDef > Contact Reason </mat-header-cell>
+              <mat-cell style="min-height: 80px;" class="pr-3" *matCellDef="let row">
+                                {{reasons[row.reason]}}
+              </mat-cell>
+            </ng-container>
+            <!-- DATE CREATED Column-->
+            <ng-container matColumnDef="dateCreated">
+              <mat-header-cell *matHeaderCellDef > Date Created </mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                                {{getTime(row.created)}}
+              </mat-cell>
+            </ng-container>
+            <!-- DATE CLOSED Column-->
+            <ng-container matColumnDef="dateClosed">
+              <mat-header-cell *matHeaderCellDef > Date Closed </mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                            {{row.closed === 0 ? 'Open' : getTime(row.closed)}}
+              </mat-cell>
+            </ng-container>
+            <!-- REFUND ORDER SUBTOTAL Column-->
+            <ng-container matColumnDef="refundOrderSubtotal">
+              <mat-header-cell class="flex-column justify-content-center align-items-start" *matHeaderCellDef >
+                <span>Refund</span>
+                <span>Order Subtotal</span>
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                                {{row.refund.orderSubtotal | currency}}
+              </mat-cell>
+            </ng-container>
+            <!-- REFUND TIP Column-->
+            <ng-container matColumnDef="refundTip">
+              <mat-header-cell *matHeaderCellDef >Refund Tip </mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                                {{row.refund.tip | currency}}
+              </mat-cell>
+            </ng-container>
+            <!-- REFUND DELIVERY FEE Column-->
+            <ng-container matColumnDef="refundDeliveryFee">
+              <mat-header-cell class="flex-column justify-content-center align-items-start" *matHeaderCellDef >
+                <span>Refund </span
+                ><span>Delivery Fee</span>
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                                {{row.refund.deliveryFee | currency}}
+              </mat-cell>
+            </ng-container>
+            <!-- REFUND ORDER FEE Column-->
+            <ng-container matColumnDef="refundOrderFee">
+              <mat-header-cell class="flex-column justify-content-center align-items-start" *matHeaderCellDef >
+                <span>Refund</span>
+                <span>Order Fee</span>
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                                {{row.refund.orderFee | currency}}
+              </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row
+              *matRowDef="let row; columns: displayedColumns;"
+              [style.cursor]="'pointer'"
+              matRipple
+            >
+            </mat-row>
+          </mat-table>
+        </div>
+        <!-- Paginator -->
+        <div [hidden]="false" >
+          <mat-paginator #paginator [length]="totalCount"
+                         [pageIndex]="0"
+                         [pageSize]="10"
+                         (page)="getPage($event)"
+                         [pageSizeOptions]="[5, 10, 25, 100]">
+          </mat-paginator>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+<app-footer appConditionalFooter></app-footer>

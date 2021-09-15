@@ -1,0 +1,69 @@
+
+footer {
+    position: fixed;
+    bottom: -3px;
+    left: 0;
+  
+    width: 100%;
+    margin: 76px 0 0;
+    padding: 10px 20px;
+    box-shadow: inset 0 1px 0 0 #d8d8d8;
+    background-color: #ffffff;
+  
+    z-index: 9999;
+  
+    width: 100%;
+  }
+  
+  footer > div {
+    display: flex;
+    justify-content: space-between;
+  
+    position: relative;
+  }
+  
+  footer > div > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  
+    flex: 1;
+  
+    outline: none;
+    cursor: pointer;
+  }
+  
+  footer > div > div > .mat-icon {
+    font-size: 24px;
+    align-items: center;
+    margin-bottom: 4px;
+  }
+  
+  // footer > div > div:nth-child(3) > .mat-icon {
+  //   color: var(--theme-global-var);
+  // }
+  
+  footer > div > div > span {
+    font-family: Montserrat;
+    font-size: 13px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #212121;
+  }
+  
+  .active {
+    & > .mat-icon, & > span {
+      color: var(--theme-global-var) !important;
+    }
+  }
+  
+  ::ng-deep {
+    .mat-badge-medium.mat-badge-overlap.mat-badge-after .mat-badge-content {
+      background-color: var(--theme-global-var);
+    }
+  }
+  

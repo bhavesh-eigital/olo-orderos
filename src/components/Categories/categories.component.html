@@ -1,0 +1,50 @@
+<div *ngIf="categories?.length">
+  <div *ngFor="let category of categories;let ind=index">
+    <h3>
+      {{category.categoryName}}
+      <span *ngIf="category.scheduleCategory">(This products require {{category.scheduleCategory}} days to be prepared)</span>
+    </h3>
+    <div class="products">
+      <div
+        *ngFor="let product of category.products; index as index"
+        class="product"
+        (click)="openProduct(product, ind)"
+        [ngClass]="{'fromRefund': fromRefundComponent}"
+        [id]="index === category.products.length - 1 ? ind + 1  : null"
+      >
+        <div>
+          <div>
+            <span>{{product.productName}}</span>
+            <span>
+              {{product.productDescription}}
+            </span>
+          </div>
+          <span>{{product.variants[0].variantValue | currency}}</span>
+        </div>
+        <img
+          *ngIf="product.productImage"
+          [src]="'https://' + product.productImage"
+          [alt]="product.productName"
+          height="128px"
+          width="128px"
+        >
+        <button
+          mat-raised-button
+          [class.like]="!isFav(product.productId)"
+          [class.unlike]="isFav(product.productId)"
+          (click)="$event.preventDefault();$event.stopPropagation();handleFavoriteClick(product)"
+          aria-label="likeOrDislikeProduct"
+          [matTooltip]="'To Add Favorite please login'"
+          [matTooltipDisabled]="customer.length !==  0"
+        >
+          <!-- <mat-icon *ngIf="!isFav(product.productId)">favorite_border</mat-icon> -->
+          <!-- <mat-icon *ngIf="isFav(product.productId)">favorite</mat-icon> -->
+          <div style="transform: translateY(-1px);">
+            <app-outlined-like-icon *ngIf="!isFav(product.productId)" [size]="'small'"></app-outlined-like-icon>
+            <app-fill-like-icon *ngIf="isFav(product.productId)" [size]="'small'"></app-fill-like-icon>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

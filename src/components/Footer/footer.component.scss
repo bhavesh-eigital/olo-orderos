@@ -1,0 +1,106 @@
+.bgColor {
+  background-color: #212121;
+}
+
+.hz-container {
+  height: 325px;
+  width: 100%;
+}
+
+.box-container {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid #E0E0E0;
+  height: 236px;
+  width: 100%;
+}
+
+.text-tyc {
+  color: #FFFFFF;
+  font-size: 12px;
+  display: flex;
+}
+
+.t-body {
+  font-size: 14px;
+  color: white
+}
+
+.t-header {
+  font-size: 24px;
+  border-bottom: 1px solid #E0E0E0;
+  padding-bottom: 5px !important;
+}
+
+.t-txt td {
+  padding-bottom: 8px;
+}
+
+::ng-deep.mat-expansion-panel-header {
+  height: 31px !important;
+  padding: 0 !important;
+}
+
+::ng-deep.mat-expansion-panel {
+  background-color: #212121;
+  border-radius: 0 !important;
+  color: white !important;
+  box-shadow: none !important;
+  font-family: 'Montserrat', sans-serif !important;
+}
+
+::ng-deep.mat-expansion-panel:not(.mat-expanded):not([aria-disabled=true]) .mat-expansion-panel-header:hover {
+  background-color: #212121;
+}
+
+::ng-deep.mat-expansion-panel-header-title {
+  color: white !important;
+  font-weight: bold;
+}
+
+::ng-deep.mat-expansion-panel-body {
+  padding: 0px !important;
+  font-family: 'Montserrat', sans-serif !important;
+}
+
+::ng-deep.mat-expansion-indicator::after {
+  color: white !important;
+}
+
+.generalPadding {
+  padding-left: 10rem;
+  padding-right: 10rem;
+}
+
+.link {
+  color: #FFFFFF;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+@media (min-width: 900px) {
+  .generalPadding {
+    padding-left: 5rem;
+    padding-right: 5rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .generalPadding {
+    padding-left: 8rem;
+    padding-right: 8rem;
+  }
+}
+
+@media (min-width: 1400px) {
+  .generalPadding {
+    padding-left: 17rem;
+    padding-right: 17rem;
+  }
+}
+.titles{
+  font-size: 24px;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 5px!important;
+  font-weight: bold;
+}

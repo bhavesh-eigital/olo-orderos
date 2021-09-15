@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="19px" height="19px" viewBox="0 0 19 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>remove-19px</title>
+    <g id="Checkout-V2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Mobile-Checkout-V2" transform="translate(-375.000000, -855.000000)">
+            <g id="Order" transform="translate(20.000000, 401.000000)">
+                <g id="Free-Bird" transform="translate(0.000000, 454.000000)">
+                    <g id="remove-19px" transform="translate(355.000000, 0.000000)">
+                        <polygon id="Path" points="0 0 19 0 19 19 0 19"></polygon>
+                        <polygon id="Path" fill="#47525D" fill-rule="nonzero" points="15.0416667 5.07458333 13.9254167 3.95833333 9.5 8.38375 5.07458333 3.95833333 3.95833333 5.07458333 8.38375 9.5 3.95833333 13.9254167 5.07458333 15.0416667 9.5 10.61625 13.9254167 15.0416667 15.0416667 13.9254167 10.61625 9.5"></polygon>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

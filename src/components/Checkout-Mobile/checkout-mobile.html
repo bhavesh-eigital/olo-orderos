@@ -1,0 +1,14 @@
+<div (click)="checkout()" class="button-container" *ngIf="validateCheckout()=== true"
+     style="cursor: pointer">
+  <div class="px-2 checkout-buttom">
+    <div *ngIf="isEnabled() !== true" class="px-2 mt-2"
+         [ngClass]="cart.length === 0 ? 'your-order-checkout-disabled' : 'your-order-checkout'">
+      <div class="d-flex">
+        <img alt="" src="assets/IconsSVG/cartCheckout.svg"> <span
+        class="number ml-1">{{cart.length}}</span>
+      </div>
+      <div class="your-order-checkout-text">CHECKOUT</div>
+      <div class="price"> ${{getTotalAmount().toFixed(2)}}</div>
+    </div>
+  </div>
+</div>

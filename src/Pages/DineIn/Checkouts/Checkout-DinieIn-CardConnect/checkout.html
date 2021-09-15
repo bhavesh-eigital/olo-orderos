@@ -1,0 +1,182 @@
+<mat-drawer-container class="example-container" style="height:100%;">
+  <mat-drawer #drawer position="end" style="height:100vh;position:fixed">
+    <account-mobile></account-mobile>
+  </mat-drawer>
+  <mat-drawer-content style="background-color: white">
+    <div class="d-sm-block d-lg-none" style="overflow: hidden">
+      <div class="space" style="background-color: white !important;">
+        <nav class="space d-lg-inline   navbar navbar-top fixed-top topbar"
+             style="background-color: white !important;">
+          <div class="w-100 h-100 d-flex justify-content-between" style="background-color: white;">
+            <div class="d-flex">
+              <div class="d-flex flex-column" style="align-items: center;margin: auto">
+                <div class="navbar-toggler p-0" data-target="#navbarNav"
+                     (click)="goBack()"
+                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                  <Logo-NavBar></Logo-NavBar>
+                </div>
+              </div>
+            </div>
+            <div class="d-flex h-100 w-75" style="justify-content: flex-end;align-items: center">
+              <div class="d-lg-none d-sm-flex" style="display:flex;justify-content: center;align-items: center">
+                <img (click)="drawer.toggle()" src="../../../assets/IconsSVG/Account.svg" alt="">
+              </div>
+
+            </div>
+          </div>
+        </nav>
+        <div style="margin-top: 10px">
+          <div class="d-flex w-100 px-2 py-1" style="border-bottom: 2px solid #D8D8D8;justify-content: space-between">
+            <div>
+              <h1 class="checkout-title ml-3">CHECKOUT</h1>
+              <span
+                class="text-capitalize checkout-customer ml-3">
+                {{customerInformation.customerFirstName + ' ' + customerInformation.customerLastName}}
+                | Table {{tableNumber}}</span>
+            </div>
+            <div style="text-align: right;cursor:pointer;padding-top: 70px;" class="pr-2" (click)="goBack()">
+              <img alt="" src="../../../assets/IconsSVG/close.svg" style="width: 24px">
+            </div>
+          </div>
+
+
+          <div class="ml-2 mr-2" style="margin-top: 10px">
+            <div *ngIf="placeOrder">
+              <div *ngIf="placedOrders.length > 0" class="ml-2 mr-2">
+                <div class="your-order-text p-2">PLACED ORDER</div>
+                <div *ngFor="let orderPlaced of placedOrders">
+                  <your-product-cfd *ngFor="let product of orderPlaced.seats[0].orderProducts"
+                                    [product]="product"></your-product-cfd>
+                </div>
+              </div>
+              <div class="ml-2 mr-2" style="margin-top: 10px" *ngIf="cart.length > 0">
+                <div>
+                  <div class="your-order-text p-2">NEW ORDER</div>
+                  <div class="product-container">
+                    <your-product (newItemEvent)="calculateTotalsProductChanges()"
+                                  *ngFor="let product of orderByDate(cart)"
+                                  [product]="product"></your-product>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="px-3">
+              <div style="padding-top: 15px;padding-bottom: 15px">
+                <span class="total">TOTAL</span>
+                <div class="line"></div>
+                <div class="my-3" style="width: 100%;display: flex;justify-content: space-between">
+                  <span class="sub-total">Sub Total</span>
+                  <span class="sub-total-price">{{currency}}{{this.totals.finalSubTotalAmount.toFixed(2)}}</span>
+                </div>
+                <div *ngIf="orderType === 1" class="my-3"
+                     style="width: 100%;display: flex;justify-content: space-between">
+                  <span class="sub-total">Delivery Fee</span>
+                  <span class="sub-total-price">{{currency}}{{getDeliveryFee(deliveryFee)}}</span>
+                </div>
+                <div class="my-3" style="width: 100%;display: flex;justify-content: space-between">
+                  <span
+                    class="sub-total"> Tax</span>
+                  <span class="sub-total-price">{{currency}}{{this.totals.finalTax.toFixed(2)}}</span>
+                </div>
+                <div *ngIf="enablePay" class="my-3" style="width: 100%;display: flex;justify-content: space-between">
+                  <span class="tip-total">Tip</span>
+                  <span class="tip-price-total">{{currency}}{{tipSelected.toFixed(2)}}</span>
+                </div>
+
+                <div *ngIf="enablePay" class="my-3" style="width: 100%;display: flex;justify-content: space-between">
+                  <span class="sub-total">Promo Code</span>
+                  <span class="sub-total-price">{{currency}}0.00</span>
+                </div>
+
+                <div class="my-3" style="width: 100%;display: flex;justify-content: space-between">
+                  <span class="total-amount">Total</span>
+                  <span class="total-amount-price">{{currency}}{{this.totals.finalTotalAmount.toFixed(2)}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="px-2">
+            <div class="my-2 mx-2" *ngIf="enablePay">
+              <h1 class="tips-title">TIP</h1>
+              <div class="tip-box" id="tipsBoxMobile">
+                <div [hidden]="true" (click)="selectTip(0.10,0)"
+                     [ngClass]="tipSelectedIndex === 0 ?'tip-selected':'tip'">
+                  <div class="tips-text-box">10%</div>
+                  <div
+                    class="tips-text-number">{{currency}}{{(this.totals.finalSubTotalAmount * 0.10).toFixed(2)}}</div>
+                </div>
+                <div (click)="selectTip(0.15,1)" [ngClass]="tipSelectedIndex === 1 ?'tip-selected':'tip'">
+                  <div class="tips-text-box">15%</div>
+                  <div
+                    class="tips-text-number">{{currency}}{{(this.totals.finalSubTotalAmount * 0.15).toFixed(2)}}</div>
+                </div>
+                <div (click)="selectTip(0.18,2)" [ngClass]="tipSelectedIndex === 2 ?'tip-selected':'tip'">
+                  <div class="tips-text-box">18%</div>
+                  <div
+                    class="tips-text-number">{{currency}}{{(this.totals.finalSubTotalAmount * 0.18).toFixed(2)}}</div>
+                </div>
+                <div (click)="selectTip(0.20,3)" [ngClass]="tipSelectedIndex === 3 ?'tip-selected':'tip'">
+                  <div class="tips-text-box">20%</div>
+                  <div
+                    class="tips-text-number">{{currency}}{{(this.totals.finalSubTotalAmount * 0.20).toFixed(2)}}</div>
+                </div>
+                <div (click)="selectTip(0.25,4)" [ngClass]="tipSelectedIndex === 4 ?'tip-selected':'tip'">
+                  <div class="tips-text-box">25%</div>
+                  <div
+                    class="tips-text-number">{{currency}}{{(this.totals.finalSubTotalAmount * 0.25).toFixed(2)}}</div>
+                </div>
+                <div (click)="selectTip(customTip,5)" [ngClass]="tipSelectedIndex === 5 ?'tip-selected':'tip'">
+                  <div class="tips-text-box">CUSTOM</div>
+                  <div class="tips-text-number d-flex justify-center w-100"
+                       style="align-items: center;justify-content: center;margin-left: 7px;">
+                    {{currency}}<input maxlength="3" max="3" placeholder="0.00"
+                                       [(ngModel)]="customTip"
+                                       style="width: 54px;"
+                                       (ngModelChange)="selectCustomTips()"
+                                       oninput="this.value = Math.abs(this.value)"
+                                       type="number">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="px-2" *ngIf="enablePay" style="padding-top: 5px">
+            <FormCardConnect (tokenEmited)="getToken($event)"></FormCardConnect>
+          </div>
+          <div class="mt-3 px-2">
+            <button type="submit"
+                    *ngIf="!enablePay && (cart.length !== 0)"
+                    (click)="generateOrderMobile(false)"
+                    [ngClass]="customerInformation.customerEmail === '' ? 'add-to-check' : 'add-to-check'">
+              ADD TO CHECK
+            </button>
+            <button type="submit"
+                    (click)="payOrders()"
+                    [disabled]="disabledButton"
+                    [ngClass]="customerInformation.customerEmail === '' ? 'checkout-button' : 'checkout-button'"
+                    style="display:flex;justify-content: space-between;align-items: center;padding-right: 11px;padding-left: 11px">
+              <div class="d-flex" style="padding-right: 16px"><img src="../../../assets/IconsSVG/cartCheckout.svg"
+                                                                   alt="">
+                <span class="number ml-1">{{calculateTotalQuantity()}}</span>
+              </div>
+              PAY NOW
+              <div>{{currency}}{{(calculateTotalPrice() + this.tipSelected).toFixed(2)}}</div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>
+
+
+<div class="modal" style="background-color: #FBFBFB" *ngIf="loading === true">
+  <div>
+    <loading></loading>
+    <p
+      class=" loading-text ml-2 d-flex justify-content-center align-items-center align-content-center"> {{checkoutProcess}}</p>
+  </div>
+</div>
+<app-footer appConditionalFooter></app-footer>

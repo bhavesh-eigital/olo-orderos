@@ -1,0 +1,32 @@
+<footer class="footer footerBadgeColor">
+    <div>
+      <div 
+        (click)="onFavoritesClicked()"         
+        [matTooltip]="'To Add Favorite please login'"
+        [matTooltipDisabled]="customer.length !==  0"
+      >
+        <app-fill-like-icon [dark]="!router.url.includes('favorites') || cartIsOpened ? true : false"></app-fill-like-icon>
+        <span [style.color]="!cartIsOpened && router.url.includes('favorites') ? 'var(--theme-global-var)' : '#212529'">
+          Favorites
+        </span>
+      </div>
+      <div [routerLink]="['/home']">
+        <app-menu-book-icon *ngIf="!router.url.includes('home') || cartIsOpened"></app-menu-book-icon>
+        <app-menu-book-icon-filled *ngIf="!cartIsOpened && router.url.includes('home')"></app-menu-book-icon-filled>
+        <span [style.color]="!cartIsOpened && router.url.includes('home') ? 'var(--theme-global-var)' : '#212529'">
+          Menu
+        </span> 
+      </div>
+
+      <div (click)="clickCartHandler()" [ngClass]="{'active': cartIsOpened}">
+        <mat-icon
+          [matBadge]="cartLength"
+          [matBadgeHidden]="!cartLength"
+          [style.color]="cartIsOpened ? 'var(--theme-global-var)' : '#212529'"
+        >
+          shopping_cart
+        </mat-icon>
+        <span>Cart</span>
+      </div>
+    </div>
+  </footer>

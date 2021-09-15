@@ -1,0 +1,109 @@
+<section *ngIf="isPopular === true && !isSearchResult && items?.length" #section>
+  <h1>Popular</h1>
+  <div *ngFor="let product of items; index as idx" class="item" (click)="openDialog(product)" [id]="idx === items.length - 1 ? 0 : null">
+    <div>
+      <div>
+        <p>{{product.productName}} {{product.qty > 1 ? '(' + product.qty + ' pieces' + ')' : ''}}</p>
+        <p>{{product.productDescription}}</p>
+      </div>
+      <span>{{product.variants[0].variantValue | currency}}</span>
+    </div>
+    <button 
+      name="favorite product"
+      mat-raised-button
+      [class.like]="!isFav(product.productId)" 
+      [class.unlike]="isFav(product.productId)"
+      (click)="$event.preventDefault();$event.stopPropagation();handleFavoriteClick(product)"
+      aria-label="likeOrDislikeProduct"
+    >
+      <mat-icon *ngIf="!isFav(product.productId)">favorite_border</mat-icon>
+      <mat-icon *ngIf="isFav(product.productId)">favorite</mat-icon>
+    </button>
+  </div>
+</section>
+
+<section *ngIf="isPopular === false && !isSearchResult" #section id="section2">
+  <h1>{{items.categoryName}}</h1>
+  <div *ngFor="let product of items.products; index as idx" class="item" (click)="openDialog(product)">
+    <div>
+      <div>
+        <p [id]="idx === items.products.length - 1 ? index + 1 : null">
+          {{product.productName}} {{product.qty > 1 ? '(' + product.qty + ' pieces' + ')' : ''}}
+        </p>
+        <p>{{product.productDescription}}</p>
+      </div>
+      <span>{{product.variants[0].variantValue | currency}}</span>
+    </div>
+    <img 
+      *ngIf="product.productImage" 
+      [src]=" 'https://' + product.productImage" 
+      [alt]="product.productName"
+      id="itemImage"
+    >
+    <!-- <img 
+      *ngIf="!isFav(product.productId)" 
+      id="like-icon" 
+      src="assets/menu2/favorite.svg" 
+      alt="favorite"
+      (click)="addFavorite.emit(product);$event.preventDefault();$event.stopPropagation()"
+    >
+    <img 
+      *ngIf="isFav(product.productId)" 
+      id="like-icon" 
+      src="assets/menu2/favorite_clicked.svg" 
+      alt="favorite"
+      (click)="deleteFavorite.emit(product);$event.preventDefault();$event.stopPropagation()"
+    > -->
+    <button 
+      name="favorite product"
+      mat-raised-button
+      [class.like]="!isFav(product.productId)" 
+      [class.unlike]="isFav(product.productId)"
+      (click)="$event.preventDefault();$event.stopPropagation();handleFavoriteClick(product)"
+      aria-label="likeOrDislikeButton"
+    >
+    <mat-icon *ngIf="!isFav(product.productId)">favorite_border</mat-icon>
+    <mat-icon *ngIf="isFav(product.productId)">favorite</mat-icon>
+  </button>
+  </div>
+</section>
+
+
+<section *ngIf="!isPopular && isSearchResult" #section id="section2">
+  <h1>{{categoryName}}</h1>
+  <div *ngFor="let product of items" class="item" (click)="openDialog(product)">
+    <div>
+      <div>
+        <p>{{product.productName}} {{product.qty > 1 ? '(' + product.qty + ' pieces' + ')' : ''}}</p>
+        <p>{{product.productDescription}}</p>
+      </div>
+      <span>{{product.variants[0].variantValue | currency}}</span>
+    </div>
+    <!-- <img *ngIf="product.productImage" [src]=" 'https://' + product.productImage" [alt]="product.productName" id="itemImage">
+    <img 
+      *ngIf="!isFav(product.productId)" 
+      id="like-icon" 
+      src="assets/menu2/favorite.svg" 
+      alt="favorite"
+     (click)="addFavorite.emit(product);$event.preventDefault();$event.stopPropagation()"
+    >
+    <img 
+      *ngIf="isFav(product.productId)" 
+      id="like-icon" 
+      src="assets/menu2/favorite_clicked.svg" 
+      alt="favorite"
+      (click)="deleteFavorite.emit(product);$event.preventDefault();$event.stopPropagation()"
+    > -->
+    <button 
+      name="favorite product"
+      mat-raised-button
+      [class.like]="!isFav(product.productId)" 
+      [class.unlike]="isFav(product.productId)"
+      (click)="$event.preventDefault();$event.stopPropagation();handleFavoriteClick(product)"
+      aria-label="likeOrDislikeButton"
+    >
+    <mat-icon *ngIf="!isFav(product.productId)">favorite_border</mat-icon>
+    <mat-icon *ngIf="isFav(product.productId)">favorite</mat-icon>
+  </button>
+  </div>
+</section>

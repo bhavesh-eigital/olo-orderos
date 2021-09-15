@@ -1,0 +1,129 @@
+
+<ng-container *ngIf="!loading">
+  <div class="wrapper" #wrapper>
+    <!-------------------------- HEADER -------------------------->
+    <app-navbar
+      [(currentOrderType)]="currentOrderType"
+      [textSearch]="textSearch"
+      [searchProduct]="searchProduct"
+      (currentOrderTypeChange)="orderTypeSelected($event)"
+      (onSetSearchBox)="setSearchBox($event)"
+      (onSearcherClosed)="closeSearcher()"
+      (openSidebar)="open=true"
+      #navbar
+    >
+    </app-navbar>
+    <!-------------------------- COVER PAGE --------------------------->
+    <Cover-Page
+        [orderType]="currentOrderType"
+        [isInRage]="isInRange"
+        [deliveryFee]="deliveryFee"
+        [id]="getIndex()"
+      >
+    </Cover-Page>
+
+    <!------------------------- CATEGORIES --------------------------->
+    <div class="tabsWrapper" [ngStyle]="{'top': innerWidth >= 840 ? '20px' : '65px' }">
+      <div class="tabs" [class.tabsPadding]="tabsScrollLeft > 39 && innerWidth > 500">
+        <div #widgetsContent>
+          <h1></h1>
+          <h2></h2>
+          <div
+            *ngIf="popularProducts.length"
+            [ngClass]="{'selected': currentCategory === 'popular'}"
+            [style.border-bottom]="currentCategory === 'popular' ? '3px solid ' + uiService.themeColor : 'none'"
+            (click)="scrollTo('popular', 'popular')"
+            [id]="'category' + '-popular'"
+            #popular
+          >
+            <h3 [style.color]="currentCategory === 'popular' ? uiService.themeColor : 'rgba(0, 0, 0, 0.6)'" >Popular</h3>
+          </div>
+          <div
+            *ngFor="let category of categories; index as idx"
+            [ngClass]="{'selected': currentCategory === category.categoryName}"
+            [style.border-bottom]="currentCategory === category.categoryName ? '3px solid ' + uiService.themeColor : 'none'"
+            (click)="scrollTo(category.categoryName,idx)"
+            [id]="'category' + idx"
+          >
+            <h3 [style.color]="currentCategory === category.categoryName ? uiService.themeColor : 'rgba(0, 0, 0, 0.6)'">{{category.categoryName}}</h3>
+          </div>
+        </div>
+        <app-arrow-left-icon *ngIf="tabsScrollLeft > 39" id="arrowLeft" (click)="scrollLeft()"></app-arrow-left-icon>
+        <app-arrow-right-icon (click)="scrollRight()" id="arrowRight"></app-arrow-right-icon>
+        <!-- <mat-icon *ngIf="tabsScrollLeft > 39" id="arrowLeft" (click)="scrollLeft()">keyboard_arrow_left</mat-icon>
+        <mat-icon id="arrowRight" (click)="scrollRight()">keyboard_arrow_right</mat-icon> -->
+      </div>
+    </div>
+
+        <!------------------------ PRODUCTS -------------------------->
+      <main>
+
+      <div *ngIf="(!popularProducts || !popularProducts.length) && (!categories || !categories.length)">
+        No products available
+      </div>
+
+      <top-productsV2
+        *ngIf="popularProducts.length && !textSearch"
+        [topProducts]="popularProducts"
+        [orderType]="currentOrderType"
+        (productModalIsOpened)="showFooter=!$event"
+        [OnlineOrderingEnable]="OnlineOrderingEnable"
+      >
+      </top-productsV2>
+
+      <app-categoriesV2
+        [categories]="categories"
+        *ngIf="!textSearch"
+        [orderType]="currentOrderType"
+        (productModalIsOpened)="showFooter=!$event"
+        [OnlineOrderingEnable]="OnlineOrderingEnable"
+        [areTherePopularProducts]="!!popularProducts.length"
+      >
+      </app-categoriesV2>
+
+
+      <search-productsV2
+        [searchProducts]="searchProduct"
+        *ngIf="textSearch"
+        [orderType]="currentOrderType"
+        (productModalIsOpened)="showFooter=!$event"
+        [OnlineOrderingEnable]="OnlineOrderingEnable"
+      >
+      </search-productsV2>
+
+    </main>
+    <app-footer appConditionalFooter></app-footer>
+  </div>
+
+  <!-------------------------- FOOTER ---------------------------->
+  <app-online-ordering-footer
+    [cartIsOpened]="openCart"
+    [cartLength]="cart.length"
+    (onCartClicked)="openCart=true"
+    *ngIf="showBottomBar()"
+  >
+  </app-online-ordering-footer>
+
+
+  <!-------------------------- CART ----------------------------->
+  <your-order
+    [currentOrderType]="currentOrderType"
+    [(open)]="openCart"
+    >
+  </your-order>
+
+  <!---------------=------ MOBILE SIDEBAR ------------------------>
+  <app-mobile-sidebar
+    [(open)]="open"
+    [username]="getCustomerName()"
+    [isUserLoggedIn]="customer.length !== 0"
+  >
+  </app-mobile-sidebar>
+</ng-container>
+
+
+
+<!------------------------- LOADING ---------------------------->
+<!-- <div *ngIf="loading" style="height: 100vh;">
+  <loading></loading>
+</div> -->

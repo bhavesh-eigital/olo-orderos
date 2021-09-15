@@ -1,0 +1,269 @@
+.receipt {
+  background-color: white;
+  overflow-y: auto;
+}
+
+nav {
+  background-color: white !important;
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  box-shadow: inset 0 -1px 0 0 #e2e2e2;
+  background-color: #ffffff;
+
+  position: sticky !important;
+  position: -webkit-sticky !important;
+  top: 0px !important;
+
+  z-index: 100;
+  justify-content: flex-start;
+}
+
+nav > span {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+
+  font-family: Montserrat;
+  font-size: 20px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #212121;
+}
+
+nav > div:nth-of-type(1) {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+}
+
+main > div {
+  padding: 20px;
+  @media screen and (min-width: 648px) {
+    width: 75%;
+    margin: 0 auto;
+  }
+
+  @media screen and (min-width: 954px) {
+    width: 55%;
+  }
+}
+
+main > div:first-of-type > img {
+  display: block;
+  margin: 0 auto;
+}
+
+main > div:first-of-type > h3 {
+  font-family: Montserrat;
+  font-size: 24px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #212121;
+  margin-top: 24px;
+  margin-bottom: 0;
+}
+
+main > div:first-of-type > span {
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #212121;
+  margin-top: 2px;
+  text-align: center;
+  display: block;
+}
+
+.receipt__data > div {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.receipt__data > div > span {
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #212121;
+}
+
+.receipt__data > div:last-of-type > span {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 16px;
+}
+
+.divider {
+  background-color: rgba(0, 0, 0, 0.12);
+  height: 1px;
+  width: 100%;
+  margin: 1rem auto;
+}
+
+.receipt__sendReceipt > span {
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #212121;
+  margin-top: 2px;
+  text-align: center;
+  display: block;
+}
+
+.receipt__formGroup {
+  margin-top: 16px;
+}
+
+.receipt__formGroup > label {
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #212121;
+  margin-top: 2px;
+  text-align: left;
+  display: block;
+}
+
+.receipt__formGroup > div {
+  display: flex;
+  align-items: center;
+  border: solid 1px #dadada;
+  border-radius: 5px;
+  padding-left: 1rem;
+  background-color: white;
+  justify-content: space-between;
+  height: 48px;
+}
+
+.receipt__formGroup:nth-of-type(2) > div {
+  padding-left: 10px !important;
+}
+
+.receipt__formGroup > div > div {
+  display: flex;
+  align-items: center;
+  max-width: 70%;
+}
+
+.receipt__formGroup > div > div > .mat-icon {
+  margin-right: 8px;
+}
+
+.receipt__formGroup > div > div > input {
+  border: none;
+  outline: none;
+
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #2e2e2e;
+}
+.receipt__formGroup > div > button {
+  min-width: auto;
+  height: calc(100% + 1px);
+
+  color: white;
+  font-size: 16px;
+
+  background-color: var(--theme-global-var) !important;
+}
+
+#no-thanks {
+  margin-top: 34px;
+  width: 100%;
+  border-radius: 5px;
+  box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 6px 10px 0 rgba(0, 0, 0, 0.14);
+  border: solid 1.5px var(--theme-global-var);
+  background-color: #ffffff;
+  height: 48px;
+
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.07;
+  letter-spacing: normal;
+  color: var(--theme-global-var);
+}
+
+.receipt__disclaimer {
+  background-color: #fafafa;
+
+  font-family: Montserrat;
+  font-size: 12px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #212121;
+
+  text-align: center;
+
+  margin-top: 2rem;
+}
+
+.modal {
+  /* background-color: white; */
+  /* height: inherit; */
+  align-content: center;
+  vertical-align: middle;
+  padding: 0px;
+  justify-items: center;
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  left: 0;
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  transition: 0.2s cubic-bezier(0.25, 0.8, 0.25, 1), z-index 1ms;
+  width: 100%;
+  z-index: 6;
+  background-color: #fbfbfb;
+}
+
+.inputAlert {
+  color: #dd0000;
+}

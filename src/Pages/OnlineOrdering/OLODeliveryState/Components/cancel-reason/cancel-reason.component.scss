@@ -1,0 +1,191 @@
+#closeBtn {
+  width: 40px;
+  height: 40px;
+
+  border-radius: 100%;
+  padding: 0;
+
+  background-color: white;
+
+  min-width: auto;
+  transform: translate(530px, 18px);
+  z-index: 9999;
+
+  @media screen and (max-width: 745px) {
+    display: none;
+  }
+}
+.modal-cancel-reason {
+  background-color: white;
+  min-height: 100vh;
+
+  @media screen and (min-width: 745px) {
+    width: auto;
+    height: 90%;
+    min-height: auto;
+    padding: 1.9rem;
+  }
+  .reason{
+    .toggle__header {
+      margin-top: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 0 2px;
+
+      cursor: pointer;
+    }
+
+    .toggle__header > span {
+      padding-bottom: 0.3rem;
+      font-family: Montserrat;
+      font-size: 15px;
+      font-weight: 600;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      color: #212121;
+      text-transform: uppercase;
+    }
+
+
+    .toggle__item:first-child {
+      border-top: 2px solid #e2e2e2;
+    }
+
+    .toggle__item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      border-bottom: 2px solid #e2e2e2;
+
+      padding: 11px 0;
+
+      @media screen and (min-width: 576px) {
+        padding: 11px 16px;
+      }
+    }
+
+    .toggle__item > div:first-child {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .toggle__item > div:first-child > img {
+      margin-right: 18px;
+    }
+
+    .toggle__item > div:first-child > span {
+      font-family: Montserrat;
+      font-size: 18px;
+      font-weight: 500;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.22;
+      letter-spacing: normal;
+      color: #212121;
+    }
+
+    .toggle__item > span {
+      font-family: Montserrat;
+      font-size: 18px;
+      font-weight: 500;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.22;
+      letter-spacing: normal;
+      text-align: right;
+      color: #212121;
+    }
+
+  }
+  .note{
+
+    .special-request > div:nth-of-type(1) {
+      margin-top: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      padding: 0 0 8px;
+
+      cursor: pointer;
+    }
+    .special-request > div:nth-of-type(1) > span:first-child {
+      font-family: Montserrat;
+      font-size: 15px;
+      font-weight: 600;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      color: #212121;
+    }
+    .special-request > div:nth-of-type(1) > span:last-child {
+      font-family: Montserrat;
+      font-size: 10px;
+      font-weight: 500;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      text-align: right;
+      color: #212121;
+    }
+    .special-request textarea {
+      width: 100%;
+      border: 2px solid #e2e2e2;
+      /* border-bottom: 2px solid #e2e2e2; */
+      /* border-right: none; */
+      /* border-left: none; */
+      margin-top: 8px;
+      padding: 8px 20px 8px 8px;
+      resize: none;
+      outline: none;
+      font-family: Montserrat;
+      font-size: 15px;
+      font-weight: normal;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      color: #424242;
+
+      @media screen and (max-width: 745px) {
+        font-size: 12px;
+      }
+    }
+  }
+  .btn-reason{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    button {
+
+      width: 41%;
+
+      height: 44px;
+      border-radius: 5px;
+      box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 6px 10px 0 rgba(0, 0, 0, 0.14);
+      border: solid 1.5px var(--theme-global-var);
+      background-color: #ffffff;
+    
+      font-family: Montserrat;
+      font-size: 16px;
+      font-weight: 600;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      text-align: center;
+      color: var(--theme-global-var);
+    
+      @media screen and (max-width: 359px) {
+        font-size: 11px;
+      }
+    }
+  }
+}

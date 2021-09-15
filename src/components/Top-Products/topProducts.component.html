@@ -1,0 +1,48 @@
+<div>
+  <h3>POPULAR</h3>
+  <div class="products">
+    <div
+      *ngFor="let product of topProducts; index as index"
+      class="product"
+      (click)="openProduct(product)"
+      [ngClass]="{'fromRefund': fromRefundComponent}"
+    >
+      <div>
+        <div>
+          <span>{{product.productName}}</span>
+          <span [id]="index === topProducts.length - 1 ? 0 : null">
+            {{product.productDescription.length >= 200
+              ? (product.productDescription | slice:0:70) + '...' 
+              : product.productDescription}}
+          </span>
+        </div>
+        <span>{{product.variants[0].variantValue | currency}}</span>
+      </div>
+      <img
+        *ngIf="product.productImage"
+        [src]="'https://' + product.productImage" [alt]="product.productName"
+        height="128px"
+        width="128px"
+
+      >
+      <button
+        name="favorite product"
+        mat-raised-button
+        [class.like]="!isFav(product.productId)"
+        [class.unlike]="isFav(product.productId)"
+        (click)="$event.preventDefault();$event.stopPropagation();handleFavoriteClick(product)"
+        aria-label="likeOrDislikeButton"
+        [matTooltip]="'To Add Favorite please login'"
+        [matTooltipDisabled]="customer.length !==  0"
+      >
+        <!-- <mat-icon *ngIf="!isFav(product.productId)">favorite_border</mat-icon>
+        <mat-icon *ngIf="isFav(product.productId)">favorite</mat-icon> -->
+
+        <div style="transform: translateY(-1px);">
+          <app-outlined-like-icon *ngIf="!isFav(product.productId)" [size]="'small'"></app-outlined-like-icon>
+          <app-fill-like-icon *ngIf="isFav(product.productId)" [size]="'small'"></app-fill-like-icon>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>

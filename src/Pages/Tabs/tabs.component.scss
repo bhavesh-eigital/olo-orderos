@@ -1,0 +1,309 @@
+.tabs__main {
+  padding: 0 20px 118px;
+  margin-top: 56px;
+
+  position: relative;
+  min-height: 100vh;
+  overflow-y: auto;
+}
+
+.tabs__tab > span {
+  display: inline-block;
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #000000;
+
+  margin: 16px 0 8px;
+}
+
+.tabs__item {
+  min-height: 113px;
+  border: solid 0.8px #e0e0e0;
+  margin-bottom: 8px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.tabs__tab:last-child {
+  margin-bottom: 37px;
+}
+
+.tabs__item > div:first-child {
+  padding: 10px 8px 10px 13px;
+  display: flex;
+
+  justify-content: space-between;
+}
+
+.tabs__item > div:first-child > div:first-child {
+  display: flex;
+  margin-right: 10px;
+}
+
+.tabs__item > div:first-child > div:first-child > span:first-child {
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #212121;
+}
+
+.tabs__item > div:first-child > div:first-child > div {
+  display: flex;
+  flex-direction: column;
+  margin-left: 8px;
+}
+
+.tabs__item > div:first-child > div:first-child > div > p:first-child {
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #212121;
+
+  margin: 0;
+}
+
+.tabs__item > div:first-child > div:first-child > div > p:nth-child(2) {
+  font-family: Montserrat;
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #545454;
+
+  margin: 4px 0 0;
+}
+
+.tabs__item > div:first-child > div:first-child > div > div > span {
+  font-family: Montserrat;
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+}
+
+.tabs__item > div:first-child > div:nth-child(2) > p:first-child {
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: right;
+  color: #212121;
+
+  margin: 0 0 4px;
+}
+
+.tabs__item > div:first-child > div:nth-child(2) > p:last-child {
+  margin: 0;
+
+  padding: 2px 4px;
+  border-radius: 0;
+
+  font-family: Montserrat;
+  font-size: 10px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+}
+
+.tabs__item > div:nth-child(2) {
+  display: flex;
+  border-top: solid 0.8px #e0e0e0;
+}
+
+.tabs__item > div:nth-child(2) > button {
+  width: 50%;
+  background-color: white;
+  border: none;
+  padding: 7px 0;
+
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: var(--theme-global-var);
+
+  border-radius: 0;
+}
+
+.tabs__item > div:nth-child(2) > button:first-child {
+  border-right: 0.8px solid #e0e0e0;
+}
+
+.completed {
+  border: 1px solid #4caf50;
+  color: #4caf50;
+}
+
+.inProgress {
+  border: 1px solid #f7b500;
+  color: #f7b500;
+}
+
+.cancelled {
+  border: 1px solid #e02020;
+  color: #e02020;
+}
+
+.floating-btn {
+  width: calc(100% - 40px);
+  height: 48px;
+
+  border-radius: 5px;
+  box-shadow: 0 10px 40px -10px rgba(33, 33, 33, 0.5);
+  border: solid 2px var(--theme-global-var);
+  background-color: #ffffff;
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: var(--theme-global-var);
+
+  position: fixed;
+  left: 0;
+  bottom: 87px;
+
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+
+.tabsPadding {
+  padding: 0 20px 118px;
+}
+
+.emptyState {
+  padding: 20px;
+  min-height: 100vh;
+}
+
+.emptyState__wrapper {
+  transform: translateY(56px);
+  padding-bottom: 56px;
+}
+
+.emptyState__wrapper > img {
+  display: block;
+  margin: 67px auto 32px;
+}
+
+.emptyState__wrapper > p:nth-of-type(1) {
+  margin: 0 auto;
+
+  font-family: Montserrat;
+  font-size: 24px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #212121;
+}
+
+.emptyState__wrapper > p:nth-of-type(2) {
+  margin: 4px auto 0;
+  max-width: 250px;
+
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #545454;
+}
+
+.emptyState__wrapper > button {
+  border-radius: 5px;
+  box-shadow: 0 10px 40px -10px rgba(33, 33, 33, 0.5);
+  border: solid 2px var(--theme-global-var);
+  background-color: #ffffff;
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: var(--theme-global-var);
+
+  width: 100%;
+  height: 48px;
+  margin-top: 33px;
+  margin-bottom: 70px;
+}
+
+#title {
+  padding: 16px 0;
+  display: flex;
+  align-items: center;
+}
+
+#title > h3 {
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #000000;
+  margin: 0;
+}
+
+#title > div {
+  font-family: Montserrat;
+  font-size: 18px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: normal;
+  text-align: center;
+  line-height: 25px;
+  color: #212121;
+  background-color: #ffffff;
+
+  border-radius: 100%;
+  border: solid 1.5px var(--theme-global-var);
+  width: 32px;
+  height: 32px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 8px;
+}

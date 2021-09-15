@@ -1,0 +1,279 @@
+<div class="modal">
+  <div class="v-dialog v-dialog--active" style="transform-origin: center center; max-width: 630px;">
+    <div class="flex-column">
+      <div class="top-bar position-sticky" style="z-index: 1000;top:0">
+        <div class="ofm-p-8">
+          <div class="d-flex">
+            <div class="title">RefundReceived</div>
+          </div>
+        </div>
+      </div>
+      <div class="p-3" style="background-color: white">
+
+        <div class="pad-box">
+          <div class="card border-card ofm-mb-8 mb-4">
+            <div class="d-flex ofm-p-12 title m-auto">Order summary</div>
+            <hr class="line" style="margin-top: 3px;margin-bottom: 1px">
+            <div class="d-flex ofm-pr-12 ofm-pl-12">
+              <div class="col-12 p-0 ">
+                <div class="row text--weight-bold " style="justify-content: space-evenly">
+                  <div class=" p-0 pl-3" style="padding-top: 11px!important;">Qty</div>
+                  <div class="col-6 p-0 " style="padding-top: 11px!important;">Description</div>
+                  <div class="col-4 p-0 pr-3 text-end" style="padding-top: 11px!important;">Amount</div>
+                </div>
+
+                <div>
+                  <div *ngFor="let product of order.seats[0].orderProducts" class="row text--weight-bold ofm-pl-12 "
+                       style="justify-content: space-evenly">
+                    <div class=" p-2 pl-1">{{product.productQuantity}}</div>
+                    <div class="col-6 p-0  flex-column">
+                      {{product.productName}}
+                    </div>
+                    <div class="col-4 p-2  text-end">
+                      <p class="header--size-small">
+                        $ {{product.productCalculatedPrice.toFixed(2)}}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card border-card ofm-mb-8 mb-4">
+            <div class="d-flex ofm-p-12 title m-auto">Tips</div>
+            <div class="line"></div>
+            <div class="p-3 d-flex">
+              <div class="tip-card d-flex w-100 justify-content-between">
+                <button [ngClass]="tipSelected===1?'tip-button active-b first-btn':
+            'tip-button first-btn border--'"
+                        type="button" (click)="selectTip(1, 0.05)">
+                  <div class="d-flex flex-column">
+                    <span class="pb-2">5%</span>
+                    <span class="t-price ">${{(this.order.totalAmount * 0.05).toFixed(2)}}</span>
+                  </div>
+                </button>
+                <button [ngClass]="tipSelected===2?'tip-button active-b  ':
+            'tip-button border--'"
+                        type="button" (click)="selectTip(2, 0.10)">
+                  <div class="d-flex flex-column">
+                    <span class="pb-2">10%</span>
+                    <span class="t-price">${{(this.order.totalAmount * 0.10).toFixed(2)}}</span>
+                  </div>
+                </button>
+                <button [ngClass]="tipSelected===3?'tip-button active-b':
+            'tip-button border--'"
+                        type="button" (click)="selectTip(3,0.15)">
+                  <div class="d-flex flex-column">
+                    <span class="pb-2">15%</span>
+                    <span class="t-price">${{(this.order.totalAmount * 0.15).toFixed(2)}}</span>
+                  </div>
+                </button>
+                <button [ngClass]="tipSelected===4?'tip-button active-b':
+            'tip-button border--'"
+                        type="button" (click)="selectTip(4,0.20)">
+                  <div class="d-flex flex-column">
+                    <span class="pb-2">20%</span>
+                    <span class="t-price">${{(this.order.totalAmount * 0.20).toFixed(2)}}</span>
+                  </div>
+                </button>
+
+                <div (click)="selectTip(0,0)" [ngClass]="tipSelected===0?'tip-button last-btn active-b':
+            'tip-button last-btn border--'">
+                  <div class="d-flex flex-column  w-100 " style="text-align: center;align-items: center">
+                    <label for="input-196" style="margin-bottom: 0"
+                           class="pb-2 custom-s">
+                      CUSTOM
+                    </label>
+                    <div class="row ml-1">
+                      $<input min="0" max="100" [(ngModel)]="tipsOption" (ngModelChange)="setCustomTips()"
+                              id="input-196" type="number" placeholder="0.00" class="border--none"
+                              style="outline: 0!important;">
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <div class="card border-card ofm-mb-8 mb-4">
+            <div class="d-flex ofm-p-12 title m-auto">Total</div>
+            <hr class="line" style="margin-top: 3px;margin-bottom: 1px">
+            <div class="d-flex ofm-pr-12 ofm-pl-12" style="padding-top: 10px">
+              <div class="w-100 justify-content-between text--weight-bold">
+                <div class="row  ofm-pink-primary-text pad-h-tab" style="padding-bottom: 10px!important;">
+                  <div class="w-50 ">Tip</div>
+                  <div class="w-50 text-end">${{tips.toFixed(2)}}</div>
+                </div>
+                <div class="row pad-h-tab">
+                  <div class="w-50 flex-column">
+                    Sub total
+                  </div>
+                  <div class="w-50 text-end ">
+                    <p class="primary-text">
+                      ${{order.subTotalAmount.toFixed(2)}}
+                    </p>
+                  </div>
+                </div>
+                <div class="row pad-h-tab">
+                  <div class="w-50 flex-column">
+                    Tax
+                    @ {{order.seats[0].orderProducts[0].productTax.length !== 0 ? order.seats[0].orderProducts[0].productTax[0].taxValue : 0}}
+                    %
+                  </div>
+                  <div class="w-50 text-end ">
+                    <p class="primary-text">
+                      ${{order.taxAmount.toFixed(2)}}
+                    </p>
+                  </div>
+                </div>
+                <div class="row pad-h-tab ">
+                  <div class="w-50 flex-column">
+                    Total Amount
+                  </div>
+                  <div class="w-50 text-end">
+                    <p class="primary-text ">
+                      ${{this.order.totalAmount.toFixed(2)}}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card border-card ofm-mb-8 mb-4">
+            <div class="d-flex ofm-p-12 title m-auto text--weight-bold">Payment Method</div>
+            <hr class="line" style="margin-top: 3px;margin-bottom: 1px">
+            <div class="col-12" style="padding-top: 10px">
+              <div class="d-flex w-100">
+
+                <div
+                  (click)="cardSelected(1)"
+                  [style]="isSettingActive('OnlineStoreAllowVisa') === true  ? '' : 'display:none'"
+                  [className]="isMethodCardSelected === 1 ? 'pay-card mr-2 p-1 pd-credit active-b' : 'pay-card mr-2 p-1 pd-credit'">
+                  <img alt="img" id="wallet" src="../../assets/payment/pay.png">
+                </div>
+
+
+                <div
+                  (click)="cardSelected(2)"
+                  [style]="isSettingActive('OnlineStoreAllowGooglePay') === true  ? '' : 'display:none'"
+                  [className]="isMethodCardSelected === 2 ? 'pay-card mr-2 p-1 pd-credit active-b' : 'pay-card mr-2 p-1 pd-credit'">
+                  <app-payment-request [AMOUNT]="45"></app-payment-request>
+                </div>
+
+                <div
+                  (click)="cardSelected(3)"
+                  [style]="isSettingActive('OnlineStoreAllowApplePay') === true  ? '' : 'display:none'"
+                  [className]="isMethodCardSelected === 3 ? 'pay-card mr-2 p-1 pd-credit active-b' : 'pay-card mr-2 p-1 pd-credit'">
+                  <img alt="img" id="apple" height="48" width="60" src="../../assets/payments/apple.png">
+                </div>
+
+                <div
+                  (click)="cardSelected(4)"
+                  [style]="isSettingActive('OnlineStoreAllowAmericanExpress') === true  ? '' : 'display:none'"
+                  [className]="isMethodCardSelected === 4 ? 'pay-card mr-2 p-1 pd-credit active-b' : 'pay-card mr-2 p-1 pd-credit'">
+                  <img alt="img" id="American" height="48" width="60" src="../../assets/payments/american.png">
+                </div>
+
+                <div
+                  (click)="cardSelected(5)"
+                  [style]="isSettingActive('OnlineStoreAllowCash') === true  ? '' : 'display:none'"
+                  [className]="isMethodCardSelected === 5 ? 'pay-card mr-2 p-1 pd-credit active-b' : 'pay-card mr-2 p-1 pd-credit'">
+                  <img alt="img" id="cash" height="48" width="60" src="../../assets/payments/cash.png">
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <div class="card border-card ofm-mb-8">
+            <div class="d-flex ofm-p-12 title m-auto text--weight-bold">Card Details <i class="mdi mdi-lock"
+                                                                                        style="margin-left: 5px;"></i>
+            </div>
+            <hr class="line" style="margin-top: 3px;margin-bottom: 1px">
+            <div class="d-flex ofm-pr-12 ofm-pl-12" style="padding-top: 20px;padding-bottom: 15px">
+              <div class="col-12 pad-0">
+                <div class="flex-column ">
+                  <label class="label-form text--weight-bold ">Credit Card Number</label>
+                  <div class="input-group form-- mb-2">
+                    <div class="input-group-prepend">
+                      <div class="input-group-addon">
+                        <i class="mdi mdi-credit-card"></i>
+                      </div>
+                    </div>
+                    <!-- <input
+                      type="number"
+                      class="form-control input-addon-prepend primary-text"
+                      id="cardNumber"
+                      placeholder=""
+                      aria-describedby="card"
+                    /> -->
+                    <div id="card-number"></div>
+                  </div>
+                </div>
+                <div class="row pad-0" style="padding-top: 10px!important;">
+                  <div class="flex-column w-50 pr-2">
+                    <label class="label-form text--weight-bold">Security Code</label>
+                    <div class="input-group form-- mb-2">
+                      <div class="input-group-prepend">
+                        <div class="input-group-addon">
+                          <i class="mdi mdi-key"></i>
+                        </div>
+                      </div>
+                      <!-- <input
+                        type="number"
+                        class="form-control input-addon-prepend primary-text"
+                        id="code"
+                        placeholder=""
+                        aria-describedby="card"
+                      /> -->
+                      <div id="card-cvc"></div>
+                    </div>
+                  </div>
+                  <div class="flex-column w-50 pl-2">
+                    <label class="label-form text--weight-bold ">Expiration Date</label>
+                    <div class="input-group form-- mb-2">
+                      <div class="input-group-prepend">
+                        <div class="input-group-addon" style="padding-right: 0!important;padding-left: 4px">
+                          <i class="mdi mdi-calendar-blank"></i>
+                        </div>
+                      </div>
+                      <!-- <input
+                        type="date"
+                        class="form-control input-addon-prepend primary-text custom-s"
+                        id="expdate"
+                        placeholder=""
+                        aria-describedby="card"
+                      /> -->
+                      <div id="card-expiry"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="p-2 position-sticky" style="bottom: 0px; width: 100%; z-index: 1000 ;background-color: #FFFFFF">
+        <div class="w-100  d-flex justify-content-around">
+          <button
+            mat-button
+            (click)="pay()"
+            [ngClass]="'place-h-btn' "
+            class="text--weight-bold">
+            <div class="d-flex justify-content-between">
+              <div></div>
+              <div
+                class="pay-and-place-order">
+                Pay Order
+              </div>
+              <div [ngClass]="'pay-and-place-order'">
+                ${{(this.order.totalAmount + +this.tips).toFixed(2)}}
+              </div>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

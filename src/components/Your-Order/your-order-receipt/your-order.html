@@ -1,0 +1,59 @@
+<div *ngIf="loading || !order" style="height: 100vh;">
+  <loading></loading>
+</div>
+
+<div *ngIf="!loading && order" class="yourOrder">  
+  <!------------------ PRODUCTS  ------------------->
+  <ng-container>
+    <app-collapse-header [title]="'YOUR ORDER'" [show]="true"></app-collapse-header>
+    <div class="marginTop">
+      <your-product-cfd *ngFor="let product of productList" [product]="product"></your-product-cfd>
+    </div>
+  
+    <!------------------ TOTALS  ------------------->
+    <app-collapse-header [title]="'TOTAL'" [show]="true"></app-collapse-header>
+    <div class="px-2 marginTop">
+      <div>
+        <span>Sub Total</span>
+        <span>{{currency}}{{order.subTotalAmount.toFixed(2)}}</span>
+      </div>
+  
+      <div *ngIf="showTips">
+        <span>Tip</span>
+        <span>{{tips | currency}}</span>
+      </div>
+  
+      <div *ngIf="paymentInfo.orderId.deliveryAmount !== 0" class="my-3">
+        <span>Delivery Fee</span>
+        <span
+        >{{currency}}{{paymentInfo.orderId.deliveryAmount === null ? "0.00" : paymentInfo.orderId.deliveryAmount.toFixed(2)}}</span>
+      </div>
+      <div>
+        <span>Tax</span>
+        <span>{{currency}}{{order.taxAmount.toFixed(2)}}</span>
+      </div>
+  
+      <div
+           *ngIf="order.serviceChargeAmount > 0">
+        <span
+          class="sub-total">Service Charge</span>
+        <span class="sub-total-price">{{currency}}{{order.serviceChargeAmount.toFixed(2)}}</span>
+      </div>
+  
+      <div>
+        <span class="total-amount">Total Amount</span>
+        <span class="total-amount-price">
+          {{currency}}{{getTotalPaymentAmount(paymentInfo.transactionIds).toFixed(2)}}
+        </span>
+      </div>
+    </div>
+  </ng-container>
+
+
+
+</div>
+
+<!-- 
+<ng-container>
+
+</ng-container> -->

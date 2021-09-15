@@ -1,0 +1,203 @@
+<div>
+  <loading *ngIf="loading === true"></loading>
+  <div *ngIf="loading===false" style="height:100%;">
+    <nav class="navbar">
+      <Logo-NavBar
+        (click)="storeInformation?.storeFrontNavbarLogo ? goBack() : null"
+        [ngStyle]="{'cursor': storeInformation?.storeFrontNavbarLogo ? 'pointer' : 'default'}"
+      >
+      </Logo-NavBar>
+    </nav>
+    <main>
+        <div class="d-flex flex-column">
+            <div class="state">
+              <div class="title1">
+                <span>Track your order.</span>
+                <small *ngIf="isDeliveryCancel" style="color: #d63447" class="pl-3">Your order has been cancel !</small>
+              </div>
+              <mat-divider class="divider"></mat-divider>
+              <ol class="track-progress">
+                <li [ngClass]=" stateOrder > 1 ? 'done' : 'todo' " >
+                  <em>1</em>
+                  <span>Finding driver</span>
+                </li>
+                <li [ngClass]=" stateOrder > 2 ? 'done' : 'todo' " >
+                  <em>2</em>
+                  <span>Driver assigned</span>
+                </li>
+                <li [ngClass]=" stateOrder > 3 ? 'done' : 'todo' " >
+                  <em>3</em>
+                  <span>On the way to the restaurant</span>
+                </li>
+                <li [ngClass]=" stateOrder > 4 ? 'done' : 'todo' " >
+                  <em>4</em>
+                  <span>On the way to your address</span>
+                </li>
+
+                <li [ngClass]=" stateOrder > 5 ? 'done' : 'todo' " >
+                  <em>6</em>
+                  <span>Delivered</span>
+                </li>
+<!--                <li *ngIf="isDeliveryCancel" [ngClass]=" stateOrder > 7 ? 'done' : 'todo' " >-->
+<!--                  <em>7</em>-->
+<!--                  <span>Cancel</span>-->
+<!--                </li>-->
+              </ol>
+              <div class="receipt" *ngIf=" stateOrder > 5 ">
+                <button mat-stroked-button (click)="goToReceipt()">See Receipt</button>
+              </div>
+            </div>
+            <div class="delivery-detail">
+              <div class="info ml-0">
+
+                <ng-container *ngIf="isAssigned && !isDeliveryCancel && isListeningSocket">
+                  <div>
+                    <div class="title1">Driver's information.</div>
+                    <mat-divider class="divider mb-3"></mat-divider>
+                  </div>
+                  <div class="driver-information">
+                    <div>
+                      <span class="title-head font-weight-bold pr-1">Name:</span>
+                      <!--                   <span>{{oloService.emitDriverInformation?.pickupName}}</span>-->
+                      <span>{{ (oloSocket.deliveryTracker | async)?.data.driverName }}</span>
+                    </div>
+                    <div>
+                      <span class="title-head font-weight-bold pr-1">Contact Info:</span>
+                      <!--                   <span>{{oloService.emitDriverInformation?.pickupNumber}}</span>-->
+                      <span>{{ (oloSocket.deliveryTracker | async)?.data.driverMobile }}</span>
+                    </div>
+                    <div>
+                      <span class="title-head font-weight-bold pr-1">Service:</span>
+                      <!--                   <span>{{oloService.emitDriverInformation?.pickupNumber}}</span>-->
+                      <span>{{ (oloSocket.deliveryTracker | async)?.data.mobility }}</span>
+                    </div>
+                    <div>
+                      <span class="title-head font-weight-bold pr-1">Delivery Fee:</span>
+                      <span>{{oloService.emitDriverInformation?.deliveryFee | currency}}</span>
+                    </div>
+                    <div>
+                      <span class="font-weight-bold pr-1">Delivery Estimated Time: </span>
+<!--                      <span>{{ (oloSocket.deliveryTracker | async)?.data.deliveryTime / 100 }}</span>-->
+                      <span>{{ (oloSocket.deliveryTracker | async)?.data.status !== 'Delivered' ?
+                        (oloSocket.deliveryTracker | async)?.data.deliveryTime / 100 : 0 }}</span>
+                    </div>
+                    <div>
+                      <span class="title-head font-weight-bold pr-1">Latitude:</span>
+                      <span>{{ (oloSocket.deliveryTracker | async)?.data.latitude }}</span>
+                    </div>
+                    <div>
+                      <span class="title-head font-weight-bold pr-1">Longitude:</span>
+                      <span>{{ (oloSocket.deliveryTracker | async)?.data.longitude }}</span>
+                    </div>
+                    <div class="d-flex flex-row">
+                      <div class="d-flex flex-column p-0 pr-2">
+                        <span class="title-head font-weight-bold">Approximate </span>
+                        <span class="title-head font-weight-bold">Time of Delivery:</span>
+                      </div>
+                      <span class="align-self-end">{{ (oloSocket.deliveryTracker | async)?.data.estimatedArrival * 1000 | date : 'h:mm a' }}</span>
+                    </div>
+                    <div>
+                      <!--                   <span>{{ (oloSocket.deliveryTracker | async)?.data | json}}</span>-->
+                    </div>
+                  </div>
+                  <div class="actions">
+                    <button mat-stroked-button (click)="openTipModal()"> Add Tip </button>
+                    <button mat-stroked-button
+                            [disabled]="isDeliveryCancel || stateOrder> 5"
+                            (click)="cancelOrder()" > Cancel Order </button>
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="isAssigned && !isDeliveryCancel && !isListeningSocket">
+                  <div>
+                    <div class="title1">Driver's information.</div>
+                    <mat-divider class="divider mb-3"></mat-divider>
+                  </div>
+                  <div class="driver-information">
+                    <div>
+                      <span class="title-head font-weight-bold pr-2">Name:</span>
+                      <!--                   <span>{{oloService.emitDriverInformation?.pickupName}}</span>-->
+                      <span>{{ driverInfo.driverName }}</span>
+                    </div>
+                    <div>
+                      <span class="title-head font-weight-bold pr-2">Contact Info:</span>
+                      <!--                   <span>{{oloService.emitDriverInformation?.pickupNumber}}</span>-->
+                      <span>{{ driverInfo.driverMobile }}</span>
+                    </div>
+                    <div>
+                      <span class="title-head font-weight-bold pr-2">Service:</span>
+                      <!--                   <span>{{oloService.emitDriverInformation?.pickupNumber}}</span>-->
+                      <span>{{ driverInfo.mobility }}</span>
+                    </div>
+                    <div>
+                      <span class="title-head font-weight-bold pr-2">Delivery Time:</span>
+                      <span>{{ (driverInfo.deliveryTime / 360).toFixed(2)}} min</span>
+                    </div>
+                    <div>
+                      <span class="title-head font-weight-bold pr-2">Latitude:</span>
+                      <span>{{ driverInfo.latitude}}</span>
+                    </div>
+                    <div>
+                      <span class="title-head font-weight-bold pr-2">Longitude:</span>
+                      <span>{{ driverInfo.longitude}}</span>
+                    </div>
+                    <div class="d-flex flex-row">
+                      <div class="d-flex flex-column p-0 pr-2">
+                        <span class="title-head font-weight-bold">Approximate </span>
+                        <span class="title-head font-weight-bold">Time of Delivery:</span>
+                      </div>
+                      <span class="align-self-end">{{ driverInfo.timeArrival * 1000 | date : 'h:mm a'}}</span>
+                    </div>
+                  </div>
+                  <div class="actions">
+                    <button mat-stroked-button (click)="openTipModal()"> Add Tip </button>
+                    <button [disabled]="isDeliveryCancel || stateOrder> 5" (click)="cancelOrder()" > Cancel Order </button>
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="isDeliveryCancel ">
+                  <div>
+                    <div class="title1">Driver's information.</div>
+                    <mat-divider class="divider mb-3"></mat-divider>
+                  </div>
+                  <div class="driver-information">
+                    <div>
+                      <span class="title-head font-weight-bold pr-1">Your order has been canceled</span>
+                    </div>
+                  </div>
+                  <div class="actions">
+                <!--   <button (click)="cancelOrder()" > Cancel Order </button>-->
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="!isAssigned && !isDeliveryCancel">
+                  <div>
+                    <loading></loading>
+                    <p class=" loading-text ml-2 d-flex justify-content-center align-items-center align-content-center">
+                      Searching for a driver</p>
+                  </div>
+                  <div class="actions">
+                    <button (click)="cancelOrder()" > Cancel Order </button>
+                  </div>
+                </ng-container>
+              </div>
+              <div class="map mr-0">
+                <div class=" pb-3">
+                  <div class="title1">Delivery Map*.</div>
+                  <mat-divider class="divider"></mat-divider>
+                </div>
+                <div>
+                  <agm-map [latitude]="lat" [longitude]="lng" [zoom]="13">
+                    <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+<!--                    <agm-polyline strokeColor="red">-->
+<!--                      <agm-polyline-point *ngFor="let point of points" [latitude]="point.lat" [longitude]="point.lng"></agm-polyline-point>-->
+<!--                    </agm-polyline>-->
+                  </agm-map>
+                </div>
+                <div>
+                  <small>* Coming soon</small>
+                </div>
+              </div>
+            </div>
+        </div>
+    </main>
+  </div>
+</div>
+<app-footer appConditionalFooter></app-footer>

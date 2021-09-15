@@ -1,0 +1,53 @@
+
+<!-- -------------------------- DARK LAYER  ----------------------------->
+<div class="sidebar__layer" (click)="closeSidebar()" #sidebarLayer>
+</div>
+
+<!-- --------------------------- SIDEBAR  ------------------------------>
+<div class="sidebar" #sidebar>
+  <div class="account__header">
+    {{username ? username : 'Guest'}}
+    <mat-icon (click)="closeSidebar()">close</mat-icon>
+  </div>
+
+  <div class="account__items">
+    <div (click)="redirectHome()">
+      <mat-icon>storefront</mat-icon>
+      <div>
+        <p>Home</p>
+        <p>View the restaurants menu in order to start your order</p>
+      </div>
+    </div>
+
+    <div (click)="redirectAccount()">
+      <mat-icon>person</mat-icon>
+      <div>
+        <p>Account</p>
+        <p>Edit you account details and payment methods</p>
+      </div>
+    </div>
+
+    <div (click)="redirectOrders()">
+      <mat-icon>fastfood</mat-icon>
+      <div>
+        <p>Orders</p>
+        <p>View your past orders and reorder any of your favorites</p>
+      </div>
+    </div>
+
+    <!-- <div>
+      <mat-icon>support</mat-icon>
+      <div>
+        <p>Help</p>
+        <p>Contact eatOS for anything the restaurant can't help with</p>
+      </div>
+    </div> -->
+
+    <div (click)="redirectLogin()">
+      <mat-icon [ngClass]="{'rotateIcon': isUserLoggedIn}">login</mat-icon>
+      <div>
+        <p>{{!isUserLoggedIn ? 'Sign In' : 'Sign Out'}}</p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,44 @@
+<div class="mt-4 Pop-Up-BG p-3" style="background-color: white !important;">
+
+  <span class="resend-title">Resend Receipt</span>
+  <div class="form" style="background-color: white!important;">
+    <div style="padding-top: 8px">
+      <b style="font-size: 14px;justify-self: start;font-weight: bold;color: black">Email</b>
+      <div class="form-control inputs-">
+        <i class="mdi mdi-email" style="line-height: 40px;padding-right: 5px"></i>
+        <input [(ngModel)]="email" matInput placeholder="elon@spacex.com" style="outline: none;width: 100%">
+        <button (click)="sendReceipt()" class="send">Send</button>
+      </div>
+    </div>
+    <div style="padding-top: 8px">
+      <b style="font-size: 14px;justify-self: start;font-weight: bold;color: black">Phone Number</b>
+      <div 
+        style="background-color: #fff;display: inline-flex; min-height: 50px;position: relative"
+        class="form-control justify-content-between inputs-">
+        <ngx-intl-tel-input 
+          class="d-flex align-items-center"
+          [inputId]="'adsasd'"
+          [cssClass]="'flags-insidesu-input'"
+          [preferredCountries]="preferredCountries"
+          [enableAutoCountrySelect]="true"
+          [enablePlaceholder]="true"
+          [searchCountryFlag]="true"
+          [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+          [selectFirstCountry]="false"
+          [selectedCountryISO]="CountryISO.UnitedStates"
+          [maxLength]="15"
+          [(ngModel)]="numberPhone"
+          [tooltipField]="TooltipLabel.Name"
+          [phoneValidation]="true"
+          [separateDialCode]="separateDialCode"
+        >
+        </ngx-intl-tel-input>
+        <button (click)="sendReceiptMobileResponsive()" class="send">Send</button>
+      </div>
+    </div>
+  </div>
+  <div class="receipts-text mt-2">
+    <label>Digital receipts delivered by eatOS.</label>
+    <label>See your digital receipt for privacy policy and preferences.</label>
+  </div>
+</div>

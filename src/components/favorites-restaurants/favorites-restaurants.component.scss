@@ -1,0 +1,138 @@
+.favorites__items {
+  margin-top: 8px;
+  transform: translateY(64px);
+}
+
+.favorites__product {
+  min-height: 208px;
+  padding: 8px 8px 0px 8px;
+  border: solid 0.8px #e0e0e0;
+  background-color: #ffffff;
+
+  margin-bottom: 8px;
+
+  position: relative;
+  cursor: pointer;
+}
+
+.favorites__image {
+  width: 100%;
+  height: 136px;
+
+  object-fit: cover;
+}
+
+.favorites__product:hover {
+  background-color: #f7f7f8;
+  border-color: #bebec6;
+  transition: all 0.3s;
+}
+
+
+.favorites__product > div {
+  display: flex;
+  align-items: center;
+
+  padding: 12px 0px 12px 0px;
+}
+
+.favorites__product > div > img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+
+.favorites__product > div > div {
+  margin-left: 8px;
+}
+
+.favorites__product > div > div > h3 {
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #212121;
+  margin: 0 0 4px 0;
+}
+
+.favorites__product > div > div > span {
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #757575;
+}
+
+.favorites__liked {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 36px;
+  height: 36px;
+}
+
+.emptyState {
+  transform: translateY(90px);
+  height: 100vh;
+}
+
+.emptyState > img {
+  display: block;
+  margin: 67px auto 32px;
+}
+
+.emptyState > p:nth-of-type(1) {
+  margin: 0 auto;
+
+  font-family: Montserrat;
+  font-size: 24px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #212121;
+}
+
+.emptyState > p:nth-of-type(2) {
+  margin: 4px auto 0;
+  max-width: 250px;
+
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #545454;
+}
+
+.emptyState > button {
+  width: 100%;
+  height: 48px;
+  margin-top: 33px;
+  margin-bottom: 70px;
+
+  border-radius: 5px;
+  box-shadow: 0 10px 40px -10px rgba(33, 33, 33, 0.5);
+  border: solid 2px var(--theme-global-var);
+  background-color: #ffffff;
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: var(--theme-global-var);
+}

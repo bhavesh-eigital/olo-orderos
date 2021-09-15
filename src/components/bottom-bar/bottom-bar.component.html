@@ -1,0 +1,39 @@
+<footer class="footer footerBadgeColor">
+  <div>
+    <div [routerLink]="['/tabs']" *ngIf="showTabs">
+      <mat-icon [style.color]="router.url.includes('tabs') ? 'var(--theme-global-var)' : '#212529'">
+        receipt_long
+      </mat-icon>
+      <span [style.color]="router.url.includes('tabs') ? 'var(--theme-global-var)' : '#212529'">
+        Tab
+      </span>
+    </div>
+    <div (click)="cartClickHandler()">
+      <mat-icon
+        [matBadge]="cart.length"
+        [matBadgeHidden]="!cart.length"
+        [style.color]="router.url.includes('cart') ? 'var(--theme-global-var)' : '#212529'"
+      >
+        shopping_cart
+      </mat-icon>
+      <span [style.color]="router.url.includes('cart') ? 'var(--theme-global-var)' : '#212529'">Cart</span>
+    </div>
+    <div [routerLink]="['/dinein']">
+      <!-- <mat-icon [style.color]="router.url.includes('dinein') ? 'var(--theme-global-var)' : '#212529'">
+        menu_book
+      </mat-icon> -->
+      <app-menu-book-icon *ngIf="!router.url.includes('dinein')"></app-menu-book-icon>
+      <app-menu-book-icon-filled *ngIf="router.url.includes('dinein')"></app-menu-book-icon-filled>
+      <span [style.color]="router.url.includes('dinein') ? 'var(--theme-global-var)' : '#212529'">Menu</span>
+    </div>
+    <div [routerLink]="['/my-favorites']">
+      <!-- <mat-icon [style.color]="router.url.includes('my-favorites') ? 'var(--theme-global-var)' : '#212529'">
+        favorite
+      </mat-icon> -->
+      <app-fill-like-icon [dark]="!router.url.includes('my-favorites') ? true : false"></app-fill-like-icon>
+      <span [style.color]="router.url.includes('my-favorites') ? 'var(--theme-global-var)' : '#212529'">
+        Favorites
+      </span>
+    </div>
+  </div>
+</footer>

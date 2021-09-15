@@ -1,0 +1,41 @@
+<div style="max-width: 350px ;background-color: white ">
+  <div class="d-flex w-100 justify-content-end">
+    <div style="padding: 8px;" (click)="closeDialog()">
+      <i class="mdi mdi-close close-bt" style="color: #535A73!important;"></i>
+    </div>
+  </div>
+  <div class="d-flex flex-column w-100 pl-3 pr-3" style="align-items: center">
+    <div class="d-flex w-100 title justify-content-center">SELECT DATE</div>
+    <div class="w-100">
+      <mat-calendar [selected]="selectedDate"
+                    [minDate]="todayDate"
+                    (selectedChange)="onSelect($event)"
+                    [dateClass]="dateClass()"
+                    [headerComponent]="customCalendarHeader">
+      </mat-calendar>
+    </div>
+    <div class="d-flex w-100 title justify-content-center">SELECT TIME</div>
+    <div class="flex-column p-1 pr-3 pl-3" >
+      <div class="d-flex justify-content-between">
+        <div class="btn-time ">1:00 - 2:00 PM</div>
+        <div class="btn-time ">2:00 - 3:00 PM</div>
+      </div>
+      <div class="d-flex justify-content-between">
+        <div class="btn-time">3:00 - 4:00 PM</div>
+        <div class="btn-time">4:00 - 5:00 PM</div>
+      </div>
+      <div class="d-flex justify-content-between">
+        <div class="btn-time">5:00 - 6:00 PM</div>
+        <div class="btn-time">6:00 - 7:00 PM</div>
+      </div>
+      <div class="d-flex justify-content-between">
+        <div class="btn-time">7:00 - 8:00 PM</div>
+        <div class="btn-time">8:00 - 9:00 PM</div>
+      </div>
+      <div class="d-flex justify-content-between pb-2">
+        <div class="btn-time">9:00 - 10:00 PM</div>
+        <div class="btn-time">10:00 - 11:00 PM</div>
+      </div>
+    </div>
+  </div>
+</div>

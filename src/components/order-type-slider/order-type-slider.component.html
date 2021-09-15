@@ -1,0 +1,43 @@
+<div class="menu__slider" #slider [ngClass]="{'largeSize':largeSize || innerWidth <= 398}">
+    <div 
+        #delivery 
+        (click)="orderTypeSelected(1)" 
+        [ngClass]="{'isDisabled': deliveryIsDisabled}" 
+        *ngIf="!deliveryIsDisabled"
+    >
+        <app-inactive-delivery *ngIf="currentOrderType !== 1"></app-inactive-delivery>
+        <app-active-delivery *ngIf="currentOrderType === 1"></app-active-delivery>
+        <span>
+            Delivery
+        </span>
+    </div>
+    <div 
+        #pickup 
+        (click)="orderTypeSelected(2)" 
+        [ngClass]="{'isDisabled': pickUpIsDisabled}" 
+        *ngIf="!pickUpIsDisabled"
+    >
+        <app-inactive-pickup *ngIf="currentOrderType !==2"></app-inactive-pickup>
+        <app-active-pickup *ngIf="currentOrderType === 2"></app-active-pickup>
+        <span>
+            Pickup
+        </span>
+    </div>
+    <div 
+        #curbside 
+        (click)="orderTypeSelected(3)" 
+        [ngClass]="{'isDisabled': curbsideIsDisabled}" 
+        *ngIf="!curbsideIsDisabled" 
+    >
+        <app-inactive-curbside *ngIf="currentOrderType !== 3"></app-inactive-curbside>
+        <app-active-curbside *ngIf="currentOrderType === 3"></app-active-curbside>
+        <span>Curbside</span>
+    </div>
+    <div 
+        class="indicator" 
+        #indicator [ngClass]="{'largeSizeIndicator':largeSize}" 
+        [style.width.%]="indicatorSize"
+        [ngStyle]="{'display': !deliveryIsDisabled || !pickUpIsDisabled || !curbsideIsDisabled ? 'block' : 'none'}"
+    >
+    </div>
+</div>

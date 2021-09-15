@@ -1,0 +1,17 @@
+<div class="toggle__header" #toggleHeader>
+  <span>{{title}}</span>
+  <img src="assets/collapse/collapse.svg" alt="" #toggleArrow>
+</div>
+
+<div class="toggle__pannel show" #togglePannel>
+  <div *ngFor="let variant of items" class="toggle__item" (click)="setVariant(variant)">
+    <div>
+      <app-unchecked-radio-button *ngIf="isVariantSelected(variant) !== true" style="margin-right: 18px;"></app-unchecked-radio-button>
+      <app-checked-radio-button *ngIf="isVariantSelected(variant) === true" style="margin-right: 18px;"></app-checked-radio-button>
+      <span [ngClass]="{'activated':isVariantSelected(variant) === true}">{{variant.variantName}}</span>
+    </div>
+
+    <span *ngIf="variant.variantValue"
+          [ngClass]="{'activated':isVariantSelected(variant) === true}">{{variant.variantValue | currency}}</span>
+  </div>
+</div>

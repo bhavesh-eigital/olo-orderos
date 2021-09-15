@@ -1,0 +1,359 @@
+.myAccount {
+  margin-top: 5%;
+  color: #212121;
+  font-family: Montserrat;
+  font-size: 24px;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 29px;
+}
+
+.rectangle {
+  height: 1px;
+  width: 100%;
+  background-color: #d8d8d8;
+}
+
+.account-button {
+  display: flex;
+}
+
+.restaurant-name {
+  color: #000000;
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 19px;
+}
+
+.order-description {
+  color: #47525d;
+  font-family: Montserrat;
+  font-size: 13px;
+  letter-spacing: 0;
+  line-height: 16px;
+}
+
+.time-order {
+  color: #47525d;
+  font-family: Montserrat;
+  font-size: 13px;
+  letter-spacing: 0;
+  line-height: 16px;
+}
+
+.card-tittle {
+  color: #000000;
+  font-family: Montserrat;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.title-summary {
+  color: var(--theme-global-var);
+  font-family: Montserrat;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 22px;
+  border-bottom: 1px solid #d8d8d8;
+  padding-bottom: 8px;
+}
+
+.list-card {
+  width: 100%;
+  max-width: 450px;
+}
+
+.text-end {
+  text-align: end !important;
+}
+
+.text-total {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.summary-card {
+  width: 450px;
+  border: 1px solid #f5f5f5;
+  padding: 25px;
+  margin-top: 20px;
+  margin-left: 30px;
+  height: 700px !important;
+  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.2), 0px 3px 1px -2px rgba(0, 0, 0, 0.14),
+    0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+
+  @media screen and (max-width: 1088px) {
+    display: none;
+  }
+}
+
+.btn-help {
+  height: 46px;
+  width: 45%;
+  border: 2px solid var(--theme-global-var);
+  border-radius: 2px;
+  background-color: #ffffff;
+  margin-right: 10px;
+  color: #424242;
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.btn-again {
+  height: 46px;
+  width: 52%;
+  border-radius: 2px;
+  background-color: var(--theme-global-var);
+  color: #ffffff;
+  justify-content: end;
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+@media (max-width: 449px) {
+  #modal-mobile {
+    background: rgba(0, 0, 0, 0);
+    position: fixed;
+    z-index: 1500;
+    left: 0;
+    top: 0;
+    display: flex;
+    overflow: auto;
+    height: 100vh;
+    width: 100vw;
+    transition: all 0.5s;
+  }
+  .content-- {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  ::ng-deep .mat-tab-label {
+    font-family: "Montserrat", sans-serif !important;
+    min-width: 160px !important;
+    justify-content: space-around;
+  }
+}
+
+@media (min-width: 992px) {
+  #modal-mobile {
+    display: flex;
+  }
+  .list-card {
+    width: 45%;
+    max-width: 450px;
+    margin-right: -20px;
+  }
+  .content-- {
+    //padding-left: 60px;
+    //padding-right: 60px;
+  }
+}
+
+::ng-deep body {
+  font-family: Montserrat !important;
+}
+
+::ng-deep .mat-tab-label {
+  font-family: "Montserrat", sans-serif !important;
+  min-width: 160px !important;
+  margin: auto;
+}
+
+::ng-deep.mat-tab-label-active {
+  font-weight: bold !important;
+  color: var(--theme-global-var) !important;
+}
+
+::ng-deep .mat-ink-bar {
+  background-color: var(--theme-global-var) !important;
+  height: 4px !important;
+}
+
+::ng-deep .mat-tab-body-wrapper {
+}
+
+.unconfirmed {
+  background-color: #2196f3;
+}
+
+.accepted {
+  background-color: #ffc107;
+}
+
+.Preparing {
+  background-color: #523178;
+}
+
+.Prepared {
+  background-color: #670801;
+}
+
+.Picking-up {
+  background-color: #455d7f;
+}
+
+.Picked-up {
+  background-color: #4c4c4c;
+}
+
+.Completed {
+  background-color: #4caf50;
+}
+
+.Cancelled {
+  background-color: #d50000;
+}
+
+.price-order {
+  color: #000000;
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 19px;
+}
+
+.start-order-b {
+  height: 46px;
+  background-color: var(--theme-global-var);
+  width: 100%;
+  color: #ffffff;
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 19px;
+  text-align: center;
+}
+
+.text- {
+  color: rgba(0, 0, 0, 0.6);
+  text-align: center;
+}
+
+.icon-order {
+  width: 88px;
+  height: 88px;
+  border: 1px solid rgba(216, 216, 216, 0.5);
+  border-radius: 80px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.content-- {
+  padding-top: 55px;
+  justify-content: center;
+}
+
+.bar-- {
+  width: 100%;
+  max-width: 1156px;
+}
+
+::ng-deep .mat-ink-bar {
+}
+
+::ng-deep .mat-tab-body-wrapper {
+  width: 636px;
+}
+
+.Resend-Receipt {
+  margin: 0px 8px 0px 37px;
+  font-family: Montserrat;
+  font-size: 10px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: right;
+  color: var(--theme-global-var);
+}
+
+.help {
+  width: 120px;
+  display: grid;
+  place-content: center;
+  height: 44px;
+  margin: 8px 0 0;
+  padding: 13px 0 12px;
+  border-radius: 4px;
+  border: solid 1px #e0e0e0;
+  background-color: #ffffff;
+}
+
+.reorder {
+  width: 120px;
+  height: 44px;
+  margin: 0 0 8px;
+  padding: 13px 0 12px;
+  border-radius: 4px;
+  background-color: var(--theme-global-var);
+  display: grid;
+  place-content: center;
+  color: white;
+}
+
+.area {
+}
+
+@media (max-width: 449px) {
+  .area {
+    width: 105vw;
+  }
+  .Resend-Receipt {
+    display: none !important;
+  }
+
+  .reorder {
+    //display: none !important;
+    width: 85px;
+  }
+  ::ng-deep .mat-tab-body-wrapper {
+    width: auto;
+  }
+}
+
+app-footer {
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+}
+
+.desktopNavbar {
+  background-color: white !important;
+  margin: auto;
+  padding: 10px 10%;
+  // height: 56px;
+  box-shadow: 0 1px 0 0 #e0e0e0, 0 -1px 0 0 #e0e0e0;
+  background-color: #ffffff;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  position: sticky !important;
+  top: 0px;
+  z-index: 999;
+}
+
+.cardWrapper {
+  justify-content: space-between;
+  display: flex;
+  max-width: 1200px;
+  padding-left:  10%;
+
+  @media screen and (max-width: 710px) {
+    padding-left: 5%;
+  }
+  @media screen and (max-width: 673px) {
+    padding-left: 2%;
+  }
+}

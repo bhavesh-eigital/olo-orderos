@@ -1,0 +1,107 @@
+<ng-container *ngIf="!loading">
+  <div class="selectedOrder">
+    <!--------------------------- STICKY HEADER  --------------------------->
+    <div class="selectedOrder__stickyHeader">
+      <app-header
+        [title]="'ORDER HISTORY'"
+        [showTitle]="showTitle"
+        [showSearcher]="false"
+        [titleTranslation]="'translateX(-42%)'"
+        [showSearcher]="false"
+        (openSidebar)="open=true"
+      >
+      </app-header>
+
+      <div>
+        <button mat-stroked-button>Help</button>
+        <button mat-stroked-button (click)="reOrder(order.orderId)">Reorder</button>
+      </div>
+    </div>
+
+    <!----------------------------- BANNER  -------------------------------->
+    <div class="selectedOrder__banner" [ngStyle]="{'background': 'url' + '(' + storeInformation.storeFrontLogo + ')'}">
+      <div>
+        <img src="assets/selected-order/close.svg" [routerLink]="['/orders-history']">
+        <div>
+          <img src="assets/selected-order/favorite.svg">
+        </div>
+      </div>
+
+      <div>
+        <h3>U Crave Cafe & Grill</h3>
+        <p>110 n Maclay Ave, San Fernando, CA 91340</p>
+        <p><span>7:00 AM - 12:00 AM | </span><span>4.6 (141)</span></p>
+      </div>
+    </div>
+
+    <!------------------------------ MAIN  ----------------------------------->
+
+    <main>
+      <div class="selectedOrder__mainHeader">
+        <h3>U Crave Cafe & Grill</h3>
+        <div>
+          <span>Oder #238654 | </span>
+          <span>{{date | date: 'MMM d, y h:mm a'}}</span>
+        </div>
+        <p *ngIf="order && order.onlineOrderServeStatus" [ngClass]="{
+          'completed': order.onlineOrderServeStatus === 2 || order.onlineOrderServeStatus === 7 || order.onlineOrderServeStatus === 5,
+          'inProgress': order.onlineOrderServeStatus === 1 || order.onlineOrderServeStatus === 4 || order.onlineOrderServeStatus === 6,
+          'cancelled': order.onlineOrderServeStatus === 3 || order.onlineOrderServeStatus === 8
+        }">{{getStatus(order.onlineOrderServeStatus) | titlecase}}</p>
+      </div>
+
+      <ng-container *ngIf="order && order.products">
+        <div class="selectedOrder__order" *ngFor="let product of order.products">
+          <div>
+            <div>
+              <span>{{product.productQuantity}}</span>
+              <div>
+                <span>{{product.productName}}</span>
+                <div>
+                  {{getIngredientes(product).length > 25
+                  ? ((getIngredientes(product) | slice:0:25) + '...')
+                  : getIngredientes(product)
+                  }}
+                </div>
+              </div>
+            </div>
+
+            <span>{{product.productPrice | currency}}</span>
+          </div>
+          <div>
+            <button mat-stroked-button (click)="openDialog(product)">VIEW</button>
+          </div>
+        </div>
+      </ng-container>
+
+
+      <div class="selectedOrder__total">
+        <div>
+          <span>Sub Total</span>
+          <span>{{order.subTotalAmount | currency}}</span>
+        </div>
+        <div>
+          <span>Tax</span>
+          <span>{{order.taxAmount | currency}}</span>
+        </div>
+        <div>
+          <span>Tip</span>
+          <span>{{order.TipAmount ? (order.TipAmount | currency) : (0 | currency)}}</span>
+        </div>
+
+        <div>
+          <span>Total Amount</span>
+          <span>{{(order.totalAmount + (order.TipAmount ? order.TipAmount : 0)) | currency}}</span>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <app-bottom-bar></app-bottom-bar>
+  <app-sidebar [(open)]="open"></app-sidebar>
+</ng-container>
+
+<div *ngIf="loading" style="height: 100vh;">
+  <loading></loading>
+</div>
+

@@ -1,0 +1,52 @@
+/* ------------ FAIL MODAL ------------ */
+.failView {
+  background-color: white;
+  height: calc(100vh - 105px);
+  padding: 24px 31px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.failView__successContainer {
+  margin-top: 96px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.failView__successContainer > span {
+  display: inline-block;
+  margin-top: 32px;
+
+  font-family: Montserrat;
+  font-size: 24px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #212121;
+}
+
+.failView > div > button {
+  width: 100%;
+
+  border-radius: 5px;
+  box-shadow: 0 10px 40px -10px rgba(33, 33, 33, 0.5);
+  border: solid 2px var(--theme-global-var);
+  background-color: #ffffff;
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: var(--theme-global-var);
+  height: 48px;
+
+  margin: 10px auto;
+}

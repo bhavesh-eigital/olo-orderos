@@ -1,0 +1,104 @@
+main {
+    padding: 0px 20px 146px;
+}
+
+.guestModal__restaurantData {
+    margin-top: 80px;
+}
+
+.guestModal__restaurantData > h3 {
+    font-family: Montserrat;
+    font-size: 24px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.58;
+    letter-spacing: normal;
+    color: #212121;
+
+    margin: 0;
+}
+
+.guestModal__restaurantData > p {
+    margin: 4px 0 0;
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #212121;
+}
+
+#warning-message {
+    margin-top: 24px;
+    padding: 12px 8px;
+    background-color: #fafafa;
+
+    font-family: Montserrat;
+    font-size: 13px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #212121;
+}
+
+.guestModal__sectionHeader {
+    height: 44px;
+    padding: 13px 8px 12px;
+    margin: 24px 0 16px;
+    background-color: #fafafa;
+    font-family: Montserrat;
+    font-size: 15px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #212121;
+}
+
+.guestModal__userInfo {
+    display: flex;
+    flex-direction: column;
+}
+
+.guestModal__userInfo > .mat-form-field {
+    width: 100%;
+}
+
+.guestModal__userInfo > .mat-form-field:not(:first-child) {
+    margin-top: 24px;
+}
+
+.floating-btn {
+    // position: absolute;
+    width: calc(100% - 40px);
+    height: 44px;
+
+    border-radius: 22px;
+    border: solid 2px var(--theme-global-var);
+    background-color: #ffffff;
+
+    font-family: Montserrat;
+    font-size: 16px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.38;
+    letter-spacing: normal;
+    text-align: center;
+    color: var(--theme-global-var);
+
+    position: fixed;
+    left: 0;
+    bottom: 64px;
+
+    margin-left: 50%;
+    transform: translateX(-50%);
+
+    z-index: 9999;
+}

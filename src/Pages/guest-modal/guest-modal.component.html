@@ -1,0 +1,55 @@
+<div class="guestModal">
+    <app-header [fixed]="true"></app-header>
+
+    <main>
+        <div class="guestModal__restaurantData">
+            <h3>{{storeInformation.storeFrontName}}</h3>
+            <p>{{storeInformation.storeFrontAddress1}}</p>
+        </div>
+
+        <div id="warning-message">
+            Thank you for choosing {{storeInformation.storeFrontName}}.
+            In order to comply with social distancing guidelines set forth by the local goverment,
+            we are currently not accepting parties larger than six incluiding children.
+            Masks must be worn at all time except when seated at your table. We thank you for helping
+            us comply with local ordinances and keeping our guest and team members safe during your visit.
+            Please call us if you have any question.
+        </div>
+
+        <div class="guestModal__sectionHeader">Your Information *</div>
+
+        <form #userInformationForm="ngForm" class="guestModal__userInfo">
+            <mat-form-field>
+                <mat-label>First Name</mat-label>
+                <input matInput name="firstname" ngModel #firstname="ngModel" required>
+                <mat-error *ngIf="firstname.hasError('required')">First Name is Required</mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Last Name</mat-label>
+                <input matInput name="lastname" ngModel #lastname="ngModel" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+                <mat-error *ngIf="lastname.hasError('required')">Last Name is Required</mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Email</mat-label>
+                <input matInput type="email" name="email" ngModel #email="ngModel" required>
+                <mat-error *ngIf="email.hasError('required')">Email is Required</mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Phone Number*</mat-label>
+                <input matInput type="phone" name="phone" ngModel #phone="ngModel" required>
+                <mat-error *ngIf="phone.hasError('required')">Phone is Required</mat-error>
+            </mat-form-field>
+        </form>
+
+        <div id="warning-message">
+            By providing a mobile number, you give eatOS permission to contact you using automated text messages
+            to provide transactional messages such as order status updates.
+        </div>
+    </main>
+
+    <button mat-stroked-button color="accent" class="submit-btn">BEGIN ORDER</button>
+</div>
+

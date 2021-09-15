@@ -1,0 +1,95 @@
+<div style="min-height: 100vh; overflow-y: auto;">
+  <div *ngIf="!processing && !success && !failed">
+    <div class="orderSummary__header">
+      <img src="assets/order-summary/arrow-back.svg" alt="go-back" (click)="goBack()">
+      <h3>Order Summary</h3>
+    </div>
+    <div class="orderSummary">
+  
+      <div class="orderSummary__mainContent" #mainContent>
+        <div id="title">
+          <h3 class="text-capitalize">{{customerName}} | Table</h3>
+          <div>{{tableNumber}}</div>
+        </div>
+  
+        <!-- ITEMS -->
+        <app-order-summary-items [items]="pendingProducts"></app-order-summary-items>
+  
+        <!-- TIP -->
+        <div class="orderSummary__tip" *ngIf="allowGratuity === 'true'"> 
+          <span>TIP</span>
+  
+          <div class="orderSummary__tipsContainer">
+            <div [ngClass]="tipSelected === 0 ? 'tipClicked' :''" (click)="selectTip(0)">
+              <span>10%</span>
+              <span>{{getSubtotalAmount() * 0.10 | currency}}</span>
+            </div>
+            <div [ngClass]="tipSelected === 1 ? 'tipClicked' :''" (click)="selectTip(1)">
+              <span>15%</span>
+              <span>{{getSubtotalAmount() * 0.15 | currency}}</span>
+            </div>
+            <div (click)="selectTip(2)" [ngClass]="tipSelected === 2 ? 'tipClicked' :''">
+              <span>18%</span>
+              <span>{{getSubtotalAmount() * 0.18 | currency}}</span>
+            </div>
+            <div (click)="selectTip(3)" [ngClass]="tipSelected === 3 ? 'tipClicked' :''">
+              <span>20%</span>
+              <span>{{getSubtotalAmount() * 0.20 | currency}}</span>
+            </div>
+            <div id="customTip"  (click)="selectTip(4)" [ngClass]="tipSelected === 4 ? 'tipClicked' :''">
+              <div>Custom</div>
+              <div class="tipNumbers">
+                {{currency}}
+                <input 
+                  type="text"
+                  maxlength="3" 
+                  placeholder="0.00" 
+                  oninput="this.value = parseFloat(this.value)" 
+                  onpaste="return false;"
+                  [(ngModel)]="customTip"
+                  (ngModelChange)="selectCustomTips($event)" 
+                  style="width: 50px;border: none; outline: none;"
+                  type="number"  
+                  (blur)="displayFloatTip()"
+                  #customTipInput
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- TOTAL -->
+        <div class="orderSummary__total">
+          <h1>TOTAL</h1>
+          <hr>
+          <div>
+            <span>Sub Total</span>
+            <span>{{ this.getSubtotalAmount() | currency}}</span>
+          </div>
+          <div>
+            <span>Tax</span>
+            <span>{{getTaxAmount() | currency}}</span>
+          </div>
+          <div>
+            <span>Tip</span>
+            <span>{{tipSelectedValue | currency}}</span>
+          </div>
+  
+          <div>
+            <span>Total Amount</span>
+            <span>{{getTotalAmount() + tipSelectedValue | currency}}</span>
+          </div>
+        </div>
+  
+      </div>
+  
+    </div>
+    <app-bottom-bar></app-bottom-bar>
+    <button class="pay-btn" mat-stroked-button (click)="showBottomSheet()">PAY & LEAVE TABLE</button>
+  </div>
+  
+  <app-processing-payment *ngIf="processing && !success && !failed"></app-processing-payment>
+  <app-payment-successfull [orderInfo]="orderInfo" *ngIf="success && !processing && !failed"
+                           [products]="pendingProducts"></app-payment-successfull>
+  <app-payment-failed *ngIf="failed && !success && !processing" (back)="failed=false"></app-payment-failed>
+</div>

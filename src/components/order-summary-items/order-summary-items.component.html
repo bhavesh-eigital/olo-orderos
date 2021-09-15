@@ -1,0 +1,17 @@
+<div *ngFor="let item of items" class="orderSummaryItems__item">
+  <div>
+    <span>{{item.productQuantity}}</span>
+    <div>
+      <span>{{item.productName}}</span>
+      <span>
+        {{getIngredientsAndModifiers(item).length > 30
+        ? ((getIngredientsAndModifiers(item) | slice:0:25) + '...')
+        : getIngredientsAndModifiers(item)
+        }}
+      </span>
+    </div>
+  </div>
+  <div>
+    <span>{{item.productPrice || item.productUnitPrice | currency }}</span>
+  </div>
+</div>

@@ -1,0 +1,559 @@
+<div *ngIf="loading" style="height: 100vh;">
+  <loading></loading>
+</div>
+<mat-drawer-container
+  class="example-container"
+  style="height: 100%;"
+  *ngIf="loading === false"
+>
+  <mat-drawer #drawer position="end" style="height: 100vh; position: fixed;">
+    <account-mobile></account-mobile>
+  </mat-drawer>
+  <mat-drawer-content style="background-color: white;">
+    <div
+      class="spaceNav"
+      id="itemsWrapper"
+      style="
+        background-color: white !important;
+        position: relative;
+        overflow-y: auto;
+        min-height: 100vh;
+        height: 100vh;
+      "
+    >
+      <nav
+        *ngIf="closeSearch === false"
+        class="d-flex d-sm-flex d-lg-none p-0 navbar navbar-top fixed-top topbar"
+        style="max-width: 1135px; margin: auto; z-index: 999;"
+      >
+        <div
+          class="w-100 h-100 d-flex justify-content-between"
+          style="margin-left: 20px; margin-right: 20px;"
+        >
+          <div class="d-flex w-100 justify-content-between">
+            <div
+              class="d-flex flex-column justify-center"
+              style="
+                display: flex;
+                justify-content: center;
+                align-items: center;
+              "
+            >
+              <Logo-NavBar></Logo-NavBar>
+            </div>
+            <div
+              (click)="closeSearching()"
+              class="d-flex flex-column justify-center"
+              style="
+                display: flex;
+                justify-content: center;
+                align-items: center;
+              "
+            >
+              <img
+                alt="img"
+                src="../../../assets/IconsSVG/search.svg"
+                alt="search-icon"
+              />
+            </div>
+
+            <div class="d-flex">
+              <div
+                class="d-flex flex-column"
+                style="align-items: center; margin: auto;"
+              >
+                <button
+                  class="navbar-toggler p-0"
+                  id="show-sidebar"
+                  type="button"
+                  data-target="#navbarNav"
+                  aria-controls="navbarNav"
+                  aria-expanded="false"
+                  aria-label="Toggle navigation"
+                >
+                  <img
+                    (click)="drawer.toggle()"
+                    src="../../../assets/IconsSVG/Account.svg"
+                    alt=""
+                  />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <nav
+        *ngIf="closeSearch === false"
+        class="spaceNav d-lg-inline d-none navbar navbar-top fixed-top topbar"
+        style="z-index: 999;"
+      >
+        <div class="w-100 h-100 d-flex justify-content-between">
+          <div class="d-flex">
+            <div
+              class="d-flex flex-column"
+              style="align-items: center; margin: auto;"
+            >
+              <div
+                class="navbar-toggler p-0"
+                type="button"
+                data-target="#navbarNav"
+                aria-controls="navbarNav"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
+                <Logo-NavBar></Logo-NavBar>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <ng-container>
+          <mat-card
+            class="popular-categories position-static"
+            style="
+              margin-top: 9px;
+              box-shadow: none;
+              border: none;
+              border-radius: 0px;
+              padding: 0px;
+              position: -webkit-sticky !important;
+              position: sticky !important;
+              top: 3px !important;
+              z-index: 1030;
+            "
+          >
+            <div
+              class="popular-search"
+              style="border-bottom: 1px solid #d8d8d8;"
+            >
+              <div
+                class="popular-search-text"
+                id="tabs-1"
+                style="line-height: 2; display: flex;"
+                #tabs1
+              >
+                <!-- <div
+                  (click)="scrollToPopular(popular)"
+                  [className]="
+                    categorySelected !== 'popular'
+                      ? 'category'
+                      : 'category category-selected'
+                  "
+                >
+                  POPULAR
+                </div> -->
+                <div
+                  *ngFor="let category of categories; let id = index"
+                  (click)="scrollTo(category.categoryName, id)"
+                  [className]="
+                    categorySelected !== category.categoryName
+                      ? 'category'
+                      : 'category category-selected'
+                  "
+                  class="category"
+                  style="text-transform: uppercase;"
+                >
+                  {{ category.categoryName }}
+                </div>
+              </div>
+            </div>
+          </mat-card>
+        </ng-container>
+      </nav>
+
+      <nav
+        *ngIf="closeSearch === true"
+        class="spaceNav p-0 navbar navbar-top fixed-top topbar"
+      >
+        <div class="w-100 h-100 d-flex justify-content-between spaceNav">
+          <div class="d-flex w-100 align-content-center align-items-center">
+            <div
+              class="w-100"
+              style="
+                display: flex;
+                justify-content: center;
+                align-items: center;
+              "
+            >
+              <img
+                alt="img"
+                src="../../../assets/IconsSVG/search.svg"
+                alt="search"
+              />
+              <mat-form-field appearance="none">
+                <input
+                  (keyup)="setSearchBox($event)"
+                  style="margin-top: 6px;"
+                  matInput
+                  placeholder="Search Menu…"
+                />
+              </mat-form-field>
+            </div>
+            <div
+              class="w-25 h-75 align-center"
+              (click)="closeSearching()"
+              style="
+                text-align: center;
+                display: flex;
+                justify-content: center;
+                border-left: 1px solid black;
+              "
+            >
+              <img
+                alt="img"
+                class="align-content-end"
+                src="../../../assets/IconsSVG/close.svg"
+                alt="close"
+              />
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <div
+        class="mt-2"
+        style="
+          position: -webkit-sticky;
+          position: sticky;
+          top: 40px;
+          z-index: 1030;
+        "
+        *ngIf="textSearch === ''"
+      >
+        <div class="d-lg-inline d-none">
+          <div
+            class="sticky-top"
+            style="
+              top: 65px;
+              height: 0px;
+              margin-right: 3%;
+              width: 100%;
+              display: flex;
+              justify-content: flex-end;
+            "
+          >
+            <mat-card id="summary" class="your-order-container">
+              <div
+                class="your-order-text"
+                style="margin: 11px; padding-bottom: 8px;"
+              >
+                ORDER #{{ orderRefunded.order.orderNumber }}-B
+              </div>
+              <div class="px-2 list-product-container">
+                <div *ngFor="let product of orderRefunded.removedProducts">
+                  <mat-card
+                    class="product-container mt-2"
+                    style="box-shadow: none; border-radius: 0px;"
+                  >
+                    <div class="d-flex justify-content-between">
+                      <div class="quantity tachado">
+                        {{ product.productQuantity }}
+                      </div>
+                      <div
+                        class="w-100 d-flex justify-content-between px-3"
+                        style="padding-right: 0 !important;"
+                      >
+                        <span class="product-name tachado">{{
+                          product.productName
+                        }}</span>
+                        <span class="product-name tachado"
+                          >${{ product.productTotal.toFixed(2) }}</span
+                        >
+                      </div>
+                      <button
+                        style="
+                          display: flex;
+                          padding-left: 8px;
+                          margin-right: -5px;
+                        "
+                      >
+                        <span style="display: flex;"></span>
+                      </button>
+                    </div>
+                    <div
+                      *ngFor="let modifier of product.productModifiers"
+                      class="px-4 d-flex justify-content-between"
+                    >
+                      <div class="tachado">{{ modifier.modifierName }}</div>
+                      <div class="tachado">
+                        ${{ modifier.modifierPrice.toFixed(2) }}
+                      </div>
+                    </div>
+                  </mat-card>
+                </div>
+
+                <div class="note my-3">
+                  <span class="noteText"
+                    >Updated order will be resubmitted to the restaurant.</span
+                  >
+                </div>
+
+                <div *ngFor="let product of cart">
+                  <mat-card
+                    class="product-container mt-2"
+                    style="box-shadow: none; border-radius: 0px;"
+                  >
+                    <div class="d-flex justify-content-between">
+                      <div class="quantity">
+                        {{ product.quantity }}
+                      </div>
+                      <div
+                        class="w-100 d-flex justify-content-between px-3"
+                        style="padding-right: 0 !important;"
+                      >
+                        <span class="product-name">{{
+                          product.productName
+                        }}</span>
+                        <span class="product-name"
+                          >${{
+                            (product.totalAmount * product.quantity).toFixed(2)
+                          }}</span
+                        >
+                      </div>
+                      <button
+                        (click)="removeProduct(product)"
+                        style="
+                          display: flex;
+                          padding-left: 8px;
+                          margin-right: -5px;
+                        "
+                      >
+                        <span style="display: flex;"
+                          ><img
+                            alt=""
+                            src="../../../assets/IconsSVG/product-Delete.svg"
+                            alt=""
+                        /></span>
+                      </button>
+                    </div>
+                    <div
+                      *ngFor="let modifier of product.modifiers"
+                      class="px-4 d-flex justify-content-between"
+                    >
+                      <div>{{ modifier.modifierName }}</div>
+                      <div>
+                        ${{
+                          modifier.modifierOptions[0].modifierOptionsValue.toFixed(
+                            2
+                          )
+                        }}
+                      </div>
+                    </div>
+                    <div
+                      (click)="editProduct(product)"
+                      class="px-4 edit mt-2"
+                      style="cursor: pointer;"
+                    >
+                      EDIT
+                    </div>
+                  </mat-card>
+                </div>
+              </div>
+              <div
+                (click)="checkout()"
+                class="checkout-buttom"
+                style="padding-right: 3px; padding-left: 3px;"
+              >
+                <button
+                  class="your-order-checkout px-2"
+                  style="margin-bottom: 16px;"
+                >
+                  <div class="d-flex" style="padding-left: 16px;">
+                    <img
+                      alt=""
+                      src="../../../assets/IconsSVG/cartCheckout.svg"
+                    />
+                    <span class="number ml-1">{{ cart.length }}</span>
+                  </div>
+                  <div class="your-order-checkout-text">
+                    CHECKOUT
+                  </div>
+                  <div class="price" style="padding-right: 16px;">
+                    ${{ refundCartDifference().toFixed(2) }}
+                  </div>
+                </button>
+              </div>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div
+          class="col-lg-8 padding-responsive"
+          style="vertical-align: middle; width: 100%;"
+        >
+          <div
+            [ngStyle]="{
+              'background-image':
+                'url(' + storeInformation.storeFrontRestaurantHeroPhoto + ')'
+            }"
+            style="
+              width: 100%;
+              height: 50vh;
+              padding-left: 3vw;
+              background-size: cover;
+              display: flex;
+              align-items: center;
+              position: relative;
+            "
+            id="fon1"
+          >
+            <div
+              class="d-sm-flex d-xl-flex d-lg-flex"
+              style="position: relative;"
+            >
+              <div style="flex-direction: column;">
+                <div class="pt-sm-0">
+                  <img
+                    alt="img"
+                    [src]="storeInformation.storeFrontLogo"
+                    width="100"
+                    height="100"
+                    class="img-box"
+                  />
+                </div>
+                <div class="pt-sm-0"></div>
+                <div class="title title-h">
+                  {{ storeInformation.storeFrontName }}
+                </div>
+                <div class="subtitle subtitle-h" id="popular">
+                  {{ storeInformation.storeFrontAddress1 }}
+                  {{ storeInformation.storeFrontAddress2 }}
+                  ,
+                  {{ storeInformation.storeFrontState }}
+                  {{ storeInformation.storeFrontZipcode }}
+                </div>
+                <!--                <div class="subtitle subtitle-h"><img alt="img" src="assets/time.png" alt=""-->
+                <!--                                                      style="margin-right: 5px"> {{restaurantHours[1] + " - " + restaurantHours [2] }}-->
+                <!--                </div>-->
+              </div>
+            </div>
+            <div style="position: absolute; right: 16px; bottom: 16px;">
+              <div class="d-flex align-items-end">
+                <div class="d-flex justify-content-center content-icon d-star">
+                  <img
+                    alt="image"
+                    (click)="
+                      isFav(storeInformation) === undefined
+                        ? addFavorites(storeInformation)
+                        : deleteFavorites(storeInformation)
+                    "
+                    height="24"
+                    width="24"
+                    [src]="
+                      isFav(storeInformation) === undefined
+                        ? 'assets/IconsSVG/favorites/nofavorite.svg'
+                        : 'assets/IconsSVG/favorites/favorite.svg'
+                    "
+                  />
+                </div>
+              </div>
+            </div>
+            <div #popular></div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="popular-search d-lg-none"
+        style="
+          position: -webkit-sticky !important;
+          position: sticky !important;
+          top: 39px;
+          z-index: 1030;
+          background-color: white;
+        "
+      >
+        <div
+          class="popular-search-text"
+          id="tabs-1"
+          style="padding-top: 6px; display: flex;"
+        >
+          <!-- <div
+            (click)="scrollToPopular(popular)"
+            [className]="
+              categorySelected !== 'popular'
+                ? 'category'
+                : 'category category-selected'
+            "
+            style="text-transform: uppercase;"
+            *ngIf="popularProducts.length"
+          >
+            Popular
+          </div> -->
+          <div
+            *ngFor="let category of categories; let id = index"
+            (click)="scrollTo(category.categoryName, id)"
+            [className]="
+              categorySelected !== category.categoryName
+                ? 'category'
+                : 'category category-selected'
+            "
+            class="category"
+            style="text-transform: uppercase;"
+          >
+            {{ category.categoryName }}
+          </div>
+        </div>
+      </div>
+
+      <div class="h-100" id="itemsWrapper" style="background-color: white;">
+        <div>
+          <div class="tab-content footer-offset--padding">
+            <div
+              class="tab-pane active header-search-offset"
+              id="menu"
+              role="tabpanel"
+            >
+              <div *ngIf="textSearch !== ''">
+                <search-productsV2
+                  [searchProducts]="searchProduct"
+                ></search-productsV2>
+              </div>
+
+              <div class="row">
+                <div
+                  class="col-lg-8"
+                  id="categoriesBox"
+                  *ngIf="textSearch === ''"
+                  style="padding-top: 4px !important;"
+                >
+                  <!-- <top-productsV2
+                    id="pop-box"
+                    [topProducts]="popularProducts"
+                    [fromRefundComponent]="true"
+                  >
+                  </top-productsV2> -->
+                  <app-categoriesV2
+                    [categories]="categories"
+                    [fromRefundComponent]="true"
+                  ></app-categoriesV2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>
+
+<div
+  class="d-lg-none mb-1"
+  *ngIf="loading === false"
+  style="
+    position: fixed !important;
+    bottom: 2px !important;
+    z-index: 1030;
+    width: 100%;
+    height: 60px;
+  "
+>
+  <checkout-mobile [isRefund]="true"></checkout-mobile>
+</div>
+
+<div class="desktopFooter">
+  <app-footer *ngIf="!loading" appConditionalFooter></app-footer>
+</div>

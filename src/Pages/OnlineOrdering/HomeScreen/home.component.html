@@ -1,0 +1,122 @@
+<div class="space mb-4 heightsHome" style="min-height: 90vh;">
+  <mat-drawer-container class="h-100 example-container" style=" background-color: #FFFFFF;">
+    <mat-drawer-content>
+      <div style="min-height: 100%; background-color: #FFFFFF;">
+        <nav class="p-0 navbar navbar-top fixed-top topbar" style="max-width: 1140px;margin: auto">
+          <div class="w-100 ofm-m-8 ofm-ml-16 ofm-mr-16  d-flex justify-content-between ">
+            <div class="d-flex">
+              <div class="d-flex flex-column">
+                <Logo-NavBar></Logo-NavBar>
+              </div>
+            </div>
+            <div class="d-flex">
+              <div (click)="redirectLogin()" class="d-flex btn-login" style="margin-right: 16px">
+                LOGIN
+              </div>
+              <div (click)="redirectLogin()" class="btn-signup">
+                SIGN UP
+              </div>
+            </div>
+          </div>
+        </nav>
+        <div class="header-offset" style="display: flex;">
+          <div class="img-section" style="justify-content: flex-end">
+            <div style="padding-right: 90px">
+              <img alt="" src="../../assets/pexels-daria-shevtsova-1528013.jpg" style="width: 475px;height: 634px"
+                   alt="Photo by Daria Shevtsova from Pexels">
+            </div>
+          </div>
+          <div style="padding: 20px;align-items: center" class="d-flex full-screen">
+            <div style="width: 100%" class="d-flex flex-column">
+              <img class="d-lg-none d-sm-block" src="../../assets/ImageMobile.jpg" style="width: 100%;height: 200px;object-fit: cover;"
+                   alt="Photo by Daria Shevtsova from Pexels">
+              <div class="title-txt">Delivery. Takeout. Curbside</div>
+              <div class="desc mt-2">
+                Order from your favorite nearby restaurant. Your personal food heaven is just a couple of clicks away!
+              </div>
+              <div class="mt-3">
+                <div style="display: flex;margin-top: 25px;width: 100%" class="justify-content-center">
+                  <div class="order-type-group">
+                    <div
+                      *ngIf="orderTypeDelivery !== 'false'" 
+                      (click)="orderTypeDelivery !== 'false' ? orderTypeSelected(1) : null"
+                      [ngClass]="{
+                        'active-border': currentOrderType === 1, 
+                        'buttonDisabled': orderTypeDelivery === 'false',
+                        'order-type': orderTypeDelivery !== 'false'
+                      }"
+                    >
+                      <div  
+                        class="order-Type-text"
+                        [ngClass]="{'active': currentOrderType === 1}"    
+                      >
+                        <app-inactive-delivery *ngIf="currentOrderType !== 1"></app-inactive-delivery>
+                        <app-active-delivery *ngIf="currentOrderType === 1"></app-active-delivery>
+                        DELIVERY
+                      </div>
+                    </div>
+                    <div 
+                      *ngIf="orderTypePickup !== 'false'"
+                      (click)="orderTypePickup !== 'false' ? orderTypeSelected(2) : null"
+                      [ngClass]="{
+                        'active-border': currentOrderType === 2,
+                        'buttonDisabled': orderTypePickup === 'false',
+                        'order-type': orderTypePickup !== 'false'
+                      }"
+                    >
+                      <div      
+                        class="order-Type-text"
+                        [ngClass]="{'active': currentOrderType === 2}"    
+                      >
+                        <app-inactive-pickup *ngIf="currentOrderType !==2"></app-inactive-pickup>
+                        <app-active-pickup *ngIf="currentOrderType === 2"></app-active-pickup>
+                        PICK UP
+                      </div>
+                    </div>
+                    <div 
+                      *ngIf="orderTypeCurbside !== 'false'"
+                      (click)="orderTypeCurbside !== 'false' ? orderTypeSelected(3) : null"
+                      [ngClass]="{
+                        'active-border': currentOrderType === 2,
+                        'buttonDisabled': orderTypeCurbside === 'false',
+                        'order-type': orderTypeCurbside !== 'false'
+                      }"
+                    >
+                      <div                         
+                        class="order-Type-text"
+                        [ngClass]="{'active': currentOrderType === 3}"  
+                      >
+                        <app-inactive-curbside *ngIf="currentOrderType !== 3"></app-inactive-curbside>
+                        <app-active-curbside *ngIf="currentOrderType === 3"></app-active-curbside>
+                        CURBSIDE
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="w-100 d-flex justify-content-between mt-3">
+                </div>
+                <div 
+                  *ngIf="orderTypeDelivery !== 'false'"
+                  style="display: flex; justify-content: space-between;max-width: 516px;margin: 0 auto;">
+                  <AutocompleteComponent 
+                    (setAddress)="getAddress($event)" 
+                    adressType="geocode"
+                    style="width: 100%;"
+                  >
+                  </AutocompleteComponent>
+                  <div (click)="saveAddressDefault()" class="btn-enter">
+                    <mat-icon style="color: white"> arrow_forward</mat-icon>
+                  </div>
+                  <!-- <div (click)="configService.getCurrentLocation$.emit()" class="btn-currentLocation">
+                    <mat-icon>place</mat-icon>
+                  </div> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-drawer-content>
+  </mat-drawer-container>
+</div>
+<app-footer appConditionalFooter> 768"></app-footer>

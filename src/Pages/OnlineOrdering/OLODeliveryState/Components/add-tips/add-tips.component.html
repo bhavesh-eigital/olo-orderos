@@ -1,0 +1,57 @@
+<ng-container>
+  <button
+    mat-raised-button
+    (click)="closeModal()"
+    id="closeBtn"
+    aria-label="closeModel"
+    style="transform: translate(590px, 18px); color: #d63447"
+  >
+    <mat-icon>close</mat-icon>
+  </button>
+</ng-container>
+<div class="modal-add-tip">
+  <div class="title-header d-flex flex-column">
+    <span>ADD A TIP FOR {{data.driverName | uppercase}} </span>
+    <span>Show your support !</span>
+    <small  class="">Delivery people are critical to our communities at this time. Add a tip to say thanks.</small>
+  </div>
+
+  <div class="tip-box my-3">
+    <div (click)="selectTip(0, 10)" [ngClass]="tipSelected === 0 ?'tip-selected':'tip'" class="d-flex flex-column">
+      <div class="tips-text-number m-auto">{{10 | currency}}</div>
+    </div>
+    <div (click)="selectTip(1, 15)" [ngClass]="tipSelected === 1 ?'tip-selected':'tip'" class="d-flex flex-column">
+      <div class="tips-text-number m-auto">{{15 | currency}}</div>
+    </div>
+    <div (click)="selectTip(2, 20)" [ngClass]="tipSelected === 2 ?'tip-selected':'tip'" class="d-flex flex-column">
+      <div class="tips-text-number m-auto">{{20 | currency}}</div>
+    </div>
+    <div (click)="selectTip(3, 25)" [ngClass]="tipSelected === 3 ?'tip-selected':'tip'" class="d-flex flex-column">
+      <div class="tips-text-number m-auto">{{25 | currency}}</div>
+    </div>
+    <div (click)="selectTip(4)" [ngClass]="tipSelected === 4 ?'tip-selected':'tip'" class="d-flex flex-column">
+      <div class="tips-text-box">CUSTOM</div>
+      <div class="tips-text-number d-flex justify-center w-100"
+           style="align-items: center;justify-content: center;margin-left: 7px;"
+      >
+        $
+        <input
+          #customTip
+          maxlength="3"
+          max="3"
+          placeholder="0.00"
+          onpaste="return false;"
+          oninput="this.value = parseFloat(this.value)"
+          style="width: 50px;border: none"
+          type="number"
+          (keypress)="getCustomTip($event) "
+        >
+      </div>
+    </div>
+  </div>
+
+  <div class="btn-accept">
+    <button
+      (click)="confirmTip(customTip)">Confirm</button>
+  </div>
+</div>

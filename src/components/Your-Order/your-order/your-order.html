@@ -1,0 +1,76 @@
+<!-- -------------------------- DARK LAYER  ----------------------------->
+<div class="sidebar__layer" #sidebarLayer (click)="closeSidebar()">
+</div>
+
+<!-- --------------------------- SIDEBAR  ------------------------------->
+<div class="sidebar" #sidebar>
+  <div class="sidebar__header">
+    <h1>{{storeInformation.storeFrontName}}</h1>
+    <button mat-button (click)="closeSidebar()" class="cartCloseBtn" aria-label="CloseCart">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <main>
+    <ng-container *ngIf="cart.length">
+      <your-product *ngFor="let product of orderByDate(cart)" [product]="product"></your-product>
+
+      <hr>
+
+      <!-- <div class="materialInputWrapper" [class.borderColorOnError]="promoCode.touched && !promoCode.valid">
+        <label>ENTER PROMO CODE</label>
+        <input class="materialInput" type="text" name="promo" ngModel #promoCode="ngModel">
+      </div> -->
+
+      <!-- <hr> -->
+
+      <div class="total">
+        <div>
+          <span>Sub Total</span>
+          <span>{{ this.getSubtotalAmount() | currency}}</span>
+        </div>
+        <div>
+          <span>Tax</span>
+          <span>{{getTaxAmount() | currency}}</span>
+        </div>
+
+        <div>
+          <span>Total Amount</span>
+          <span>{{getTotalAmount() | currency}}</span>
+        </div>
+      </div>
+
+      <button 
+        id="submitBtn" 
+        class="cartSubmitButton" 
+        [disabled]="!cart.length" 
+        (click)="checkout()" 
+        mat-stroked-button color="accent"
+        aria-label="Checkout"
+      >
+        <div 
+          class="submitBtnContent"
+          [matTooltip]="'To enter to the checkout please login'"
+          [matTooltipDisabled]="customer.length !==  0"
+        >
+          <div>
+            <mat-icon>shopping_cart</mat-icon>
+            {{getTotalItemsQuantity()}}
+          </div>
+          <span>
+            CHECKOUT
+          </span>
+          <span>{{getTotalAmount() | currency}}</span>
+        </div>
+      </button>
+
+    </ng-container>
+
+    <div *ngIf="!cart.length" class="emptyState">
+      <img src="assets/empty-states/love-burger.svg" alt="emptyState" width="249px" height="223px">
+      <p>You have no items in cart</p>
+      <p>Your first order is just a couple of clicks away!</p>
+      <button mat-stroked-button (click)="handleEmptyStateButtonClick()" aria-label="orderProduct">ORDER NOW</button>
+    </div>
+  </main>
+</div>

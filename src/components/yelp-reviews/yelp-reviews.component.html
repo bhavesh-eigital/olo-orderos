@@ -1,0 +1,90 @@
+<div class="yelp__container" #container>
+  <div class="yelp__header">
+    <h3>Reviews</h3>
+    <mat-icon (click)="close()">close</mat-icon>
+  </div>
+
+    <div class="yelp__item" *ngFor="let item of data?.reviews">
+        <img 
+          *ngIf="item?.user?.image_url" 
+          [src]="item.user.image_url" 
+          alt="userImage"
+          (click)="goToUserProfile(item)"
+        >
+        <img 
+          *ngIf="!item?.user?.image_url" 
+          src="assets/no-image.png" 
+          alt="userImage"
+          (click)="goToUserProfile(item)"
+        >
+        <div>
+            <h3 (click)="goToUserProfile(item)">{{item.user.name}}</h3>
+
+            <div class="converPage__yelp">
+                <div
+                    [ngClass]="{
+                      'filled': item.rating >= 1,
+                      'empty': item.rating === 0,
+                      'middle': item.rating > 0 && item.rating < 1
+                    }"
+                >
+                  <img src="assets/star.svg" alt="rate" width="12px">
+                </div>
+        
+                <div
+                  [ngClass]="{
+                    'filled': item.rating >= 2,
+                    'empty': item.rating <= 1,
+                    'middle': item.rating > 1 && item.rating < 2
+                  }"
+                >
+                  <img src="assets/star.svg" alt="rate" width="12px">
+                </div>
+        
+                <div
+                  [ngClass]="{
+                    'filled': item.rating >= 3,
+                    'empty': item.rating <= 2,
+                    'middle': item.rating > 2 && item.rating < 3
+                  }"
+                >
+                  <img src="assets/star.svg" alt="rate" width="12px">
+                </div>
+        
+                <div
+                  [ngClass]="{
+                    'filled': item.rating >= 4,
+                    'empty': item.rating <= 3,
+                    'middle': item.rating > 3 && item.rating < 4
+                  }"
+                >
+                  <img src="assets/star.svg" alt="rate" width="12px">
+                </div>
+        
+                <div
+                  [ngClass]="{
+                    'filled': item.rating >= 5,
+                    'empty': item.rating <= 4,
+                    'middle': item.rating > 4 && item.rating < 5
+                  }"
+                >
+                  <img src="assets/star.svg" alt="rate" width="12px">
+                </div>
+        
+                <span>{{parseDate(item)}}</span>
+              </div>
+
+            <p>
+                {{item.text}}
+
+                <span *ngIf="item.text.indexOf('...') > 0" (click)="redirectToCommentPage(item)">
+                  read more
+                </span>
+            </p>
+        </div>
+    </div>
+
+    <div *ngIf="data.totalReviews > 3" class="seeMore" (click)="goToYelp()">
+      See More
+    </div>
+</div>

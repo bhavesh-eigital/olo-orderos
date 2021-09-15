@@ -1,0 +1,89 @@
+<nav class="header" #header>
+    <div>
+        <Logo-NavBar></Logo-NavBar>
+        <app-order-type-slider
+            *ngIf="showSlider"
+            #slider
+            [(currentOrderType)]="currentOrderType"
+            (currentOrderTypeChange)="orderTypeSelected($event)"
+        >
+        </app-order-type-slider>
+    </div>
+
+  <ng-container *ngIf="deliveryIsDisabled">
+    <Current-Location
+      (customerDefaultAddressEmit)="getNewAddressDefault($event)"
+      *ngIf="closeSearch === false && !hiddeLocation"
+      class="ml-3"
+      style="z-index: 9999"
+    >
+    </Current-Location>
+  </ng-container>
+
+    <div>
+        <div (click)="openSearcher()" *ngIf="showSearcher">
+            <!-- <mat-icon>search</mat-icon> -->
+            <app-search-icon [size]="'small'"></app-search-icon>
+            <input
+                type="text"
+                [placeholder]="placeholder"
+                (blur)="closeSearcher()"
+                #searchInput
+                (keyup.esc)="closeSearcher()"
+            >
+        </div>
+
+        <div *ngIf="showSearcher"></div>
+
+        <account></account>
+    </div>
+</nav>
+
+<div class="mobileHeader" #mobileHeader>
+    <div *ngIf="!openSearch" class="mobileHeader__navWrapper">
+        <Logo-NavBar></Logo-NavBar>
+        <div class="mobileHeader__main">
+            <app-search-icon (click)="openSmallSearcher()" ></app-search-icon>
+            <!-- <mat-icon (click)="openSmallSearcher()">search</mat-icon> -->
+
+            <div class="mobileHeader__divider"></div>
+
+            <account (openSidebar)="openSidebar.emit()"></account>
+        </div>
+    </div>
+
+
+    <div class="smallSearcher" *ngIf="openSearch">
+        <!-- <mat-icon>search</mat-icon> -->
+        <app-search-icon style="margin-right: 16px;" (click)="openSmallSearcher()" ></app-search-icon>
+        <input
+            #smallSearchInput
+            (keyup.esc)="closeSmallSearcher()"
+            placeholder="Search Restaurant Menu..."
+        >
+        <!-- <mat-icon (click)="closeSmallSearcher()">close</mat-icon> -->
+        <app-close-icon (click)="closeSmallSearcher()"></app-close-icon>
+    </div>
+    <div class="mobileHeader__slider" #mobileSlider>
+        <app-order-type-slider
+            #slider2
+            [(currentOrderType)]="currentOrderType"
+            (currentOrderTypeChange)="orderTypeSelected($event)"
+            [largeSize]="true"
+            style="width: 100%;"
+        >
+        </app-order-type-slider>
+    </div>
+</div>
+
+
+<ng-container *ngIf="deliveryIsDisabled">
+  <div class="mobileHeader__location" #mobileLocation>
+    <Current-Location
+        (customerDefaultAddressEmit)="getNewAddressDefault($event)"
+        *ngIf="closeSearch === false && !hiddeLocation"
+        class="ml-3"
+    >
+    </Current-Location>
+</div>
+</ng-container>

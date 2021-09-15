@@ -1,0 +1,190 @@
+<app-header [showNumber]="false" [showEatosLogo]="true" (openSidebar)="open=true"></app-header>
+<div class="signin__buttons">
+  <button
+    mat-stroked-button
+    color="accent"
+    [ngClass]="{'activated-button': !typeOfOrder}"
+    (click)="selectOrderType(0)"
+  >
+    ORDER AT TABLE
+  </button>
+  <button
+    mat-stroked-button
+    color="accent"
+    [ngClass]="{'activated-button': typeOfOrder}"
+    (click)="selectOrderType(1)"
+  >
+    ONLINE ORDERING
+  </button>
+</div>
+<div class="signin__wrapper">
+  <div class="tabs">
+    <div>
+      <div (click)="switchTab(0)">
+        <span [ngClass]="{'selected': currentTab === 0}">LOG IN</span>
+      </div>
+      <div (click)="switchTab(1)">
+        <span [ngClass]="{'selected': currentTab === 1}">SIGN UP</span>
+      </div>
+    </div>
+    <div class="bottom_indicator" #indicator></div>
+  </div>
+  <form class="signin__form" #loginForm="ngForm" (ngSubmit)="login()" *ngIf="showLoginForm">
+    <div class="materialInputWrapper" [class.borderColorOnError]="(userEmail.touched && userEmail.hasError('required')) || userEmail.hasError('pattern')">
+      <label>EMAIL</label>
+      <input
+        class="materialInput"
+        type="email"
+        matInput
+        required
+        name="email"
+        [(ngModel)]="email"
+        #userEmail="ngModel"
+        pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+      >
+    </div>
+    <mat-error *ngIf="userEmail.touched && userEmail.hasError('required')">Email is require󠁧d</mat-error>
+    <mat-error *ngIf="userEmail.hasError('pattern')">Email must be a valid email</mat-error>
+
+    <div class="materialInputWrapper" [class.borderColorOnError]="userPassword.touched && userPassword.hasError('required')">
+      <label>PASSWORD</label>
+      <input
+        class="materialInput"
+        [type]="passwordShown ? 'text' : 'password'"
+        matInput
+        required
+        name="password"
+        [(ngModel)]="password"
+        #userPassword="ngModel"
+      >
+      <mat-icon id="visibilityIcon" matSuffix (click)="passwordShown=!passwordShown">{{passwordShown ? 'visibility' : 'visibility_off'}}</mat-icon>
+    </div>
+    <mat-error *ngIf="userPassword.touched && userPassword.hasError('required')">Password is require󠁧d</mat-error>
+
+    <span id="forgotPassword">Forgot Password</span>
+
+    <button mat-stroked-button color="accent" [disabled]="!loginForm.valid">LOG IN</button>
+
+  </form>
+
+  <form class="signup__form" #signupForm="ngForm" (ngSubmit)="register()" *ngIf="showSignupForm">
+
+    <div class="materialInputWrapper" [class.borderColorOnError]="firstname.touched && firstname.hasError('required')">
+      <label>FIRST NAME</label>
+      <input
+        class="materialInput"
+        type="text"
+        matInput
+        required
+        name="firstname"
+        [(ngModel)]="newCustomer.customerFirstName"
+        #firstname="ngModel"
+      >
+    </div>
+    <mat-error *ngIf="firstname.touched && firstname.hasError('required')">Firstname is required</mat-error>
+
+    <div class="materialInputWrapper" [class.borderColorOnError]="lastname.touched && lastname.hasError('required')">
+      <label>LAST NAME</label>
+      <input
+        class="materialInput"
+        type="text"
+        matInput
+        required
+        name="lastname"
+        [(ngModel)]="newCustomer.customerLastName"
+        #lastname="ngModel"
+      >
+    </div>
+    <mat-error *ngIf="lastname.touched && lastname.hasError('required')">Lastname is required</mat-error>
+
+   <div class="row-form">
+    <div appearance="fill" color="accent" style="width: 100%">
+      <ngx-intl-tel-input
+        name="phone"
+        [inputId]="'adsasd'"
+        [cssClass]="'flag-code'"
+        [(ngModel)]="newCustomer.customerMobile"
+        [preferredCountries]="preferredCountries"
+        [enableAutoCountrySelect]="true"
+        [searchCountryFlag]="true"
+        [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+        [selectFirstCountry]="true"
+        [selectedCountryISO]="CountryISO.UnitedStates"
+        [maxLength]="10"
+        [tooltipField]="TooltipLabel.Name"
+        [phoneValidation]="true"
+        [separateDialCode]="separateDialCode"
+        [style]=""
+        placeholder="Phone Number"
+        matInput
+    ></ngx-intl-tel-input>
+      <!-- <mat-error *ngIf="phone.hasError('required')">Phone is required</mat-error> -->
+    </div>
+
+  </div>
+
+    <div class="materialInputWrapper" [class.borderColorOnError]="zipCode.touched && zipCode.hasError('required')">
+      <label>ZIP CODE</label>
+      <input
+        class="materialInput"
+        id="zipCode"
+        name="zipCode"
+        [(ngModel)]="newCustomer.customerZip"
+        type="number"
+        #zipCode="ngModel"
+        required
+      >
+    </div>
+    <mat-error *ngIf="zipCode.touched && zipCode.hasError('required')">Zip Code is required</mat-error>
+
+    <div class="materialInputWrapper" [class.borderColorOnError]="(email.touched && email.hasError('required')) || email.hasError('pattern')">
+      <label>EMAIL</label>
+      <input
+        class="materialInput"
+        type="email"
+        matInput
+        required
+        name="email"
+        [(ngModel)]="newCustomer.customerEmail"
+        #email="ngModel"
+        pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+      >
+    </div>
+    <mat-error *ngIf="email.hasError('required')">Email is require󠁧d</mat-error>
+    <mat-error *ngIf="email.hasError('pattern')">Email must be a valid email</mat-error>
+
+    <div class="materialInputWrapper" [class.borderColorOnError]="(currentPasswordFormControl.touched && currentPasswordFormControl.hasError('required')) || !currentPasswordFormControl.hasError('required')">
+      <label>PASSWORD</label>
+      <input
+        class="materialInput"
+        [type]="passwordShown ? 'text' : 'password'"
+        required
+        name="password"
+        [(ngModel)]="newCustomer.customerPassword"
+        [formControl]="currentPasswordFormControl"
+      >
+      <mat-icon id="visibilityIcon" matSuffix (click)="passwordShown=!passwordShown">{{passwordShown ? 'visibility' : 'visibility_off'}}</mat-icon>
+    </div>
+    <mat-error *ngIf="!currentPasswordFormControl.hasError('required')">
+      Password must contain: numbers, lowercase letters, uppercase letters, or special characters
+    </mat-error>
+
+
+    <span>Forgot Password</span>
+
+    <button mat-stroked-button color="accent">SIGN UP</button>
+  </form>
+
+  <p class="signin__orDivider">OR</p>
+
+  <div class="signin__loginButtons">
+    <button mat-stroked-button id="guest-btn" [routerLink]="['/dinein']">
+      CONTINUE AS A GUEST
+    </button>
+  </div>
+
+
+  <div id="signupLink">Don't have an account? <span>{{showLoginForm ? 'Sign Up' : 'Sign In'}}</span></div>
+</div>
+
+<app-sidebar [(open)]="open"></app-sidebar>

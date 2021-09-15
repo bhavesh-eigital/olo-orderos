@@ -1,0 +1,53 @@
+<div class="profile2 h-100 pt-5" style="height: 100vh">
+  <div style="width: 230px;height: auto" class="mx-4">
+    <p class="customer text-capitalize">
+      {{customerInformation.customerFirstName + ' ' + customerInformation.customerLastName}}
+    </p>
+    <p *ngIf="tableNumber !== false" class="table-number">Table No. {{tableNumber}}</p>
+    <div class="rectangle"></div>
+  </div>
+
+  <div class="mx-4 my-3" style="cursor: pointer" (click)="redirectHome()">
+    <div style="width: 230px;height: 66px;display: flex;align-items: center">
+      <div style="height: 100%;display: flex;justify-content: center;align-items: center">
+        <img alt="" src="assets/IconsSVG/drop/home.svg"><span class="menu-option">Home</span>
+      </div>
+    </div>
+    <div class="rectangle-menu"></div>
+  </div>
+
+  <div class="mx-4 my-3" style="cursor: pointer" (click)="redirectOrders()">
+    <div style="width: 230px;height: 66px;display: flex;align-items: center">
+      <div style="height: 100%;display: flex;justify-content: center;align-items: center">
+        <img alt="" src="assets/IconsSVG/drop/orders.svg"><span class="menu-option">Orders</span>
+      </div>
+    </div>
+    <div class="rectangle-menu"></div>
+  </div>
+
+  <div class="mx-4 my-3" style="cursor: pointer" (click)="redirectFavorites()">
+    <div style="width: 230px;height: 66px;display: flex;align-items: center">
+      <div style="height: 100%;display: flex;justify-content: center;align-items: center">
+        <img alt="" src="assets/IconsSVG/drop/favorites.svg"><span class="menu-option">Favorites</span>
+      </div>
+    </div>
+    <div class="rectangle-menu"></div>
+  </div>
+
+  <div class="mx-4 my-3" style="cursor: pointer" (click)="redirectAccount()">
+    <div style="width: 230px;height: 66px;display: flex;align-items: center">
+      <div style="height: 100%;display: flex;justify-content: center;align-items: center">
+        <img alt="" src="assets/IconsSVG/drop/account.svg"><span class="menu-option">Account</span>
+      </div>
+    </div>
+    <div class="rectangle-menu"></div>
+  </div>
+
+  <div class="mx-4 my-3" style="cursor: pointer" (click)="redirectLogin()">
+    <div style="width: 230px;height: 48px;display: flex;align-items: center">
+      <div style="height: 100%;display: flex;justify-content: center;align-items: center">
+        <img alt="" src="assets/IconsSVG/drop/signOut.svg"><span class="menu-option">{{loginStatus}}</span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+<!-- [width]="getNavBarLogo().includes('assets/orderosLogo.png') ? width : height"  -->
+<ng-container *ngIf="storeInformation?.storeFrontNavbarLogo">
+    <img 
+        width="auto"
+        [height]="height" 
+        [alt]="getAltName()" 
+        [src]="getNavBarLogo()"
+        style="object-fit: contain;"
+    >
+</ng-container>
+
+<ng-container *ngIf="!storeInformation?.storeFrontNavbarLogo">
+    <div [ngStyle]="{
+        'height': height+'px',
+        'width': '75px'
+    }"
+>
+</div>
+</ng-container>

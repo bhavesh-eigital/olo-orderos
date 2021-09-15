@@ -1,0 +1,155 @@
+section > h1 {
+  padding: 0px 20px;
+  text-transform: uppercase;
+
+  font-family: Montserrat;
+  font-size: 24px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #212121;
+
+  margin: 0;
+}
+
+#section2 {
+  margin-top: 16px;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+
+  min-height: 123px;
+  margin: 8px 20px;
+  padding: 16px;
+  border: solid 0.8px #e0e0e0;
+  background-color: #ffffff;
+
+  cursor: pointer;
+
+  position: relative;
+}
+
+.item:hover {
+  background-color: #f7f7f8;
+  border-color: #bebec6;
+  transition: all 0.3s;
+}
+
+.item > div:first-child {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.item > div:first-child > div > p:first-child {
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #212121;
+
+  margin: 0 0 4px;
+}
+
+.item > div:first-child > div > p:nth-child(2) {
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #757575;
+}
+
+.item > div:first-child {
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #212121;
+}
+
+#itemImage {
+  max-width: 128px;
+  min-width: 128px;
+  width: 128px;
+  height: 128px;
+  min-height: 128px;
+  max-height: 128px;
+  margin: 0 0 0 16px;
+  align-self: center;
+
+  @media screen and (max-width: 365px) {
+    object-fit: cover;
+    margin-top: 16px;
+    margin-left: 0;
+    width: 40%;
+    max-width: 40%;
+    min-width: 40%;
+    height: 40%;
+    min-height: 40%;
+    max-height: 40%;
+  }
+}
+
+#like-icon {
+  position: absolute;
+  right: 0;
+  top: 0px;
+  width: 40px;
+  height: 40px;
+}
+
+button {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+
+  background-color: white;
+
+  z-index: 2;
+
+  min-width: 30px !important;
+  height: 30px;
+  padding: 0;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transition: all 0.25s;
+
+  &:hover {
+    transform: scale(1.1);
+    transition: all 0.5s;
+  }
+
+  &:active {
+    animation: heartbeat 1s;
+  }
+}
+
+button .mat-icon {
+  font-size: 20px;
+  height: 20px;
+  width: 20px;
+}
+
+.unlike {
+  border: 1px solid var(--theme-global-var) !important;
+}
+
+.unlike .mat-icon {
+  color: var(--theme-global-var) !important;
+}

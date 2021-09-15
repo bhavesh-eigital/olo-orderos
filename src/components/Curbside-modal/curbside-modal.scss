@@ -1,0 +1,242 @@
+.product-name {
+  color: var(--theme-global-var);
+  font-family: Montserrat;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 29px;
+}
+
+.msg-description {
+  color: #000000;
+  margin-top: 8px;
+  font-family: Montserrat;
+  font-size: 15px;
+  letter-spacing: 0;
+  line-height: 19px;
+}
+
+
+.title-modifiers {
+  color: #000000;
+  font-family: Montserrat;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 22px;
+}
+
+.title-info {
+  color: #000000;
+  font-family: Montserrat;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 24px;
+  text-align: center;
+}
+
+.image {
+  margin-top: 24px;
+  width: 100%;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  align-content: center;
+}
+
+.modifiers-option {
+  box-sizing: border-box;
+  cursor: pointer;
+  height: 44px;
+  width: 100%;
+  border: 1px solid #424242;
+  border-radius: 2px;
+  background-color: #FFFFFF;
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modifier-name {
+  color: #424242;
+  font-family: Montserrat;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 22px;
+  text-align: left;
+  padding-left: 16px;
+}
+
+.modifier-price {
+  color: #424242;
+  font-family: Montserrat;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 22px;
+  text-align: right;
+  padding-right: 16px;
+}
+
+.button-card {
+  height: 51px;
+  cursor: pointer;
+  width: 100%;
+  border-radius: 2px;
+  background-color: var(--theme-global-var)E91E63;
+  display: flex;
+  color: #FFFFFF;
+  font-size: 15px;
+  align-items: center;
+  padding-left: 16px;
+  padding-right: 16px;
+  font-weight: 600;
+  justify-content: center;
+  margin: auto;
+}
+
+.button-text {
+  color: #FFFFFF;
+  font-family: Montserrat;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 22px;
+}
+
+.quantity {
+  box-sizing: border-box;
+  background-color: #E0E0E0;
+  height: 44px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+}
+
+.quantity-number {
+  color: #000000;
+  font-family: Montserrat;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 29px;
+  text-align: center;
+}
+
+.cdk-overlay-pane {
+  max-width: 100vw !important;
+}
+
+.modal-container {
+  height: 100%;
+  background-color: white;
+  border-radius: 0px;
+  font-family: 'Montserrat', sans-serif !important;
+}
+
+.description {
+  height: 2%;
+  background-color: white;
+}
+
+.description-Information {
+  background-color: white;
+  height: 100%;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+}
+
+@media (min-width: 992px) {
+
+  .button-card {
+    width: 252px;
+    background-color: var(--theme-global-var);
+  }
+
+  .modal-container {
+    max-height: 605px;
+    min-width: 330px;
+    max-width: 350px;
+    background-color: white;
+    border-radius: 0px;
+    margin: auto;
+  }
+
+  .description {
+    height: 450px;
+    border-right: 1px solid #D8D8D8;
+  }
+
+  .description-Information {
+    background-color: white;
+    height: 471px;
+    padding-bottom: 10px;
+  }
+
+  .options-modal {
+    background-color: #FFFFFF;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+    height: 60px;
+    min-width: 90%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    box-shadow: 0 -1px 10px 0 rgba(0, 0, 0, 0.2);
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    bottom: 0;
+    z-index: 1030;
+  }
+
+  .button-text {
+    font-size: 20px;
+  }
+
+}
+
+.buttonOption {
+  display: flex;
+  height: 44px;
+  width: 55px;
+  justify-content: center;
+  align-items: center;
+  background-color: #E0E0E0;
+}
+
+.text--area {
+  border: 1px solid rgba(0, 0, 0, 0.2) !important;
+}
+
+::ng-deep.mat-body, .mat-body-1, .mat-typography {
+  font: 400 14px/20px Monserrat, "Montserrat", sans-serif !important
+}
+
+::ng-deep.mat-form-field.mat-focused.mat-form-field-appearance-outline .mat-form-field-outline {
+  color: white;
+  border-radius: 0 !important;
+}
+
+::ng-deep.mat-form-field-outline-gap {
+  color: white;
+}
+
+::ng-deep.mat-form-field-appearance-outline .mat-form-field-outline {
+  color: white;
+}
+
+::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+  border: none !important;
+}
+
+::ng-deep.mat-form-field-appearance-outline .mat-form-field-infix {
+  padding: 0em 0 0em 0 !important;
+}
+::ng-deep.mat-form-field-appearance-outline .mat-form-field-flex {
+  padding: 0 !important;
+  margin-top: 0 !important;
+}

@@ -1,0 +1,52 @@
+.toggleHeader {
+    margin-top: 24px;
+    background-color: #fafafa;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 13px 8px;
+
+    width: 100%;
+}
+
+.toggleHeader > button {
+    width: 101px;
+    height: 28px;
+    border-radius: 14px;
+    box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 6px 10px 0 rgba(0, 0, 0, 0.14);
+    border: solid 1px #212121;
+    background-color: #ffffff;
+
+    font-family: Montserrat;
+    font-size: 15px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #212121;
+}
+
+.toggleHeader > span {
+    font-family: Montserrat;
+    font-size: 15px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: right;
+    color: #212121;
+}
+
+.hidden {
+    display: none;
+    transition: all 0.4s;
+}
+
+.show {
+    display: block;
+    transition: all 0.4;
+}

@@ -1,0 +1,130 @@
+/*---------------------------- DROPDOWN MENU ----------------------------*/
+
+.accountAvatar,
+.accountAvatarMobile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.accountAvatar {
+    @media screen and (max-width: 576px) {
+        display: none;
+    }
+}
+
+.accountAvatarMobile {
+    @media screen and (min-width: 576px) {
+        display: none;
+    }
+}
+
+.account__header {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px;
+
+    font-family: Montserrat;
+    font-size: 18px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #212121;
+
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.account__header > .mat-icon {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.account__items > div {
+    padding: 16px;
+    display: flex;
+    align-items: center;
+
+    width: 295px;
+    cursor: pointer;
+}
+
+.account__items > div:not(:last-child) {
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.account__items > div > .mat-icon {
+    font-size: 24px;
+    margin-right: 16px;
+}
+
+.account__items > div > div > p:first-child {
+    font-family: Montserrat;
+    font-size: 20px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #212121;
+    margin: 0;
+}
+
+.account__items > div:not(:last-child) > div > p:last-child {
+    font-family: Montserrat;
+    font-size: 12px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #757575;
+    margin: 2px 0 0;
+    max-width: 233px;
+}
+
+.rotateIcon {
+    transform: rotate(180deg);
+}
+
+/*---------------------------- SIDEBAR ----------------------------*/
+
+.sidebar__layer {
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 88888;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: none;
+}
+
+.sidebar {
+    width: 295px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+    background-color: white;
+    z-index: 9999999;
+
+    padding: 16px 0;
+
+    transition: 0.3s;
+    overflow-x: hidden;
+
+    transform: translateX(100%);
+}
+
+.open {
+    transform: translateX(0);
+    width: 295px;
+    transition: all 0.3s;
+}
+
+.layer-active {
+    display: block;
+}

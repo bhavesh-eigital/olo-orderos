@@ -1,0 +1,63 @@
+<div class="product" (click)="editProduct()">
+  <div>
+    <span>{{product.quantity}}</span>
+    <div style="position: relative;">
+      <button mat-button (click)="$event.preventDefault();$event.stopPropagation();openQtyMenu=true">
+        <mat-icon>arrow_drop_down</mat-icon>
+      </button>
+      <div class="qtyDropDownMenu" *ngIf="openQtyMenu">
+        <button mat-menu-item *ngFor="let quantity  of quantities" (click)="updateQuantity(product,quantity.number)">
+          {{quantity.number}}
+        </button>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      <span>{{product.productName}}</span>
+      <span>{{getNameIngredientsAndModifiers(product)}}</span>
+    </div>
+    <div>
+      <div *ngIf="product.notes">
+        <span>Note:</span>
+        <span style="word-break: break-all;">{{product.notes}}</span>
+      </div>
+      <span>{{currency}}{{(product.totalAmount * product.quantity).toFixed(2)}}</span>
+    </div>
+
+
+      <!-- <mat-slide-toggle (click)="$event.stopPropagation()" *ngIf="fromCheckout" [(ngModel)]="scheduleProduct">
+        Schedule Product
+      </mat-slide-toggle>
+
+      <div *ngIf="scheduleProduct" style="margin-top: 16px;" (click)="$event.stopPropagation();$event.preventDefault()">
+
+        <mat-form-field appearance="fill">
+          <mat-label>Select Day</mat-label>
+          <mat-select [(ngModel)]="prepDay" (selectionChange)="select($event.value)" name="day" (click)="$event.stopPropagation()">
+            <mat-option *ngFor="let optionsDay of optionsDays" [value]="optionsDay" (click)="$event.stopPropagation()">
+              {{optionsDay.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill" color="warn">
+          <mat-label>Select Time</mat-label>
+          <mat-select [(ngModel)]="prepTime" (selectionChange)="changePrepTime($event.value)" name="hours" (click)="$event.stopPropagation()">
+            <mat-option *ngFor="let optionsHour of optionsHours" [value]="optionsHour.value" (click)="$event.stopPropagation()">
+              {{optionsHour.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </div> -->
+
+  </div>
+
+
+
+  <mat-icon 
+    (click)="removeProduct($event, product)"
+    style="color: #d63447"
+  >
+    close</mat-icon>
+</div>

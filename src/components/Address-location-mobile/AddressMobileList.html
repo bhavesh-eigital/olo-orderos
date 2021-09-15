@@ -1,0 +1,35 @@
+<div class="addressList-container">
+  <div class="container-title">
+    <span class="title mt-3">CHANGE ADDRESS</span>
+  </div>
+  <div class="rectangle mt-2"></div>
+
+  <div style="height: 50px;width: 100%;display: flex;justify-content: center" class="mt-2">
+    <mat-form-field style="width: 330px" appearance="outline">
+      <mat-icon style="margin-top: 2px" matPrefix>room</mat-icon>
+      <input
+        #addresstext
+        type="text"
+        [(ngModel)]="address"
+        matInput placeholder="Select Location">
+    </mat-form-field>
+  </div>
+
+  <div (click)="getLocation()" class="current-location-box">
+    <span><img src="assets/IconsSVG/location.svg">Use My Current Location</span>
+  </div>
+  <mat-radio-group
+    style="padding: 18px"
+    [ngModel]="customerDefaultAddress"
+    class="example-radio-group" 
+    *ngFor="let address of customer.customerAdresses"
+    role="radio"
+  >
+    <mat-radio-button [value]="address" (click)="setDefaultAddress(address)">
+      <div class="menu-button py-2">
+        <div class="menu-address">{{address.customerAddress1}}</div>
+        <div class="menu-address-name">{{address.customerAddressName}} | {{address.customerMobile}}</div>
+      </div>
+    </mat-radio-button>
+  </mat-radio-group>
+</div>

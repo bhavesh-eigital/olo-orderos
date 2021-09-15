@@ -1,0 +1,138 @@
+<div *ngIf="loading" style="height: 100vh;">
+  <loading></loading>;
+</div>
+
+<div class="receipt" *ngIf="!loading">
+
+  <nav class="navbar navbar-top fixed-top topbar">
+    <Logo-NavBar (click)="goBack()"></Logo-NavBar>
+    <span>Receipt</span>
+  </nav>
+
+  <main>
+    <div>
+      <img src="assets/check-circle-success.svg" alt="success">
+      <h3>Payment Successful</h3>
+      <span>Thank for your visit</span>
+
+      <mat-divider class="divider"></mat-divider>
+
+
+      <div class="receipt__data">
+        <div>
+          <span>Confirmation No.</span>
+          <span>{{paymentInfo.paymentNumber}}</span>
+        </div>
+        <div>
+          <span>Payment Mode</span>
+          <span>{{paymentInfo.transactionIds[0].extraFields.cardType}}</span>
+        </div>
+        <div>
+          <span>Payment ID</span>
+          <span>{{paymentInfo.paymentNumber}}</span>
+        </div>
+        <div>
+          <span>Transaction ID</span>
+          <span>{{paymentInfo.transactionIds[0].transactionNumber}}</span>
+        </div>
+        <div>
+          <span>Date</span>
+          <span>{{changeDateFormat(paymentInfo.transactionIds[0].createdAt)}}</span>
+        </div>
+        <div>
+          <span>Time</span>
+          <span>{{changeTimeFormat(paymentInfo.transactionIds[0].createdAt)}}</span>
+        </div>
+
+        <mat-divider style="margin: 16px auto 0"></mat-divider>
+
+        <div>
+          <span>Amount Paid</span>
+          <span>${{this.paymentInfo.paymentAmount.toFixed(2)}}</span>
+        </div>
+
+        <mat-divider style="background-color: black;margin: 16px auto;"></mat-divider>
+
+
+      </div>
+
+
+      <div class="receipt__sendReceipt">
+        <span>How do you want to receive your digital receipt?</span>
+        <mat-divider style="margin: 12px auto;"></mat-divider>
+
+        <div>
+          <div class="receipt__formGroup">
+            <label>Email</label>
+            <div>
+              <div>
+                <mat-icon>email</mat-icon>
+                <input 
+                  [(ngModel)]="email" 
+                  matInput 
+                  placeholder="elon@spacex.com" 
+                  style="outline: none;"
+                >
+              </div>
+              <button 
+                (click)="sendReceipt()" 
+                class="send"
+                mat-raised-button
+                color="accent"
+                style="border: none;"
+              > Send
+            </button>
+          </div>
+          
+          </div>
+          <div class="receipt__formGroup">
+            <label>Phone</label>
+            <div>
+              <ngx-intl-tel-input 
+                [inputId]="'adsasd'" 
+                [(ngModel)]="number" 
+                [cssClass]="'flag-Payments'"
+                [preferredCountries]="preferredCountries" 
+                [enableAutoCountrySelect]="true" 
+                [enablePlaceholder]="true"
+                [searchCountryFlag]="true" 
+                [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                [selectFirstCountry]="true" 
+                [selectedCountryISO]="CountryISO.UnitedStates" 
+                [maxLength]="10"
+                [tooltipField]="TooltipLabel.Name" 
+                [phoneValidation]="true" 
+                [separateDialCode]="separateDialCode"
+              >
+              </ngx-intl-tel-input>
+  
+              <button       
+                (click)="sendReceiptMobile()"
+                mat-raised-button
+                color="accent"
+              > Send
+              </button>
+            </div>
+          </div>
+  
+          <button mat-stroked-button color="accent" id="no-thanks" (click)="redirect()">
+            <app-no-thanks style="margin-right: 5px;"></app-no-thanks>
+            No Thanks
+          </button>
+  
+          <div class="receipt__disclaimer">
+            Digital receipts delivered by eatOS. See your digital receipt for privacy policy and preferences.
+          </div>
+        </div>
+
+        <your-order-receipt 
+          [orderType]="currentOrderType" 
+          [tips]="tipSelected" 
+          style="width: 100%"
+        >
+        </your-order-receipt>
+      </div>
+
+    </div>
+  </main>
+</div>

@@ -1,0 +1,53 @@
+<div *ngIf="!loading" style="min-height: calc(100vh - 56px)">
+  <app-header
+    [title]="'Favorites'"
+    [fixed]="true"
+    (openSidebar)="open=true"
+    [showEatosLogo]="false"
+    [placeholder]="placeholder"
+    [showSearcher]="true"
+    (onKeyUp)="searchItem($event.target.value)"
+    (onSearcherClose)="searchItem('')"
+  >
+  </app-header>
+
+  <div class="favorites__mainContent">
+    <div class="tabs">
+      <div>
+        <div>
+          <span [ngClass]="{'selected': currentTab === 0}" (click)="switchTab(0)">RESTAURANTS</span>
+        </div>
+        <div>
+          <span [ngClass]="{'selected': currentTab === 1}" (click)="switchTab(1)">PRODUCTS</span>
+        </div>
+      </div>
+      <div class="bottom_indicator" #indicator></div>
+    </div>
+
+    <app-favorites-restaurants
+      *ngIf="!currentTab"
+      [favorites]="generalFavorites?.stores"
+      (deleteRestaurant)="deleteRestaurant($event)"
+      [search]="restaurantSearch"
+    >
+    </app-favorites-restaurants>
+
+    <app-favorites-products
+      *ngIf="currentTab"
+      [products]="generalFavorites?.products"
+      (deleteProduct)="deleteFavorites($event)"
+      [search]="productsSearch"
+    >
+    </app-favorites-products>
+  </div>
+
+
+  <app-bottom-bar></app-bottom-bar>
+</div>
+
+<app-sidebar [(open)]="open"></app-sidebar>
+
+
+<div *ngIf="loading" style="height: 100vh;">
+  <loading></loading>
+</div>

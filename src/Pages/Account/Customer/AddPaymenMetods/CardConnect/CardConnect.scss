@@ -1,0 +1,112 @@
+.mat-dialog-content {
+  padding: 0;
+  margin: 0;
+  max-height: 70vh !important;
+  overflow: hidden;
+}
+
+.container {
+  background: #fff;
+  padding: 0;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.body {
+  padding: 0 1rem 1rem;
+  font-weight: 500;
+}
+
+form {
+  padding-top: 0.76rem;
+}
+
+.header {
+  display: flex;
+  height: 52px;
+  align-items: center;
+  padding: 1rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+
+  & > div {
+    text-align: center;
+    font-weight: bold;
+    margin: 0 auto;
+  }
+}
+
+.footer {
+  display: flex;
+  font-weight: 500;
+  width: 100%;
+}
+
+hr {
+  margin: 0;
+}
+
+.actions {
+  display: flex;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
+
+  & > button {
+    width: 48%;
+    padding: 0 1rem;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 10px 40px -10px rgb(33 33 33 / 50%);
+    background-color: #ffffff;
+
+    font-family: Montserrat;
+    font-size: 16px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    transform: translateY(-5px);
+
+    border: solid 1.5px var(--theme-global-var);
+    color: var(--theme-global-var);
+
+    @media screen and (max-width: 457px) {
+      font-size: 13px;
+    }
+
+    @media screen and (max-width: 330px) {
+      font-size: 11px;
+    }
+  }
+}
+
+.stripe-logo {
+  display: grid;
+  align-content: center;
+}
+
+.button {
+  border-radius: 4px;
+  height: 38px;
+  margin-left: 12px;
+  padding: 0 1rem;
+  color: #fff;
+
+  &.close-dialog {
+    background: #545454;
+  }
+
+  &.save-payments {
+    background: var(--theme-global-var);
+  }
+}
+
+.card-element {
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08), 0 1px 1px rgba(0, 0, 0, 0.1);
+  padding: 1rem 0.4rem;
+}

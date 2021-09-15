@@ -1,0 +1,46 @@
+.toggleHeader {
+  margin-top: 24px;
+  background-color: #fafafa;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 13px 8px;
+
+}
+
+.toggleHeader > img {
+  transition: all 0.4s;
+}
+
+.toggleHeader > span {
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: right;
+  color: #212121;
+
+  @media screen and (max-width: 350px) {
+    font-size: 12px; 
+  }
+}
+
+.rotate {
+  transform: rotate(-180deg);
+  transition: all 0.4s;
+}
+
+.hidden {
+  display: none;
+  transition: all 0.4s;
+}
+
+.show {
+  display: block;
+  transition: all 0.4;
+}

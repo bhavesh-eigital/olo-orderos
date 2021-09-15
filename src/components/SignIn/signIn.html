@@ -1,0 +1,163 @@
+<div class="modal-container">
+  <div>
+    <div class="flex-column">
+      <div class="navbar-top top-bar position-sticky" style="z-index: 1000;top:0">
+        <div class="ofm-p-8" style="background-color: white !important;margin: auto">
+          <div class="d-flex w-100">
+            <Logo-NavBar></Logo-NavBar>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="background-color: white;display: flex">
+      <div style="padding: 20px" class="full-screen">
+        <div class="justify-content-between w-100 d-flex"
+             style="border-bottom: 1px solid #D8D8D8;height: 35px;font-weight: bold;font-size: 22px;line-height: 29px;padding-bottom: 50px;">
+          <div>My Account</div>
+          <div (click)="closeModal()" style="text-align: right;cursor:pointer">
+            <img alt="" src="assets/IconsSVG/close.svg" style="width: 24px">
+          </div>
+        </div>
+        <div class="option-bar" style="height: 50px;border-bottom: 2px solid #E4E4E4;">
+          <div (click)="goTo('login')"
+               [className]="categorySelected === 'login' ? 'selected':'option'">
+            SIGN IN
+          </div>
+          <div (click)="goTo('signup')" [className]="categorySelected === 'signup' ? 'selected':'option'">
+            SIGN UP
+          </div>
+        </div>
+        <div *ngIf="categorySelected==='login'">
+          <div class="form" style="width: 100%;margin-top: 12px!important;">
+            <mat-form-field appearance="fill" class="full-input" color="accent">
+              <mat-label>E-mail</mat-label>
+              <input matInput placeholder="Email"
+                     (change)="setEmail($event)"
+                     id="iEmail"
+                     type="email"
+                     style="height: 19px">
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="full-input" color="accent">
+              <mat-label>Password</mat-label>
+              <input matInput placeholder="Password"
+                     [type]="passwordShown ? 'text' : 'password'"
+                     (change)="setPassword($event)"
+                     (keyup.enter)="login()"
+                     id="inputPassword"
+                     style="height: 19px" required>
+              <mat-icon class="mdi" matSuffix
+                        (click)="passwordShown = !passwordShown">{{passwordShown ? 'visibility' : 'visibility_off'}}</mat-icon>
+            </mat-form-field>
+          </div>
+          <div>
+            <button
+              mat-stroked-button
+              (click)="login()" class="btnContinue">LOG IN
+            </button>
+          </div>
+          <div style="width: 100%;text-align: center;margin-top: 25px;margin-bottom: 10px;">
+            <button (click)="redirectForgetPassword()"
+                    style="color: var(--theme-global-var);font-weight: bold;font-size: 15px;line-height: 19px">Forgot Password?
+            </button>
+          </div>
+        </div>
+
+
+        <div *ngIf="categorySelected==='signup'">
+          <div>
+            <div class="form" style="width: 100%;margin-top: 15px">
+              <div class="row-form">
+                <mat-form-field appearance="fill" color="accent" style="max-width: 48%">
+                  <mat-label>First Name</mat-label>
+                  <input [(ngModel)]="newCustomer.customerFirstName" matInput placeholder=""
+                         (change)="setEmail($event)"
+                         id="firstName"
+                         type=""
+                  >
+                </mat-form-field>
+                <mat-form-field appearance="fill" color="accent" style="max-width: 48%">
+                  <mat-label>Last Name</mat-label>
+                  <input [(ngModel)]="newCustomer.customerLastName" matInput placeholder=""
+                         (change)="setEmail($event)"
+                         id="lastName"
+                         type="email"
+                  >
+                </mat-form-field>
+              </div>
+              <div class="row-form">
+                <div appearance="fill" color="accent" style="margin-right: 20px;margin-top: 7px">
+                  <mat-label class="phoneNumber" style="padding-left: 10px;">Phone Number</mat-label>
+                  <ngx-intl-tel-input
+                    [inputId]="'adsasd'"
+                    [cssClass]="'flag-code'"
+                    [(ngModel)]="newCustomer.customerMobile"
+                    [preferredCountries]="preferredCountries"
+                    [enableAutoCountrySelect]="true"
+                    [enablePlaceholder]="true"
+                    [searchCountryFlag]="true"
+                    [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                    [selectFirstCountry]="true"
+                    [selectedCountryISO]="CountryISO.UnitedStates"
+                    [maxLength]="10"
+                    [tooltipField]="TooltipLabel.Name"
+                    [phoneValidation]="true"
+                    [separateDialCode]="separateDialCode"
+                    placeholder="Phone Number"
+                    matInput
+                  ></ngx-intl-tel-input>
+                </div>
+                <mat-form-field appearance="fill" color="accent" style="max-width: 30%">
+                  <mat-label>Zip Code</mat-label>
+                  <input [(ngModel)]="newCustomer.customerZip" matInput placeholder=""
+                         id="zipCode"
+                         type="email"
+                  >
+                </mat-form-field>
+              </div>
+              <mat-form-field appearance="fill" class="full-input" color="accent">
+                <mat-label>Email</mat-label>
+                <input [(ngModel)]="newCustomer.customerEmail" matInput placeholder="Email"
+                       (keyup.enter)="register()"
+                       (change)="setEmail($event)"
+                       id="Email"
+                       type="text"
+                >
+              </mat-form-field>
+              <mat-form-field appearance="fill" class="full-input" color="accent">
+                <mat-label>Password</mat-label>
+                <input matInput placeholder="Password"
+                       [(ngModel)]="newCustomer.customerPassword"
+                       (keyup.enter)="register()"
+                       [type]="passwordShown ? 'text' : 'password'"
+                       (change)="setPassword($event)"
+                       [formControl]="currentPasswordFormControl"
+                       [(ngModel)]="newCustomer.customerPassword" required>
+
+                <mat-icon class="mdi" matSuffix
+                          (click)="passwordShown = !passwordShown">{{passwordShown ? 'visibility' : 'visibility_off'}}</mat-icon>
+                <mat-error *ngIf="!currentPasswordFormControl.hasError('required')">
+                  Password must contain: numbers, lowercase letters, uppercase letters, or special characters
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <button
+              mat-stroked-button
+              (click)="register()" class="btnContinue">SIGN UP
+            </button>
+            <div
+              style="margin-top:24px;font-family: Montserrat;font-size: 11px;font-weight: 500;flex-direction: column;line-height: 16px;text-align: center"
+              class="w-100 d-flex">
+              By clicking Sign Up or Sign Up, you agree to the
+              <div>
+                <span style="color: var(--theme-global-var)">Terms of Service</span> & <span
+                style="color: var(--theme-global-var)">Privacy Policy.</span>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

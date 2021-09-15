@@ -1,0 +1,28 @@
+<div class="container">
+  <mat-dialog-content class="mat-typography">
+    <div class="header">
+      <div>Add a card</div>
+    </div>
+    <hr />
+    <div class="body">
+      Credit or debit card
+      <div class="card-element">
+        <div id="card-element"></div>
+        <div id="card-result"></div>
+        <div id="card-errors" role="alert"></div>
+      </div>
+    </div>
+    <hr />
+    <div class="footer">
+      <div class="stripe-logo">
+        <img src="https://i.ibb.co/C0fmz78/powered-by-stripe.png" alt="" />
+      </div>
+      <div class="actions">
+        <button class="button close-dialog" mat-dialog-close>Close</button>
+        <button class="button save-payments" [disabled]="addPaymentMethodClicked" (click)="saveCard($event)">
+          Save changes
+        </button>
+      </div>
+    </div>
+  </mat-dialog-content>
+</div>

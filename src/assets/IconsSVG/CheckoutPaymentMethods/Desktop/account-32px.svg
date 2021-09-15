@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>account-32px</title>
+    <g id="Checkout-V2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop-Checkout-V2" transform="translate(-1243.000000, -40.000000)">
+            <g id="App-Bar-/-Top-App-Bar-/-Regular-/-Flat-/-Surface-Color" transform="translate(0.000000, 24.000000)">
+                <g id="account-32px" transform="translate(1243.000000, 16.000000)">
+                    <polygon id="Path" points="0 0 32 0 32 32 0 32"></polygon>
+                    <path d="M16,16 C18.9466667,16 21.3333333,13.6133333 21.3333333,10.6666667 C21.3333333,7.72 18.9466667,5.33333333 16,5.33333333 C13.0533333,5.33333333 10.6666667,7.72 10.6666667,10.6666667 C10.6666667,13.6133333 13.0533333,16 16,16 Z M16,18.6666667 C12.44,18.6666667 5.33333333,20.4533333 5.33333333,24 L5.33333333,26.6666667 L26.6666667,26.6666667 L26.6666667,24 C26.6666667,20.4533333 19.56,18.6666667 16,18.6666667 Z" id="Shape" fill="#000000" fill-rule="nonzero"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

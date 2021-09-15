@@ -1,0 +1,49 @@
+<div class="paymentMethod">
+  <div class="paymentMethod__header">
+    <span>Add Payment Method</span>
+  </div>
+
+  <div class="paymentMethod__mainContent">
+    <div class="paymentMethod__description">
+      <img src="assets/payment-method-modal/payment-icon.svg" alt="payment-method">
+
+      <h3>Payment Details</h3>
+      <p>Please enter your card details in order to continue with the your order.</p>
+    </div>
+
+    <form class="paymentMethod__form" #f="ngForm" (ngSubmit)="handleSubmit(f)">
+      <mat-form-field>
+        <mat-label>Card Number</mat-label>
+        <input matInput type="text" name="cardNumber" ngModel #cardNumber="ngModel" required>
+        <mat-error *ngIf="cardNumber.hasError('required')">Required</mat-error>
+      </mat-form-field>
+      <div class="paymentMethod__credentials">
+        <mat-form-field>
+          <mat-label>MM/YY</mat-label>
+          <input matInput required name="month" ngModel #month="ngModel">
+          <mat-error *ngIf="month.hasError('required')">Required</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>CVV</mat-label>
+          <input matInput type="text" required name="cvv" ngModel #cvv="ngModel">
+          <mat-error *ngIf="cvv.hasError('required')">Required</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Zip Code</mat-label>
+          <input matInput type="text" name="zipCode" ngModel #zipCode="ngModel" required>
+          <mat-error *ngIf="zipCode.hasError('required')">Required</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="paymentMethod__check">
+        <img *ngIf="!defaultPayment" src="assets/collapse/check_box_outline_blank.svg"
+             (click)="defaultPayment=!defaultPayment">
+        <img *ngIf="defaultPayment" src="assets/collapse/check_box.svg" (click)="defaultPayment=!defaultPayment">
+        <span (click)="defaultPayment=!defaultPayment">Make Default Payment Type</span>
+      </div>
+
+      <button class="save__btn" mat-stroked-button color="accent">SAVE</button>
+    </form>
+  </div>
+
+</div>

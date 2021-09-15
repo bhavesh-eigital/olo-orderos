@@ -1,0 +1,88 @@
+<!-- LOADING -->
+<div *ngIf="loading" style="height:100vh">
+  <loading></loading>
+</div>
+
+<div *ngIf="!loading && customerOrders && customerOrders.length">
+  <div *ngIf="!showSummary" class="tabs__main">
+    <app-header 
+      [title]="'My Tab'" 
+      [fixed]="true" 
+      [placeholder]="'Search tab...'" 
+      (openSidebar)="open=true"
+      [showSearcher]="false"
+      >
+    </app-header>
+    <div *ngFor="let tab of customerOrders" class="tabs__tab">
+      <span>{{tab.updatedAt * 1000| date:'MMM d, y h:mm a'}}</span>
+
+      <div *ngFor="let item of tab.products; index as i" class="tabs__item">
+        <div>
+          <div>
+            <span>{{item.productQuantity}}</span>
+            <div>
+              <p>{{item.productName}}</p>
+              <p>{{item.description}}</p>
+              <div>
+                {{getIngredientsAndModifiers(item).length > 30
+                ? ((getIngredientsAndModifiers(item) | slice:0:25) + '...')
+                : getIngredientsAndModifiers(item)
+                }}
+              </div>
+            </div>
+          </div>
+          <div>
+            <p>{{(item.productUnitPrice | currency) || (item.productPrice / item.productQuantity | currency)}}</p>
+            <p [ngClass]="{
+                          'completed': item.productServeStatus === 1,
+                          'inProgress': item.productServeStatus === 2,
+                          'cancelled': item.productServeStatus === 3
+                      }">{{getProductServeStatus(item.productServeStatus) | titlecase}}
+            </p>
+          </div>
+        </div>
+        <div>
+          <button mat-stroked-button color="accent" (click)="viewDetails(item, tab.subTotalAmount)">VIEW</button>
+          <button mat-stroked-button color="accent" (click)="reorder(item)">REORDER</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-bottom-bar></app-bottom-bar>
+</div>
+
+<div class="emptyState" *ngIf="!loading && (!customerOrders || !customerOrders.length) && !showSummary">
+  <app-header 
+    [title]="'My Tab'" 
+    [fixed]="true" 
+    [placeholder]="'Search tab...'" 
+    (openSidebar)="open=true" 
+    [showSearcher]="false"
+  >
+  </app-header>
+  <div class="emptyState__wrapper">
+    <div id="title">
+      <h3 class="text-capitalize">{{customerName}} | Table</h3>
+      <div>{{tableNumber}}</div>
+    </div>
+    <img src="assets/empty-states/chef.svg" alt="">
+    <p>Get your tab started</p>
+    <p>Our talented kitchen staff is awaiting for your order</p>
+    <button mat-stroked-button color="accent" [routerLink]="['/dinein']">ORDER NOW</button>
+  </div>
+  <app-bottom-bar></app-bottom-bar>
+</div>
+
+<app-order-summary2 
+  *ngIf="showSummary" 
+  (back)="showSummary=false;"
+  [currentOrders]="customerOrders"
+>
+</app-order-summary2>
+
+<button mat-stroked-button color="accent" class="floating-btn" (click)="isGuestPayment()"
+        *ngIf="!loading && !showSummary && customerOrders && customerOrders.length"> PAY
+</button>
+
+
+<app-sidebar [(open)]="open"></app-sidebar>

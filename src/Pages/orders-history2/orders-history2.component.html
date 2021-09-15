@@ -1,0 +1,70 @@
+<!-- ---------------------- HEADER ------------------------>
+<app-header 
+  [title]="'ORDER HISTORY'" 
+  [fixed]="true" 
+  (openSidebar)="open=true" 
+  [showSearcher]="false"
+  [titleTranslation]="'translateX(-42%)'">
+</app-header>
+
+<!-- ---------------------- ORDERS ------------------------>
+<div class="ordersHistory__mainWrapper" *ngIf="orders.length">
+  <!------------------------- TABS ------------------------->
+  <div class="tabs">
+    <div>
+      <div>
+        <span [ngClass]="{'selected': currentTab === 0}" (click)="switchTab(0)">PAST ORDERS</span>
+      </div>
+      <div>
+        <span [ngClass]="{'selected': currentTab === 1}" (click)="switchTab(1)">CURRENT ORDERS</span>
+      </div>
+    </div>
+    <div class="bottom_indicator" #indicator></div>
+  </div>
+
+  <!------------------------- ORDERS ------------------------->
+  <div class="ordersHistory__orders">
+    <div class="ordersHistory__order" *ngFor="let order of orders">
+      <div>
+        <div>
+          <img [src]="order.img" alt="">
+          <div>
+            <span>{{order.restaurantName}}</span>
+            <span>{{order.date | date: 'MMM d, y h:mm a'}}</span>
+          </div>
+        </div>
+
+        <div>
+          <span>{{order.price | currency}}</span>
+          <span
+            [ngClass]="{
+                            'completed': order.status === 1,
+                            'inProgress': order.status === 2,
+                            'cancelled': order.status === 3
+                        }"
+          >
+                        {{getStatus(order.status) | titlecase}}
+                    </span>
+        </div>
+      </div>
+      <div>
+        <button mat-stroked-button color="accent" [routerLink]="['/orders-history2', order.id]">VIEW</button>
+        <button mat-stroked-button color="accent">REORDER</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- -------------------- EMPTY STATE --------------------->
+<div class="emptyState" *ngIf="!orders || !orders.length">
+  <img src="assets/orders-history/home-office.svg" alt="">
+  <p>No Orders Yet</p>
+  <p>Your First order is just a couple of clicks away</p>
+  <button mat-stroked-button color="accent" [routerLink]="['/dinein']">ORDER NOW</button>
+</div>
+
+<!-- -------------------- BOTTOM BAR ---------------------->
+<app-bottom-bar></app-bottom-bar>
+
+<!-- ---------------------- SIDEBAR ----------------------->
+<app-sidebar [(open)]=" open"></app-sidebar>

@@ -1,0 +1,10 @@
+<app-header [fixed]="true" (openSidebar)="open=true"></app-header>
+<div class="emptyState">
+  <img src="assets/empty-states/404.svg" alt="">
+  <p>Opps!</p>
+  <p>The page can't be found</p>
+  <p>You seem to have reached a page that does not exist or is under construction.</p>
+  <p>ERROR CODE: 400</p>
+  <button mat-stroked-button>SIGN OUT</button>
+</div>
+<app-sidebar [(open)]="open"></app-sidebar>

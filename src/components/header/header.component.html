@@ -1,0 +1,36 @@
+<nav 
+  class="header" 
+  [ngClass]="{
+    'position-fixed': fixed,
+    'position-sticky': sticky
+  }"
+>
+  <div class="headerWrapper">
+    <div *ngIf="!search">
+      <div>
+        <Logo-NavBar *ngIf="!showEatosLogo" [routerLink]="['/dinein']"></Logo-NavBar>
+        <img *ngIf="showEatosLogo" src="assets/eat-os-logo.svg" [routerLink]="['/dinein']">
+      </div>
+      <div [style.transform]="titleTranslation">
+        <div *ngIf="!title && showNumber">{{tableNumber}}</div>
+        <span *ngIf="title && showTitle">{{title}}</span>
+      </div>
+      <div>
+        <img *ngIf="showSearcher" src="assets/menu2/search.svg" alt="restaurant-name" id="searcher"
+             (click)="showSearcherAndListenKeyEvents()">
+        <img src="assets/menu2/person.svg" alt="restaurant-name" (click)="openSidebar.emit()">
+      </div>
+    </div>
+
+    <div *ngIf="search" class="headerSearcher">
+      <img *ngIf="showSearcher" src="assets/menu2/search.svg" alt="restaurant-name" id="searcher">
+      <input 
+        type="text" 
+        [placeholder]="placeholder" 
+        #searchInput
+      >
+      <img src="assets/close.svg" (click)="search=false;onSearcherClose.emit()">
+    </div>
+  </div>
+
+</nav>

@@ -1,0 +1,146 @@
+.labelForm {
+  color: #000000;
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 19px;
+}
+
+.box-buttons {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.btn-issue {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  height: 44px;
+  width: 100%;
+  border: 1px solid #424242;
+  border-radius: 2px;
+  font-weight: 500;
+  background-color: #FFFFFF;
+}
+
+.btn-issue-selected {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  height: 44px;
+  width: 100%;
+  border: 2px solid var(--theme-global-var);
+  font-weight: 600;
+  color: var(--theme-global-var);
+  border-radius: 2px;
+  background-color: #FFFFFF;
+}
+
+.btn-next {
+  border-radius: 2px;
+  background-color: #D4D4D4;
+  color: #6D7278;
+}
+
+.btn-next-selected {
+  border-radius: 2px;
+  background-color: var(--theme-global-var);
+  color: #FFFFFF;
+}
+
+.box-notes {
+  height: 120px;
+  width: 100%;
+}
+
+::ng-deep .mat-tab-label {
+  font-family: 'Montserrat', sans-serif !important;
+}
+
+::ng-deep.mat-tab-label-active {
+  font-weight: bold !important;
+  color: var(--theme-global-var) !important;
+}
+
+::ng-deep .mat-ink-bar {
+  background-color: var(--theme-global-var) !important;
+  height: 4px !important;
+}
+
+::ng-deep .mat-tab-body-wrapper {
+
+}
+
+.myAccount {
+  margin-top: 5%;
+  color: #212121;
+  font-family: Montserrat;
+  font-size: 24px;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 29px;
+}
+
+.account-button {
+  display: flex;
+}
+
+.text-header {
+  white-space: initial;
+}
+
+.w-full-screen {
+  width: 390px;
+}
+
+@media (max-width: 575px) {
+  .w-full-screen {
+    width: 90%;
+  }
+  .account-button {
+    display: none !important;
+  }
+  text-header {
+    width: 100%;
+    margin: 0px !important;
+    white-space: nowrap;
+  }
+}
+
+::ng-deep .mat-step-header .mat-step-icon-selected {
+  background-color: var(--theme-global-var);
+}
+
+::ng-deep .mat-step-header .mat-step-icon {
+  background-color: var(--theme-global-var);
+}
+
+::ng-deep.mat-button-focus-overlay {
+  background-color: #D4D4D4;
+}
+
+::ng-deep.mat-step-header:hover {
+  background-color: #FFFFFF;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-thick {
+  color: white;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  border-radius: 0 !important;
+  // opacity: 1!important;
+}
+
+::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+  color: var(--theme-global-var) !important;
+  border-radius: 0 !important;
+}
+
+::ng-deep.mat-vertical-stepper-content {
+  overflow: inherit !important;
+}

@@ -1,0 +1,162 @@
+.wrapper {
+  transform: translateY(64px);
+}
+
+.favoriteProducts h1 {
+  margin: 0 165px 8px 0;
+  font-family: Montserrat;
+  font-size: 20px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #212121;
+
+  margin: 16px 0 8px;
+}
+
+.item {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  min-height: 180px;
+
+  padding: 16px;
+
+  width: 100%;
+  box-sizing: border-box;
+  border: solid 0.8px #e0e0e0;
+
+  @media screen and (max-width: 367px) {
+    flex-direction: column;
+  }
+}
+
+.item > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  margin-right: 16px;
+}
+
+.item > div > span {
+  margin: 16px 130px 0 0;
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #212121;
+}
+
+.item > div > div > p:first-child {
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #212121;
+
+  margin: 0 0 4px;
+}
+
+.item > div > div > p:nth-child(2) {
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #757575;
+
+  margin: 0;
+}
+
+.favoritesProduct__productImage {
+  width: 40%;
+  height: 128px;
+
+  object-fit: cover;
+
+  @media screen and (max-width: 367px) {
+    width: 100%;
+    object-fit: contain;
+    margin-top: 10px;
+  }
+}
+
+#like-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  width: 36px;
+  height: 36px;
+}
+
+.emptyState {
+  transform: translateY(90px);
+}
+
+.emptyState > img {
+  display: block;
+  margin: 67px auto 32px;
+}
+
+.emptyState > p:nth-of-type(1) {
+  margin: 0 auto;
+
+  font-family: Montserrat;
+  font-size: 24px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #212121;
+}
+
+.emptyState > p:nth-of-type(2) {
+  margin: 4px auto 0;
+  max-width: 250px;
+
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #545454;
+}
+
+.emptyState > button {
+  border-radius: 22px;
+  border: solid 2px var(--theme-global-var);
+  background-color: #ffffff;
+
+  width: 100%;
+  height: 44px;
+  margin-top: 33px;
+  margin-bottom: 70px;
+
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.38;
+  letter-spacing: normal;
+  text-align: center;
+  color: var(--theme-global-var);
+}

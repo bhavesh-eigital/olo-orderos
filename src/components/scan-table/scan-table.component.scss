@@ -1,0 +1,225 @@
+.scannerOrTable {
+  //   min-height: 100vh;
+  position: relative;
+}
+
+// .scannerOrTable {
+//   padding: 0 0px 70px;
+// }
+
+// .scannerOrTable > img {
+//   margin-top: 60px;
+// }
+
+/* ----------------------- SCANNER ----------------------- */
+
+// .scannerOrTable__scanner div:nth-of-type(1) {
+//   margin-top: 64px;
+//   width: 100%;
+//   border-radius: 24px;
+//   overflow: hidden;
+// }
+
+// .scannerOrTable__scanner div:nth-of-type(1) > video {
+//   width: 100%;
+// }
+
+// .scannerOrTable__scanner div:nth-of-type(2) {
+//   margin-top: 32px;
+//   padding: 6px 8px;
+//   border-radius: 4px;
+//   background-color: rgba(0, 0, 0, 0.6);
+
+//   font-family: Montserrat;
+//   font-size: 16px;
+//   font-weight: 500;
+//   font-stretch: normal;
+//   font-style: normal;
+//   line-height: normal;
+//   letter-spacing: normal;
+//   text-align: center;
+//   color: #ffffff;
+// }
+
+.scannerOrTable__scanner {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+.scannerOrTable__scanner > video {
+  min-height: 100%;
+  height: 125vh;
+}
+
+.scannerOrTable__scanner > img {
+  position: absolute;
+  left: 0;
+  margin-top: 60px;
+  margin-left: 20px;
+  top: 0;
+}
+
+.scannerOrTable__scanner > div {
+  width: calc(100% - 40px);
+  position: absolute;
+  top: 168px;
+  left: 0;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  height: 335px;
+  border-radius: 24px;
+  border: solid 3px #ffffff;
+}
+
+/* ----------------------- TABLE ----------------------- */
+.scannerOrTable__tableCode {
+  margin-bottom: 131px;
+  padding: 0 20px;
+}
+
+.scannerOrTable__tableCode > img:first-child {
+  margin-top: 60px;
+}
+
+.scannerOrTable__tableCode > div {
+  margin-top: 16px;
+  padding: 11px 0;
+  text-align: center;
+  background-color: #fafafa;
+
+  font-family: Montserrat;
+  font-size: 20px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #212121;
+}
+
+.scannerOrTable__tableCode > img:nth-of-type(2) {
+
+  display: block;
+  margin: 26px auto 56px;
+}
+
+.scannerOrTable__tableCode > .mat-form-field {
+  margin: 0 auto 32px;
+  width: 100%;
+}
+
+.scannerOrTable__tableCode > .mat-form-field > input {
+  width: 100%;
+}
+
+:host::ng-deep {
+  .mat-form-field.mat-focused .mat-form-field-label {
+    color: var(--theme-global-var) !important;
+  }
+}
+
+.scannerOrTable__tableCode > button {
+  width: 100%;
+  height: 48px;
+  border-radius: 24px;
+  border: solid 2px var(--theme-global-var);
+  background-color: #ffffff;
+
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: var(--theme-global-var);
+}
+
+/* ----------------------- SLIDER ----------------------- */
+
+.scannerOrTable__slider {
+  // margin-top: 146px;
+  border-radius: 24px;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 1px;
+
+  display: flex;
+  align-items: center;
+
+  position: relative;
+
+  transition: all 0.3s;
+
+  position: absolute;
+  width: calc(100% - 40px);
+  top: 643px;
+
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+
+.scannerOrTable__slider > div {
+  padding: 13px 0;
+  text-align: center;
+
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  border-radius: 24px;
+  cursor: pointer;
+
+  z-index: 2;
+}
+
+.scannerOrTable__slider > div:nth-of-type(1) {
+  // background-color: white;
+  color: #212121;
+  flex: 1;
+}
+
+.scannerOrTable__slider > div:nth-of-type(2) {
+  color: #ffffff;
+  flex: 1;
+}
+
+.scannerOrTable__slider > .indicator {
+  content: "";
+  position: absolute;
+  top: 2;
+  left: 2px;
+  width: 50%;
+  background-color: white;
+  border-radius: 24px;
+  z-index: 1;
+  height: 90%;
+}
+
+.left {
+  transition: all 0.3s;
+  transform: translateX(0);
+}
+
+.right {
+  transition: all 0.3s;
+  transform: translateX(97%);
+}
+
+.deactivated {
+  color: white !important;
+  transition: all 0.3s;
+  font-weight: 600 !important;
+}
+
+.activated {
+  color: #212121 !important;
+  transition: all 0.3s;
+  font-weight: 500 !important;
+}

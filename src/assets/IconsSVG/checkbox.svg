@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <title>checkbox</title>
+  <g id="Home-Screen" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <g id="RefundReceived---Desktop" transform="translate(-165.000000, -716.000000)">
+      <g id="Customer-Information" transform="translate(165.000000, 217.000000)">
+        <g id="checkbox" transform="translate(0.000000, 499.000000)">
+          <polygon id="Path" points="0 0 24 0 24 24 0 24"></polygon>
+          <path
+            d="M19,5 L19,19 L5,19 L5,5 L19,5 M19,3 L5,3 C3.9,3 3,3.9 3,5 L3,19 C3,20.1 3.9,21 5,21 L19,21 C20.1,21 21,20.1 21,19 L21,5 C21,3.9 20.1,3 19,3 Z"
+            id="Shape" fill="#000000" fill-rule="nonzero"></path>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

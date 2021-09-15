@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="60px" height="60px" viewBox="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink">
+  <title>restaurant_Share</title>
+  <defs>
+    <rect id="path-1" x="0" y="0" width="40" height="40" rx="20"></rect>
+    <filter x="-38.8%" y="-36.2%" width="177.5%" height="177.5%" filterUnits="objectBoundingBox" id="filter-2">
+      <feMorphology radius="0.5" operator="erode" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology>
+      <feOffset dx="0" dy="2" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
+      <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+      <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.2 0" type="matrix" in="shadowBlurOuter1"
+                     result="shadowMatrixOuter1"></feColorMatrix>
+      <feOffset dx="0" dy="1" in="SourceAlpha" result="shadowOffsetOuter2"></feOffset>
+      <feGaussianBlur stdDeviation="5" in="shadowOffsetOuter2" result="shadowBlurOuter2"></feGaussianBlur>
+      <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.12 0" type="matrix" in="shadowBlurOuter2"
+                     result="shadowMatrixOuter2"></feColorMatrix>
+      <feOffset dx="0" dy="4" in="SourceAlpha" result="shadowOffsetOuter3"></feOffset>
+      <feGaussianBlur stdDeviation="2.5" in="shadowOffsetOuter3" result="shadowBlurOuter3"></feGaussianBlur>
+      <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.14 0" type="matrix" in="shadowBlurOuter3"
+                     result="shadowMatrixOuter3"></feColorMatrix>
+      <feMerge>
+        <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+        <feMergeNode in="shadowMatrixOuter2"></feMergeNode>
+        <feMergeNode in="shadowMatrixOuter3"></feMergeNode>
+      </feMerge>
+    </filter>
+  </defs>
+  <g id="Revised-Version" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <g id="Restaurant-Menu-with-Table-#" transform="translate(-247.000000, -217.000000)">
+      <g id="Group-4" transform="translate(0.000000, 100.000000)">
+        <g id="restaurant_Share" transform="translate(257.000000, 126.000000)">
+          <g id="Surface">
+            <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+            <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+          </g>
+          <g id="reply-24px"
+             transform="translate(20.000000, 20.000000) scale(-1, 1) translate(-20.000000, -20.000000) translate(8.000000, 8.000000)">
+            <polygon id="Path" points="0 0 24 0 24 24 0 24"></polygon>
+            <path d="M10,9 L10,5 L3,12 L10,19 L10,14.9 C15,14.9 18.5,16.5 21,20 C20,15 17,10 10,9 Z" id="Path"
+                  fill="#212121" fill-rule="nonzero"></path>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

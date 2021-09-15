@@ -1,0 +1,15 @@
+<ng-container>
+  <mat-card class="product-container mt-2" style="box-shadow: none ;border-radius: 0px">
+    <div class="d-flex justify-content-between">
+      <div class="quantity">{{product.quantity}}</div>
+      <div class="w-100 d-flex justify-content-between px-3" style="padding-right: 0!important;">
+        <span class="product-name">{{product.productName}}</span>
+        <span class="pr-3 product-name">{{currency}}{{(product.totalAmount * product.quantity).toFixed(2)}}</span>
+      </div>
+    </div>
+    <div *ngFor="let modifier of product.modifiers" class="px-4 d-flex justify-content-between">
+      <div>{{modifier.modifierName}}</div>
+      <div class="">{{currency}}{{modifier.modifierOptions[0].modifierOptionsValue.toFixed(2)}}</div>
+    </div>
+  </mat-card>
+</ng-container>

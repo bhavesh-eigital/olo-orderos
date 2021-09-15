@@ -1,0 +1,277 @@
+<div class="checkout" [ngStyle]="{'display': !successfull && !loading ? 'block' : 'none'}">
+  <div class="checkout__header">
+    <img src="assets/order-summary/arrow-back.svg" alt="go-back" [routerLink]="['/dinein']">
+    <h3>Checkout</h3>
+  </div>
+
+  <main>
+    <div id="title">
+      <h3 class="text-capitalize">{{customerName}} | Table</h3>
+      <div>{{tableNumber}}</div>
+    </div>
+
+
+    <div class="checkout__restaurantData">
+      <h3>{{this.storeInformation.storeFrontName}}</h3>
+      <p>{{storeInformation.storeFrontAddress1}}</p>
+    </div>
+
+    <!-- USER INFORMATION -->
+    <app-collapse-header [title]="'Your Information*'" [show]="true"></app-collapse-header>
+    <div class="toggleContent hidden">
+      <form #userInformationForm="ngForm" class="checkout__userInfo">
+        <div class="materialInputWrapper" [class.borderColorOnError]="userFirstname.touched && !userFirstname.valid">
+          <label>FIRST NAME*</label>
+          <input
+            class="materialInput"
+            name="firstname"
+            [(ngModel)]="customerInformation.customerFirstName"
+            #userFirstname="ngModel"
+            required
+            [disabled]="allowUsertoOrderwithoutPaying && allowUsertoOrderwithoutPaying === 'true'"
+          >
+        </div>
+        <mat-error *ngIf="userFirstname.touched && userFirstname.hasError('required')">First Name is Required
+        </mat-error>
+
+        <div class="materialInputWrapper" [class.borderColorOnError]="userLastname.touched && !userLastname.valid">
+          <label>LAST NAME*</label>
+          <input
+            class="materialInput"
+            name="lastname"
+            [(ngModel)]="customerInformation.customerLastName"
+            #userLastname="ngModel"
+            required
+            [disabled]="allowUsertoOrderwithoutPaying && allowUsertoOrderwithoutPaying === 'true'"
+          >
+        </div>
+        <mat-error *ngIf="userLastname.touched && userLastname.hasError('required')">Last Name is Required</mat-error>
+
+        <div class="materialInputWrapper" [class.borderColorOnError]="userEmail.touched && !userEmail.valid">
+          <label>EMAIL*</label>
+          <input
+            class="materialInput"
+            type="email"
+            name="email"
+            [(ngModel)]="customerInformation.customerEmail"
+            #userEmail="ngModel"
+            required
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+            [disabled]="allowUsertoOrderwithoutPaying && allowUsertoOrderwithoutPaying === 'true'"
+          >
+        </div>
+        <mat-error *ngIf="userEmail.touched && userEmail.hasError('required')">Email is Required</mat-error>
+        <mat-error *ngIf="userEmail.touched && userEmail.hasError('pattern')">Must be a valid email</mat-error>
+
+        <div class="row-form">
+          <div appearance="fill" color="accent" style="width: 100%;">
+            <ngx-intl-tel-input
+              [inputId]="'adsasd'"
+              [cssClass]="'phoneMaterialInput'"
+              [ngModel]="customerInformation.customerMobile.number"
+              [preferredCountries]="preferredCountries"
+              [enableAutoCountrySelect]="true"
+              [enablePlaceholder]="true"
+              [searchCountryFlag]="true"
+              [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+              [selectFirstCountry]="true"
+              [selectedCountryISO]="CountryISO.UnitedStates"
+              [maxLength]="10"
+              [tooltipField]="TooltipLabel.Name"
+              [phoneValidation]="true"
+              [separateDialCode]="separateDialCode"
+              (ngModelChange)="setPhoneNumber($event)"
+              placeholder="Phone Number"
+              matInput
+              name="phone"
+              [disabled]="allowUsertoOrderwithoutPaying && allowUsertoOrderwithoutPaying === 'true'"
+              #phone="ngModel"
+              required
+            ></ngx-intl-tel-input>
+            <mat-error *ngIf="phone.hasError('required') && phone.control.touched">Phone is required</mat-error>
+            <mat-error *ngIf="phone.hasError('validatePhoneNumber') && phone.control.touched">Phone is not valid
+            </mat-error>
+          </div>
+        </div>
+      </form>
+
+      <div id="warning-message">
+        By providing a mobile number, you give eatOS permission to contact you using automated text messages
+        to provide transactional messages such as order status updates.
+      </div>
+    </div>
+
+
+    <!-- PAYMENT -->
+    <app-collapse-header [title]="'Payment Method*'" [show]="true"></app-collapse-header>
+    <div class="toggleContent hidden">
+      <div class="payments" id="payments">
+        <div>
+          <mat-label class="card-titles">Card Number</mat-label>
+          <div #cardNumber id="card-number"></div> 
+        </div>
+        
+        <div class="stripeFieldsWrapper">
+          <div style="width: 50%;">
+            <mat-label class="card-titles">MM/YY</mat-label>
+            <div #cardExpiry id="card-expiry"></div>
+          </div>
+        
+          <div style="width: 50%;">
+            <mat-label class="card-titles">CVC</mat-label>
+            <div #cardCvc id="card-cvc"></div>
+          </div>
+        </div>
+
+      </div>
+
+
+      <div id="remember" (click)="onCheckClicked()">
+        <app-unchecked-checkbox *ngIf="!remember"></app-unchecked-checkbox>
+        <app-checked-checkbox *ngIf="remember"></app-checked-checkbox>
+
+        <span [ngClass]="{'checked': remember}">Remember this card and create an eatOS account</span>
+      </div>
+
+      <mat-form-field id="password" *ngIf="remember">
+        <mat-label>Password</mat-label>
+        <input
+          [type]="passwordShown ? 'text' : 'password'"
+          matInput
+          required
+          name="password"
+          [(ngModel)]="password"
+          #userPassword="ngModel"
+        >
+        <mat-icon 
+          matSuffix
+          (click)="passwordShown=!passwordShown"
+        >
+          {{passwordShown ? 'visibility' : 'visibility_off'}}
+        </mat-icon>
+        <mat-error *ngIf="userPassword.hasError('required')">Password is require󠁧d</mat-error>
+      </mat-form-field>
+
+      <div id="terms-and-conditions" *ngIf="remember">
+        By selecting “Remember this card” and clicking on “Save” you are authorizing eatOS to store your credit card
+        information provided above, and to charge your Card for future purchases initiated by you.
+        You may update your Card information or cancel this authorization any time via the “My Account”
+        page of the eatOS Online Ordering website. This authorization will remain in effect until updated or canceled.
+      </div>
+    </div>
+
+
+    <!-- ORDER SUMMARY -->
+    <app-collapse-header [title]="'Order Summary'" [show]="false"></app-collapse-header>
+    <div class="toggleContent hidden">
+      <app-order-summary-items [items]="products"></app-order-summary-items>
+    </div>
+
+    <ng-container *ngIf="allowGratuity === 'true'">
+      <app-collapse-header
+        [title]="'Tip'"
+        [show]="true"
+      >
+      </app-collapse-header>
+      <!-- TIP -->
+      <div class="checkout__tip toggleContent hidden">
+        <span>TIP</span>
+
+        <div class="checkout__tipsContainer">
+          <div [ngClass]="tipSelected === 0 ? 'tipClicked' :''" (click)="selectTip(0)">
+            <span>10%</span>
+            <span>{{totals.finalSubTotalAmount * 0.10 | currency}}</span>
+          </div>
+          <div [ngClass]="tipSelected === 1 ? 'tipClicked' :''" (click)="selectTip(1)">
+            <span>15%</span>
+            <span>{{totals.finalSubTotalAmount * 0.15 | currency}}</span>
+          </div>
+          <div (click)="selectTip(2)" [ngClass]="tipSelected === 2 ? 'tipClicked' :''">
+            <span>18%</span>
+            <span>{{totals.finalSubTotalAmount * 0.18 | currency}}</span>
+          </div>
+          <div (click)="selectTip(3)" [ngClass]="tipSelected === 3 ? 'tipClicked' :''">
+            <span>20%</span>
+            <span>{{totals.finalSubTotalAmount * 0.20 | currency}}</span>
+          </div>
+
+          <div id="customTip"  (click)="selectTip(4)" [ngClass]="tipSelected === 4 ? 'tipClicked' :''">
+            <div>Custom</div>
+            <div class="tipNumbers">
+              {{currency}}
+              <input 
+                type="text"
+                maxlength="3" 
+                max="3" 
+                placeholder="0.00" 
+                onpaste="return false;"
+                oninput="this.value = parseFloat(this.value)" 
+                [(ngModel)]="customTip"
+                (ngModelChange)="selectCustomTips($event)" 
+                style="width: 50px;border: none; outline: none;"
+                type="number"  
+                (blur)="displayFloatTip()"
+                #customTipInput
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+
+    <!-- TOTAL -->
+    <div class="checkout__total">
+      <h1>TOTAL</h1>
+      <hr>
+      <div>
+        <span>Sub Total</span>
+        <span>{{ totals.finalSubTotalAmount | currency}}</span>
+      </div>
+      <div>
+        <span>Tax</span>
+        <span>{{ totals.finalTax | currency}}</span>
+      </div>
+      <div>
+        <span>Tip</span>
+        <span>{{tipSelectedValue | currency}}</span>
+      </div>
+
+      <div>
+        <span>Total Amount</span>
+        <span>{{totals.finalTotalAmount + tipSelectedValue| currency}}</span>
+      </div>
+    </div>
+
+    <div id="warning">
+      The information you provide will be processed pursuant to
+      <span>eatoOS's Diner Terms of Service</span> and
+      <span>Privacy Statement</span>
+    </div>
+
+    <button
+      mat-stroked-button
+      color="accent"
+      class="pay-btn"
+      (click)="payOrders()">
+      <!--      [disabled]="(!responseFormCard || (responseFormCard && responseFormCard.errorCode !== '0')) || getDisabledButtonCondition()"-->
+
+      PAY & LEAVE TABLE
+    </button>
+
+  </main>
+  <app-bottom-bar></app-bottom-bar>
+</div>
+
+<!-- PAYMENT SUCCESSFULL -->
+<app-payment-successfull
+  [orderInfo]="orderInfo"
+  [products]="products"
+  *ngIf="successfull && !loading"
+>
+</app-payment-successfull>
+
+
+<div *ngIf="loading" style="height: 100vh;">
+  <loading></loading>
+</div>

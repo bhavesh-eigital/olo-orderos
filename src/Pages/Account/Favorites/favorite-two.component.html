@@ -1,0 +1,151 @@
+
+
+<div class="wrapper">
+  <loading *ngIf="loading"></loading>
+
+  <ng-container *ngIf="!loading">
+    <nav class="navbar">
+      <div *ngIf="!openMobileSearcher">
+        <Logo-NavBar 
+          (click)="goBack()"
+          [ngStyle]="{'cursor': storeInformation.storeFrontNavbarLogo ? 'pointer' : 'default'}"
+        >
+        </Logo-NavBar>
+        <div>
+          <div class="searcher">
+            <mat-icon>search</mat-icon>
+            <input #searchInput [placeholder]="placeHolder">
+          </div>
+          <button mat-icon-button (click)="openSearcher()">
+            <mat-icon>search</mat-icon>
+          </button>
+          <div id="divider"></div>
+          <account (openSidebar)="openSidebar()"></account>
+        </div>
+      </div>
+      
+      <div class="mobile__searcher" *ngIf="openMobileSearcher">
+        <mat-icon>search</mat-icon>
+        <input 
+          #mobileSearchInput 
+          type="text" 
+          [placeholder]="placeHolder" 
+          (blur)="closeSearcher()"
+        >
+        <button mat-icon-button (click)="closeSearcher()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </nav>
+  
+    <div class="favoritesContainer">
+      <div>
+        <h1>YOUR FAVORITES</h1>
+      </div>
+      <mat-tab-group color="warn" [(selectedIndex)]="selectedTab" (selectedIndexChange)="onTabChanged($event)">
+        <mat-tab label="RESTAURANTS">
+          <ng-container>
+            <div style="height: 75vh; overflow-y: auto;">
+              <div *ngIf="!generalFavorites || !generalFavorites.stores?.length" class="emptyState">
+                <img src="assets/empty-states/no-items.svg" alt="">
+                <p>You have no favorites yet</p>
+                <p>All your favorites restaurants will be shown here</p>
+                <button mat-stroked-button color="accent" [routerLink]="['/home']">VIEW RESTAURANTS</button>
+              </div>
+              
+              <div class="restaurants">
+                <div 
+                  *ngFor="let item of generalFavorites?.stores" 
+                  class="restaurant" 
+                  (click)="openStore(item.onlineStoreURL)"
+                >
+                <button 
+                  mat-raised-button 
+                  [class.unlike]="true"
+                  (click)="$event.preventDefault();$event.stopPropagation();deleteRestaurant(item)"
+                  aria-label="dislikeRestaurant"
+                >
+                <mat-icon>favorite</mat-icon>
+                </button>
+                  <img
+                    [src]="item.onlineStoreLogo"
+                    [alt]="item.onlineStoreName"
+                  >
+                  <div>
+                    <img [src]="item.onlineStoreLogo" alt="">
+                    <div>
+                      <h3>{{item.onlineStoreName}}</h3>
+                      <span>{{item.onlineStoreBestCategories}}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </mat-tab>
+        <mat-tab label="PRODUCTS">
+          <ng-container>
+            <div style="height: 75vh; overflow-y: auto;">
+              <div *ngIf="!orderedProducts || !orderedProducts.length" class="emptyState">
+                <img src="assets/empty-states/no-items.svg" alt="">
+                <p>You have no favorites yet</p>
+                <p>All your favorites products will be shown here</p>
+                <button mat-stroked-button color="accent" [routerLink]="['/home']">VIEW MENU</button>
+              </div>
+
+              <div>
+                <div *ngFor="let category of orderedProducts" class="categories">
+                  <h1>{{category.category}}</h1>
+                  <div class="products">
+                    <div 
+                      *ngFor="let product of category.products; index as index" class="product"
+                      (click)="openProduct(product.productId)">
+                      <div>
+                        <div>
+                          <span>{{product.productName}}</span>
+                          <span>{{product.productDescription}}</span>
+                        </div>
+                        <span>{{product.productPrice | currency}}</span>
+                      </div>
+                      <img *ngIf="product.productImage" [src]="'https://' + product.productImage"
+                        [alt]="product.productName">
+                      <button mat-raised-button [class.unlike]="true" aria-label="dislikeProduct"
+                        (click)="$event.preventDefault();$event.stopPropagation();deleteFavorites(product)">
+                        <mat-icon>favorite</mat-icon>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </mat-tab>
+      </mat-tab-group>
+  
+    </div>
+  </ng-container>
+</div>
+
+<!-------------------------- CART ----------------------------->
+<your-order 
+  [currentOrderType]="currentOrderType" 
+  [(open)]="openCart"
+  >
+</your-order>
+
+<!---------------=------ MOBILE SIDEBAR ------------------------>
+<app-mobile-sidebar 
+  [(open)]="open" 
+  [username]="getCustomerName()" 
+  [isUserLoggedIn]="customer.length !== 0"
+>
+</app-mobile-sidebar>
+
+<!-------------------------- FOOTER ---------------------------->
+<app-online-ordering-footer 
+  [cartIsOpened]="openCart" 
+  [cartLength]="cart.length" 
+  (onCartClicked)="openCart=true"
+  *ngIf="!loading"
+>
+</app-online-ordering-footer>

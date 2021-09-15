@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <title>leftArrow-gray</title>
+  <g id="Home-Screen" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <g id="Artboard" transform="translate(-195.000000, -128.000000)">
+      <g id="leftArrow-gray" transform="translate(195.000000, 128.000000)">
+        <circle id="Oval" stroke="#9E9E9E" fill="#FFFFFF" cx="12" cy="12" r="11.5"></circle>
+        <g id="arrow_back-24px">
+          <polygon id="Path" points="0 0 24 0 24 24 0 24"></polygon>
+          <polygon id="Path" fill="#9E9E9E" fill-rule="nonzero"
+                   points="20 11 7.83 11 13.42 5.41 12 4 4 12 12 20 13.41 18.59 7.83 13 20 13"></polygon>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

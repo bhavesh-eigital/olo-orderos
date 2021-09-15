@@ -1,0 +1,76 @@
+<div style="height: 100vh;overflow: auto">
+    <app-header 
+        [showNumber]="false" 
+        [showEatosLogo]="true" 
+        (openSidebar)="open=true"
+    ></app-header>
+    <div class="signin__buttons">
+        <button mat-stroked-button color="accent" [ngClass]="{'activated-button': !typeOfOrder}"
+            (click)="selectOrderType(0)">
+            ORDER AT TABLE
+        </button>
+        <button mat-stroked-button color="accent" [ngClass]="{'activated-button': typeOfOrder}"
+            (click)="selectOrderType(1)">
+            ONLINE ORDERING
+        </button>
+    </div>
+    
+    <div class="signin__wrapper">
+        <form class="signin__form" #loginForm="ngForm" (ngSubmit)="login()">
+            <div class="materialInputWrapper"
+                [class.borderColorOnError]="(
+                    userEmail.touched && userEmail.hasError('required')) || 
+                    (userEmail.touched && userEmail.hasError('pattern'))"
+            >
+                <label>EMAIL</label>
+                <input class="materialInput" type="email" matInput required name="email" [(ngModel)]="email"
+                    #userEmail="ngModel" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+            </div>
+            <mat-error *ngIf="userEmail.touched && userEmail.hasError('required')">Email is require󠁧d</mat-error>
+            <mat-error *ngIf="userEmail.hasError('pattern') && userEmail.touched">Email must be a valid email</mat-error>
+    
+            <div class="materialInputWrapper"
+                [class.borderColorOnError]="userPassword.touched && userPassword.hasError('required')">
+                <label>PASSWORD</label>
+                <input class="materialInput" [type]="passwordShown ? 'text' : 'password'" matInput required name="password"
+                    [(ngModel)]="password" #userPassword="ngModel">
+                <mat-icon id="visibilityIcon" matSuffix (click)="passwordShown=!passwordShown">{{passwordShown ?
+                    'visibility' : 'visibility_off'}}</mat-icon>
+            </div>
+            <mat-error *ngIf="userPassword.touched && userPassword.hasError('required')">Password is require󠁧d</mat-error>
+    
+            <span id="forgotPassword" (click)="redirectForgetPassword()">Forgot Password</span>
+    
+            <button mat-stroked-button color="accent" [disabled]="!loginForm.valid">LOG IN</button>
+        </form>
+    
+        <p class="signin__orDivider" *ngIf="getOrCondition()">OR</p>
+    
+        <div class="signin__loginButtons" *ngIf="(!typeOfOrder && OnlineStoreAllowOrderAsGuest !== 'false')">
+            <button mat-stroked-button id="guest-btn" [routerLink]="['/dinein']">
+                CONTINUE AS A GUEST
+            </button>
+        </div>
+    
+        <div class="signin__loginButtons" *ngIf="typeOfOrder">
+            <button mat-flat-button id="facebookBtn" (click)="openLoginFacebook()" aria-label="loginWidthFacebook">
+                <img src="assets/facebook.svg" id="btnIcon">
+                LOG IN WITH FACEBOOK
+            </button>
+    
+            <button mat-raised-button id="googleBtn" (click)="openLoginGoogle()" aria-label="loginWithGoogle">
+                <img src="assets/IconsSVG/Google.svg" id="btnIcon">
+                LOG IN WITH GOOGLE
+            </button>
+    
+            <button mat-raised-button id="appleBtn" (click)="openLoginApple()" aria-label="loginWidthApple">
+                <img src="assets/IconsSVG/Apple.svg" id="btnIcon">
+                LOG IN WITH APPLE
+            </button>
+        </div>
+    
+        <div id="signupLink" [routerLink]="['/signup']">Don't have an account? <span>Sign Up</span></div>
+    </div>
+</div>
+
+<app-sidebar [(open)]="open"></app-sidebar>

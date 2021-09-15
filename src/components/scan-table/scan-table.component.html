@@ -1,0 +1,39 @@
+<div class="scannerOrTable">
+
+
+  <!-- <div *ngIf="!currentScreen" class="scannerOrTable__scanner">
+    <div>
+      <video id="video"></video>
+    </div>
+
+    <div>
+      Scan QR Code to View Menu & Order
+    </div>
+  </div> -->
+
+  <div *ngIf="!currentScreen" class="scannerOrTable__scanner">
+    <img src="assets/qr/scanner-close.svg" alt="">
+    <video id="video"></video>
+    <div></div>
+  </div>
+
+  <div *ngIf="currentScreen" class="scannerOrTable__tableCode">
+    <img src="assets/qr/close.svg" [routerLink]="['/dinein']">
+
+    <div>Dine in Made Easy</div>
+    <img src="assets/qr/love-burger.svg" alt="">
+
+    <mat-form-field>
+      <mat-label>Enter Table Code to View Menu & Order</mat-label>
+      <input matInput type="text">
+    </mat-form-field>
+
+    <button mat-stroked-button color="accent">ENTER</button>
+  </div>
+
+  <div class="scannerOrTable__slider" #slider>
+    <div (click)="toggleSlider(0)" #scannerButton>Scan</div>
+    <div (click)="toggleSlider(1)" #tableButton>Table Code</div>
+    <div class="indicator" #indicator></div>
+  </div>
+</div>

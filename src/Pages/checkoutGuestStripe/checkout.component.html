@@ -1,0 +1,248 @@
+<div class="checkout" *ngIf="!successfull && !loading">
+  <div class="checkout__header">
+    <img src="assets/order-summary/arrow-back.svg" alt="go-back" [routerLink]="['/dinein']">
+    <h3>Checkout</h3>
+  </div>
+
+  <main>
+    <div id="title">
+      <h3 class="text-capitalize">{{customerName}} | Table <span>{{tableNumber}}</span></h3>
+    </div>
+
+    <div class="checkout__restaurantData">
+      <h3>{{this.storeInformation.storeFrontName}}</h3>
+      <p>{{storeInformation.storeFrontAddress1}}</p>
+    </div>
+
+    <!-- USER INFORMATION -->
+    <app-collapse-header [title]="'Your Information*'" [show]="true"></app-collapse-header>
+    <div class="toggleContent hidden">
+      <form #userInformationForm="ngForm" class="checkout__userInfo">
+        <mat-form-field>
+          <mat-label>First Name*</mat-label>
+          <input matInput name="firstname" [(ngModel)]="customerInformation.customerFirstName" #userFistname="ngModel"
+                 required [disabled]="allowUsertoOrderwithoutPaying && allowUsertoOrderwithoutPaying === 'true'">
+          <mat-error *ngIf="userFistname.hasError('required')">First Name is Required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Last Name*</mat-label>
+          <input matInput name="lastname" [(ngModel)]="customerInformation.customerLastName" #userLastname="ngModel"
+                 required [disabled]="allowUsertoOrderwithoutPaying && allowUsertoOrderwithoutPaying === 'true'">
+          <mat-error *ngIf="userLastname.hasError('required')">Last Name is Required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Email*</mat-label>
+          <input matInput type="email" name="email" [(ngModel)]="customerInformation.customerEmail" #userEmail="ngModel"
+                 required [disabled]="allowUsertoOrderwithoutPaying && allowUsertoOrderwithoutPaying === 'true'">
+          <mat-error *ngIf="userEmail.hasError('required')">Email is Required</mat-error>
+        </mat-form-field>
+
+        <div class="row-form">
+          <div appearance="fill" color="accent" style="width: 100%;">
+            <mat-label class="phoneNumber" style="padding-left: 10px;">Phone Number*</mat-label>
+            <ngx-intl-tel-input
+              [inputId]="'adsasd'"
+              [cssClass]="'flag-code'"
+              [ngModel]="customerInformation.customerMobile.number"
+              [preferredCountries]="preferredCountries"
+              [enableAutoCountrySelect]="true"
+              [enablePlaceholder]="true"
+              [searchCountryFlag]="true"
+              [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+              [selectFirstCountry]="true"
+              [selectedCountryISO]="CountryISO.UnitedStates"
+              [maxLength]="10"
+              [tooltipField]="TooltipLabel.Name"
+              [phoneValidation]="true"
+              [separateDialCode]="separateDialCode"
+              (ngModelChange)="setPhoneNumber($event)"
+              placeholder="Phone Number"
+              matInput
+              name="phone"
+              [disabled]="allowUsertoOrderwithoutPaying && allowUsertoOrderwithoutPaying === 'true'"
+              #phone="ngModel"
+            ></ngx-intl-tel-input>
+            <mat-error *ngIf="phone.hasError('required') && phone.control.touched">Phone is required</mat-error>
+            <mat-error *ngIf="phone.hasError('validatePhoneNumber') && phone.control.touched">Phone is not valid
+            </mat-error>
+          </div>
+        </div>
+      </form>
+
+      <div id="warning-message">
+        By providing a mobile number, you give eatOS permission to contact you using automated text messages
+        to provide transactional messages such as order status updates.
+      </div>
+    </div>
+
+
+    <!-- PAYMENT -->
+    <app-collapse-header [title]="'Payment Method*'" [show]="true"></app-collapse-header>
+    <div class="toggleContent hidden">
+      <div class="payments my-3 mx-3" id="payments-Mobile">
+        <h1 class="tips-title">PAYMENTS</h1>
+        <table class="w-100 mt-3">
+          <tr>
+            <td>
+              <div style="width: 100%;">
+                <mat-label class="card-titles ml-1">Card Number</mat-label>
+                <div style="width: 100%" id="cardNumber2"></div>
+              </div>
+            </td>
+          </tr>
+        </table>
+        <table class="example-full-width mt-4 mb-4" cellspacing="0">
+          <tr class="mt-3">
+            <td>
+              <div>
+                <mat-label class="mt-3 card-titles ml-1">MM/YY</mat-label>
+                <div style="width: 200px" id="cardExpiry2"></div>
+              </div>
+            </td>
+            <td>
+              <div>
+                <mat-label class="mt-3 card-titles ml-1">CVC</mat-label>
+                <div style="width: 100px" id="cardCvc2"></div>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+
+      <div id="remember" (click)="onCheckClicked()">
+        <img *ngIf="!remember" src="assets/collapse/check_box_outline_blank.svg">
+        <img *ngIf="remember" src="assets/collapse/check_box.svg">
+
+        <span [ngClass]="{'checked': remember}">Remember this card and create an eatOS account</span>
+      </div>
+
+      <mat-form-field id="password" *ngIf="remember">
+        <mat-label>Password</mat-label>
+        <input
+          [type]="passwordShown ? 'text' : 'password'"
+          matInput
+          required
+          name="password"
+          [(ngModel)]="password"
+          #userPassword="ngModel"
+        >
+        <mat-icon matSuffix
+                  (click)="passwordShown=!passwordShown">{{passwordShown ? 'visibility' : 'visibility_off'}}</mat-icon>
+        <mat-error *ngIf="userPassword.hasError('required')">Password is require󠁧d</mat-error>
+      </mat-form-field>
+
+      <div id="terms-and-conditions">
+        By Selecting "Remember this card" and clicking on "Save" you are authorizing Toast, Inc.
+        to store your credit card information provided above(the "Card"), and to charge your Card
+        for future purchases initiated by you. You may update your card information on cancel this
+        authorization any time via the "My Account" page of the Toast Online Ordering website. This
+        authorization will remain in effect until updated or canceled.
+      </div>
+    </div>
+
+
+    <!-- ORDER SUMMARY -->
+    <app-collapse-header [title]="'Order Summary'" [show]="false"></app-collapse-header>
+    <div class="toggleContent hidden">
+      <app-order-summary-items [items]="products"></app-order-summary-items>
+    </div>
+
+    <app-collapse-header [title]="'Tip'" [show]="true"></app-collapse-header>
+    <!-- TIP -->
+    <div class="checkout__tip toggleContent hidden">
+      <span>TIP</span>
+
+      <div class="checkout__tipsContainer">
+        <div [ngClass]="tipSelected === 0 ? 'tipClicked' :''" (click)="selectTip(0)">
+          <span>10%</span>
+          <span>{{totals.finalSubTotalAmount * 0.10 | currency}}</span>
+        </div>
+        <div [ngClass]="tipSelected === 1 ? 'tipClicked' :''" (click)="selectTip(1)">
+          <span>15%</span>
+          <span>{{totals.finalSubTotalAmount * 0.15 | currency}}</span>
+        </div>
+        <div (click)="selectTip(2)" [ngClass]="tipSelected === 2 ? 'tipClicked' :''">
+          <span>18%</span>
+          <span>{{totals.finalSubTotalAmount * 0.18 | currency}}</span>
+        </div>
+        <div (click)="selectTip(3)" [ngClass]="tipSelected === 3 ? 'tipClicked' :''">
+          <span>20%</span>
+          <span>{{totals.finalSubTotalAmount * 0.20 | currency}}</span>
+        </div>
+        <div (click)="selectTip(4)" [ngClass]="tipSelected === 4 ? 'tipClicked' :''">
+          <div #customTipContainer>
+            <span>CUSTOM</span>
+            <span>{{ (tipSelected === 4 ? tipSelectedValue : customAmount) | currency}}</span>
+          </div>
+          <div #customTipInput class="hidden">
+            <mat-form-field>
+              <input
+                type="number"
+                (keyup)="onCustomTipChange($event)"
+                matInput
+                (blur)="hiddeInputContainer()"
+                #customInput
+                [(ngModel)]="tipSelectedValue"
+              >
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOTAL -->
+    <div class="checkout__total">
+      <h1>TOTAL</h1>
+      <hr>
+      <div>
+        <span>Sub Total</span>
+        <span>{{ totals.finalSubTotalAmount | currency}}</span>
+      </div>
+      <div>
+        <span>Tax</span>
+        <span>{{ totals.finalTax | currency}}</span>
+      </div>
+      <div>
+        <span>Tip</span>
+        <span>{{tipSelectedValue | currency}}</span>
+      </div>
+
+      <div>
+        <span>Total Amount</span>
+        <span>{{totals.finalTotalAmount + tipSelectedValue| currency}}</span>
+      </div>
+    </div>
+
+    <div id="warning">
+      The information you provide will be processed pursuant to
+      <span>eatoOS's Diner Terms of Service</span> and
+      <span>Privacy Statement</span>
+    </div>
+
+    <button
+      mat-stroked-button
+      color="accent"
+      class="pay-btn"
+      type="submit"
+      (click)="payOrders()"
+    >
+      PAY & LEAVE TABLE
+    </button>
+
+  </main>
+  <app-bottom-bar></app-bottom-bar>
+</div>
+
+<!-- PAYMENT SUCCESSFULL -->
+<app-payment-successfull
+  [orderInfo]="orderInfo"
+  [products]="products"
+  *ngIf="successfull && !loading"
+>
+</app-payment-successfull>
+
+
+<loading *ngIf="loading"></loading>

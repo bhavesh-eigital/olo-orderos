@@ -1,0 +1,146 @@
+<div *ngIf="!loading" class="checkout">
+  <!------------------ NAVBAR ------------------>
+  <nav class="navbar navbar-top fixed-top topbar checkout__navbar">
+    <div style="display: flex;align-items: center;">
+      <Logo-NavBar (click)="goBack()"></Logo-NavBar>
+    </div>
+    <span>Checkout</span>
+  </nav>
+
+  <main>
+    <your-order-cfd *ngIf="loading === false" [finalAmount]="finalCurrentAmount" [order]="order"
+      [orderType]="currentOrderType" [tips]="tipSelected" style="width: 100%">
+    </your-order-cfd>
+
+    <!---------------------------- TIP ------------------------------>
+    <app-collapse-header [title]="'TIP'" [show]="false"></app-collapse-header>
+    <div class="marginTop">
+      <div class="tip-box" id="tipsBoxMobile">
+        <div 
+          [hidden]="true" 
+          (click)="selectTip(0.10,0)" 
+          [ngClass]="tipSelectedIndex === 0 ?'tip-selected':'tip'"
+        >
+          <div 
+            class="tips-text-box"
+            class="tips-text-number">10%</div>
+          <div 
+            class="tips-text-box"
+            class="tips-text-number">{{currency}}{{(subTotalAmount * 0.10).toFixed(2)}}
+          </div>
+        </div>
+        <div 
+          (click)="selectTip(0.15,1)" 
+          [ngClass]="tipSelectedIndex === 1 ?'tip-selected':'tip'"
+        >
+          <div 
+            class="tips-text-box"
+            class="tips-text-number">15%</div>
+          <div 
+            class="tips-text-box"
+            class="tips-text-number">{{currency}}{{(subTotalAmount * 0.15).toFixed(2)}}
+          </div>
+        </div>
+        <div 
+          (click)="selectTip(0.18,2)" 
+          [ngClass]="tipSelectedIndex === 2 ?'tip-selected':'tip'"
+        >
+          <div 
+            class="tips-text-box"
+            class="tips-text-number">18%</div>
+          <div 
+            class="tips-text-box"
+            class="tips-text-number">{{currency}}{{(subTotalAmount * 0.18).toFixed(2)}}
+          </div>
+        </div>
+        <div 
+          (click)="selectTip(0.20,3)" 
+          [ngClass]="tipSelectedIndex === 3 ?'tip-selected':'tip'"
+        >
+          <div 
+            class="tips-text-box"
+            class="tips-text-number">20%</div>
+          <div 
+            class="tips-text-box"
+            class="tips-text-number">{{currency}}{{(subTotalAmount * 0.20).toFixed(2)}}
+          </div>
+        </div>
+        <div 
+          (click)="selectTip(0.25,4)" 
+          [ngClass]="tipSelectedIndex === 4 ?'tip-selected':'tip'"
+        >
+          <div 
+            class="tips-text-box"
+            class="tips-text-number">25%</div>
+          <div 
+            class="tips-text-box"
+            class="tips-text-number">{{currency}}{{(subTotalAmount * 0.25).toFixed(2)}}
+          </div>
+        </div>
+        <div 
+          (click)="selectTip(customTip,5)" 
+          [ngClass]="tipSelectedIndex === 5 ?'tip-selected':'tip'"
+          class="customTipContainer"
+        >
+          <div class="tips-text-box">CUSTOM</div>
+          <div class="tips-text-number customTipInputWrapper">
+            {{currency}}
+            <input 
+              maxlength="3" 
+              max="3" 
+              placeholder="0.00" 
+              onpaste="return false;"
+              class="tips-text-number customTipInput"
+              oninput="this.value = Math.abs(this.value)" 
+              [(ngModel)]="customTip"
+              (ngModelChange)="selectCustomTips($event)" 
+              (blur)="displayFloatTip()" 
+              type="number"
+            >
+          </div>
+        </div>
+      </div>
+
+
+      
+    </div>
+    <!-------------------------- PAYMENT --------------------------->
+    <app-collapse-header [title]="'PAYMENTS'" [show]="false"></app-collapse-header>
+    <div class="payments marginTop" id="payments-Mobile">
+      <div class="tip-box">
+        <div class="payment-selected">
+          <img width="30" height="30" src="../../../assets/IconsSVG/payments/addPayment.svg" alt="">
+        </div>
+        <div *ngIf="canPaymentRequest && applePaymentRequest" (click)="showPaymentRequest()" class="payment-option">
+          <img width="30" height="30" src="../../../assets/IconsSVG/payments/Apple-15px.svg" alt="">
+        </div>
+        <div *ngIf="canPaymentRequest && !applePaymentRequest" (click)="showPaymentRequest()" class="payment-option">
+          <img width="30" height="30" src="../../../assets/IconsSVG/payments/Google-15px.svg" alt="">
+        </div>
+      </div>
+      <FormCardConnect (tokenEmited)="getToken($event)"></FormCardConnect>
+    </div>
+
+    <button 
+      type="submit" 
+      [disabled]="btnDisabled"
+      class="checkout__payBtn"
+      (click)="generateOrderMobile()"
+      mat-stroked-button
+      color="accent"
+    >
+      PAY ORDER
+    </button>
+  </main>
+
+</div>
+
+
+
+<div class="modal" style="background-color: #FBFBFB" *ngIf="loading === true">
+  <div>
+    <loading></loading>
+    <p class=" loading-text ml-2 d-flex justify-content-center align-items-center align-content-center">
+      {{checkoutProcess}}</p>
+  </div>
+</div>

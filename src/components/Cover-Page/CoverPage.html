@@ -1,0 +1,93 @@
+<div class="coverPageWrapper">
+  <div
+    class="coverPage"
+    [ngStyle]="{ 'background-image':'url(' + storeInformation.storeFrontRestaurantHeroPhoto + ')'}">
+    <h1>{{storeInformation.storeFrontName}}</h1>
+    <ng-container *ngIf="isYelpIntegrated()">
+      <div class="converPage__yelp" (click)="openYelpReviews()">
+        <div
+            [ngClass]="{
+              'filled': rating >= 1,
+              'empty': rating === 0,
+              'middle': rating > 0 && rating < 1
+            }"
+        >
+          <img src="assets/star.svg" alt="rate" width="18px">
+        </div>
+
+        <div
+          [ngClass]="{
+            'filled': rating >= 2,
+            'empty': rating <= 1,
+            'middle': rating > 1 && rating < 2
+          }"
+        >
+          <img src="assets/star.svg" alt="rate" width="18px">
+        </div>
+
+        <div
+          [ngClass]="{
+            'filled': rating >= 3,
+            'empty': rating <= 2,
+            'middle': rating > 2 && rating < 3
+          }"
+        >
+          <img src="assets/star.svg" alt="rate" width="18px">
+        </div>
+
+        <div
+          [ngClass]="{
+            'filled': rating >= 4,
+            'empty': rating <= 3,
+            'middle': rating > 3 && rating < 4
+          }"
+        >
+          <img src="assets/star.svg" alt="rate" width="18px">
+        </div>
+
+        <div
+          [ngClass]="{
+            'filled': rating >= 5,
+            'empty': rating <= 4,
+            'middle': rating > 4 && rating < 5
+          }"
+        >
+          <img src="assets/star.svg" alt="rate" width="18px">
+        </div>
+
+        <span>{{totalReviews}} Reviews</span>
+      </div>
+    </ng-container>
+    <p>{{storeInformation.storeFrontAddress1}}</p>
+    <div>
+      <span class="coverPage__orderType">{{orderTypeName}}:</span>
+      <span *ngIf="!isClosed"> {{changeFormatHours(openRestaurantHours) + " - " + changeFormatHours(closeRestaurantHours)}}</span>
+      <span *ngIf="isClosed"> Closed</span>
+      <p class="mt-1">{{storeInformation.storeFrontMobile}}</p>
+    </div>
+
+    <button
+      name="favorite restaurant"
+      aria-label="favorite"
+      mat-mini-fab
+      [class.like]="!isFav(storeInformation?.storeId)"
+      [class.unlike]="isFav(storeInformation?.storeId)"
+      (click)="handleFavoriteClick()"
+      [matTooltip]="'To Add Favorite please login'"
+      [matTooltipDisabled]="customer.length !==  0"
+    >
+      <!-- <mat-icon *ngIf="!isFav(storeInformation?.storeId)">favorite_border</mat-icon> -->
+      <!-- <mat-icon *ngIf="isFav(storeInformation?.storeId)">favorite</mat-icon> -->
+
+      <div style="transform: translateY(-1px)">
+        <app-outlined-like-icon *ngIf="!isFav(storeInformation?.storeId)"></app-outlined-like-icon>
+        <app-fill-like-icon
+          *ngIf="isFav(storeInformation?.storeId)"
+          [fromFooter]="false"
+        >
+        </app-fill-like-icon>
+      </div>
+  </button>
+
+  </div>
+</div>

@@ -1,0 +1,33 @@
+<div class="favorites__items" *ngIf="favorites && favorites.length">
+  <div *ngFor="let item of favorites" class="favorites__product" (click)="openStore(item.onlineStoreURL)">
+    <img
+      src="assets/menu2/favorite_clicked.svg"
+      alt="liked"
+      class="favorites__liked"
+      (click)="removeRestaurant(item);$event.preventDefault();$event.stopPropagation()"
+    >
+    <img
+      [src]="item.onlineStoreLogo"
+      [alt]="item.onlineStoreName"
+      class="favorites__image"
+    >
+    <div>
+      <img [src]="item.onlineStoreLogo" alt="">
+      <div>
+        <h3>{{item.onlineStoreName}}</h3>
+        <span>{{item.onlineStoreBestCategories}}</span>
+        <!-- <span *ngFor="let categorie of item.categories; index as i">
+          {{categorie.name}}
+          <span *ngIf="i < item.categories.length - 1"> |</span>
+        </span> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!favorites || !favorites.length" class="emptyState">
+  <img src="assets/empty-states/no-items.svg" alt="">
+  <p>You have no favorites yet</p>
+  <p>All your favorites restaurants will be shown here</p>
+  <button mat-stroked-button color="accent">VIEW RESTAURANTS</button>
+</div>

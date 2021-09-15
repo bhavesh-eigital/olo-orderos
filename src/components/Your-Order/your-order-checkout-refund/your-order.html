@@ -1,0 +1,107 @@
+<loading *ngIf="loading === true"></loading>
+<div *ngIf="loading === false">
+  <mat-card class="your-order-container">
+    <div id="summary" class="your-order-container">
+      <div class="your-order-text" style="margin: 11px;padding-bottom: 8px">ORDER
+        #{{paymentInfo.orderId.orderNumber}}-B
+      </div>
+      <div class="px-2 list-product-container">
+        <div *ngFor="let product of orderRefunded.removedProducts">
+          <mat-card class="mt-2" style="box-shadow: none ;border-radius: 0px">
+            <div class="d-flex justify-content-between">
+              <div class="quantity tachado">
+                {{product.productQuantity}}
+              </div>
+              <div class="w-100 d-flex justify-content-between px-3" style="padding-right: 0!important;">
+                <span class="product-name tachado">{{product.productName}}</span>
+                <span
+                  class="product-name tachado">{{currency}}{{(product.productTotal).toFixed(2)}}</span>
+              </div>
+              <button
+                style="display: flex;padding-left:8px;margin-right: -5px">
+                <span style="display: flex;"></span>
+              </button>
+            </div>
+            <div *ngFor="let modifier of product.modifiers" class="px-4 d-flex justify-content-between">
+              <div class="tachado">{{modifier.modifierName}}</div>
+              <div class="tachado">{{currency}}{{modifier.modifierOptions[0].modifierOptionsValue.toFixed(2)}}</div>
+            </div>
+          </mat-card>
+        </div>
+
+        <div class="note my-3">
+          <span class="noteText">Updated order will be resubmitted to the restaurant.</span>
+        </div>
+
+<!--        <div *ngFor="let product of removeCancelElements(orderRefunded.order.seats[0].orderProducts)">-->
+<!--          <mat-card class=" mt-2" style="box-shadow: none ;border-radius: 0px">-->
+<!--            <div class="d-flex justify-content-between">-->
+<!--              <div class="quantity">-->
+<!--                {{product.productQuantity}}-->
+<!--              </div>-->
+<!--              <div class="w-100 d-flex justify-content-between px-3" style="padding-right: 0!important;">-->
+<!--                <span class="product-name">{{product.productName}}</span>-->
+<!--                <span-->
+<!--                  class="product-name">{{currency}}{{(product.productCalculatedPrice).toFixed(2)}}</span>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </mat-card>-->
+<!--        </div>-->
+
+        <div *ngFor="let product of cart">
+          <mat-card class=" mt-2" style="box-shadow: none ;border-radius: 0px">
+            <div class="d-flex justify-content-between">
+              <div class="quantity">
+                {{product.quantity}}
+              </div>
+              <div class="w-100 d-flex justify-content-between px-3" style="padding-right: 0!important;">
+                <span class="product-name">{{product.productName}}</span>
+                <span
+                  class="product-name">{{currency}}{{(product.totalAmount * product.quantity).toFixed(2)}}</span>
+              </div>
+              <button
+                (click)="removeProduct(product)"
+                style="display: flex;padding-left:8px;margin-right: -5px">
+                <span style="display: flex;"><img src="../../../assets/IconsSVG/product-Delete.svg" alt=""></span>
+              </button>
+            </div>
+            <div *ngFor="let modifier of product.modifiers" class="px-4 d-flex justify-content-between">
+              <div>{{modifier.modifierName}}</div>
+              <div>{{currency}}{{modifier.modifierOptions[0].modifierOptionsValue.toFixed(2)}}</div>
+            </div>
+            <div (click)="editProduct(product)" class="px-4 edit mt-2" style="cursor: pointer">EDIT</div>
+          </mat-card>
+        </div>
+
+
+
+      </div>
+    </div>
+
+    <div class="px-2">
+      <span class="total">TOTAL</span>
+      <div class="line"></div>
+      <div class="my-3" style="width: 100%;display: flex;justify-content: space-between">
+        <span class="sub-total">Sub Total</span>
+        <span class="sub-total-price">{{currency}}{{refundCartDifferenceSubTotalAmount().toFixed(2)}}</span>
+      </div>
+      <div class="my-3" style="width: 100%;display: flex;justify-content: space-between">
+        <span class="sub-total">Taxes</span>
+        <span class="sub-total-price">{{currency}}{{refundCartDifferenceTaxes().toFixed(2)}}</span>
+      </div>
+      <div class="my-3" style="width: 100%;display: flex;justify-content: space-between">
+        <span class="sub-total">Delivery Fee</span>
+        <span class="sub-total-price">{{currency}}{{orderRefunded.order.deliveryAmount.toFixed(2)}}</span>
+      </div>
+      <div *ngIf="cart.length === 0" class="my-3" style="width: 100%;display: flex;justify-content: space-between">
+        <span class="sub-total">Tips</span>
+        <span class="sub-total-price">{{currency}}{{orderRefunded.payment.paymentTipAmount}}</span>
+      </div>
+      <div class="my-3" style="width: 100%;display: flex;justify-content: space-between">
+        <span class="total-amount">Total Amount</span>
+        <span class="total-amount-price">{{currency}}{{refundCartDifference().toFixed(2)}}</span>
+      </div>
+
+    </div>
+  </mat-card>
+</div>

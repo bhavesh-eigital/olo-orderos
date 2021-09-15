@@ -1,0 +1,67 @@
+<ng-container>
+  <button
+    mat-raised-button
+    (click)="closeModal()"
+    id="closeBtn"
+    aria-label="closeModel"
+    style="transform: translate(538px, 18px); color: #d63447"
+  >
+    <mat-icon>close</mat-icon>
+  </button>
+</ng-container>
+<div class="modal-ticket">
+  <ng-container *ngIf="!isTicketSuccess">
+    <span>CREATE TICKET</span>
+    <div class="ticket-form-container">
+      <form [formGroup]="ticketForm" (ngSubmit)="onSubmit()">
+
+        <mat-form-field  style="width: 100%;">
+          <mat-label>Email</mat-label>
+          <input formControlName="mail" matInput >
+        </mat-form-field>
+        <mat-form-field  style="width: 100%; padding-top: .75em;">
+          <mat-label>CC Email</mat-label>
+          <input formControlName="mailCC" matInput >
+        </mat-form-field>
+        <mat-form-field  appearance="standard" style="width: 100%;" >
+          <mat-label>Select a reason*</mat-label>
+          <mat-select formControlName="reason" (selectionChange)="getReason($event)"  >
+            <mat-option *ngFor="let reason of reasons" [value]="reason.id" >
+              {{reason.reason}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div class="note" style="width: 100%; padding-top: .75em;">
+          <div class="special-request">
+            <div>
+              <span>DESCRIBE ABOVE WHAT HAPPENED: </span>
+
+            </div>
+            <div class="textareaWrapper">
+        <textarea
+          formControlName="description"
+          rows="4"
+          [(ngModel)]="note"
+          maxlength="200"
+        >
+        </textarea>
+            </div>
+          </div>
+        </div>
+        <div class="btn-ticket">
+          <button type="submit"
+                  [disabled]="!ticketForm.valid || isRequestMade ">
+            Create Ticket
+            <span *ngIf="isRequestMade" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="isTicketSuccess">
+    <div class="success-creation">
+      <img src="../../../assets/payment-method-modal/success.svg" alt="">
+      <span>Ticket Creation Successfully</span>
+    </div>
+  </ng-container>
+</div>

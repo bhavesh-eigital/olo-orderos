@@ -1,0 +1,37 @@
+.product-container {
+  border-bottom: 1px solid #D8D8D8;
+  background-color: white;
+}
+
+
+.product-name {
+  color: #212121;
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 19px;
+}
+
+.edit {
+  color: #0091FF;
+  font-family: Montserrat;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 15px;
+}
+
+.quantity {
+  color: #212121;
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 19px;
+  text-align: center;
+}
+
+::ng-deep.mdi::before {
+  line-height: 21px !important;
+}

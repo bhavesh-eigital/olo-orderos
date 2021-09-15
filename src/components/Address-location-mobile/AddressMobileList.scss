@@ -1,0 +1,43 @@
+.addressList-container {
+  height: 514px;
+  width: 355px;
+  background-color: white;
+}
+
+::ng-deep .mat-dialog-container {
+  padding: 0 !important;
+}
+
+.container-title {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.title {
+  color: var(--theme-global-var);;
+  font-family: Montserrat;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 29px;
+}
+
+.rectangle {
+  height: 1px;
+  width: 100%;
+  background-color: #D8D8D8;
+}
+
+.current-location-box {
+  height: 56px;
+  width: 100%;
+  margin-left: 16px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: left;
+  background-color: #FFFFFF;
+}

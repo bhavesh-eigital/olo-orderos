@@ -1,0 +1,43 @@
+<div class="yourOrder">
+
+  <!------------------ PRODUCTS  ------------------->
+  <app-collapse-header [title]="'YOUR ORDER'" [show]="true"></app-collapse-header>
+  <div class="marginTop">
+    <your-product-cfd *ngFor="let product of productList" [product]="product"></your-product-cfd>
+  </div>
+
+
+  <!------------------ TOTALS  ------------------->
+  <app-collapse-header [title]="'TOTAL'" [show]="true"></app-collapse-header>
+  <div class="px-2 marginTop">
+    <div>
+      <span>Sub Total</span>
+      <span>{{currency}}{{order.subTotalAmount.toFixed(2)}}</span>
+    </div>
+
+    <div>
+      <span>Tip</span>
+      <span>{{currency}}{{tips.toFixed(2)}}</span>
+    </div>
+
+    <div>
+      <span>Tax</span>
+      <span>{{currency}}{{order.taxAmount.toFixed(2)}}</span>
+    </div>
+
+    <div>
+      <span>Service Charge</span>
+      <span>{{currency}}{{order.serviceChargeAmount.toFixed(2)}}</span>
+    </div>
+
+    <div>
+      <span>Discount</span>
+      <span>- {{currency}}{{order.discountAmount.toFixed(2)}}</span>
+    </div>
+
+    <div>
+      <span class="total-amount">Total Amount</span>
+      <span class="total-amount-price">{{currency}}{{finalAmount.toFixed(2)}}</span>
+    </div>
+  </div>
+</div>

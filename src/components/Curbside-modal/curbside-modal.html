@@ -1,0 +1,41 @@
+<div class="modal-container">
+  <div>
+    <div class="">
+      <div class="justify-content-between w-100" style="display: flex;flex-direction: row">
+        <div></div>
+        <div (click)="closeModal()" style="text-align: right;cursor:pointer;padding-top: 12px;padding-right: 13px">
+          <img alt="" src="assets/IconsSVG/close-Pink-32px.svg" style="width: 32px">
+        </div>
+      </div>
+      <div class="col-sm-12 d-flex description-Information" style="flex-direction: column;align-items: center">
+        <div>
+          <div class="title-info" style="padding-top: 10px">Your Order is Ready for Pickup!</div>
+          <div style="text-align: center;padding-top: 32px">
+            <img src="assets/IconsSVG/curbsidepickup-car.svg" alt="">
+          </div>
+          <div style="margin-top: 30px">
+            <div class="d-flex w-100" style="display: flex;flex-direction: column">
+              <div class="title-modifiers">Help Us Get Your Order To You</div>
+              <div class="msg-description">Tell us about your vehicle, where you’re parked, spot number and any other
+                helpful details
+              </div>
+
+              <mat-form-field class="w-100" appearance="outline" style="padding: 0!important;">
+                  <textarea #notes maxlength="200" class="text--area"
+                            placeholder="I am in parking spot 3. I am in a red Toyota Camry."
+                            [(ngModel)]="note"
+                            [autofocus]="false"
+                            matInput style="height: 88px;width: 100%;padding:10px"></textarea>
+                <mat-hint align="end">{{notes.value.length}} / 200</mat-hint>
+              </mat-form-field>
+            </div>
+          </div>
+          <div (click)="sendCurbsideNote()" class="button-card mt-3">I’M AT CURBSIDE PICKUP</div>
+        </div>
+        <div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

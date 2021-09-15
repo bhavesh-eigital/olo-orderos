@@ -1,0 +1,17 @@
+<div class="paymentFailed">
+  <span>{{81.97 | currency}}</span>
+
+  <div>
+    <span>{{71.28 | currency}} + </span>
+    <span>{{10.69 | currency}}TIP</span>
+  </div>
+
+  <img src="assets/failed.svg" alt="">
+
+  <div id="description">
+    <span>Payment Unsuccessfull</span>
+    <span>Please update yout payment method and try again</span>
+  </div>
+
+  <button mat-stroked-button color="accent" class="back-btn" (click)="back.emit()">BACK TO PAYMENT METHOD</button>
+</div>

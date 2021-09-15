@@ -1,0 +1,69 @@
+<!-- -------------------------- DARK LAYER  ----------------------------->
+<div class="sidebar__layer" (click)="closeSidebar()" #sidebarLayer>
+</div>
+
+<!-- -------------------------- SIDEBAR  ----------------------------->
+<div class="sidebar" #sidebar>
+  <div class="sidebar__header">
+    <div>
+      <img src="assets/close.svg" (click)="closeSidebar()">
+    </div>
+    <p class="text-capitalize">{{customerName}}</p>
+    <p>Table {{tableNumber}}</p>
+    <button (click)="leaveTable()">LEAVE TABLE</button>
+    <p>Your total will be charged to your saved payment method</p>
+  </div>
+
+  <div class="sidebar__items">
+    <div (click)="goToAccount()">
+      <img src="assets/sidenav/account.svg" alt="account" width="24" height="24">
+      <div>
+        <span>Account</span>
+        <span>Edit your account details and payment methods</span>
+      </div>
+    </div>
+    <div [routerLink]="['/orders-history']">
+      <img src="assets/sidenav/orders.svg" alt="orders" width="24" height="24">
+      <div>
+        <span>Orders</span>
+        <span>View your past orders and recorder any of your favorites</span>
+      </div>
+    </div>
+    <!-- <div>
+      <img src="assets/sidenav/help.svg" alt="">
+      <div>
+        <span>Help</span>
+        <span>Contact eatOS for anything the restaurant can't help with</span>
+      </div>
+    </div> -->
+    <div [routerLink]="['/dinein']">
+      <mat-icon>storefront</mat-icon>
+      <div>
+        <span>Home</span>
+        <span>View the restaurants menu in order to start your order</span>
+      </div>
+    </div>
+    <div [routerLink]="['/scanner-table']">
+      <img src="assets/sidenav/qr.svg" alt="scanner" width="24" height="24">
+      <div>
+        <span>Scan QR Code</span>
+        <span>Scan a diferent QR code if you've changed tables</span>
+      </div>
+    </div>
+    <div (click)="goToTable()">
+      <img src="assets/sidenav/mobile.svg" alt="signin" width="24" height="24">
+      <div>
+        <span>Enter Table Code</span>
+        <span>Enter a diferent table code if you've changed tables</span>
+      </div>
+    </div>
+
+    <div (click)="redirectLogin()">
+      <img src="assets/sidenav/sign-out.svg" *ngIf="customer.length">
+      <mat-icon *ngIf="!customer.length">login</mat-icon>
+      <div>
+        <span>{{customer.length !== 0 ? 'Sign Out' : 'Sign In'}}</span>
+      </div>
+    </div>
+  </div>
+</div>

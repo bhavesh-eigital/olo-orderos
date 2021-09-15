@@ -1,0 +1,69 @@
+.orderSummaryItems__item {
+  display: flex;
+  border: solid 0.8px #e0e0e0;
+  background-color: #ffffff;
+  padding: 16px;
+
+  justify-content: space-between;
+  margin-bottom: 8px;
+  min-height: 71px;
+}
+
+.orderSummaryItems__item > div:first-child {
+  display: flex;
+}
+
+.orderSummaryItems__item > div:first-child > span {
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #212121;
+}
+
+.orderSummaryItems__item > div:first-child > div {
+  display: flex;
+  flex-direction: column;
+  margin-left: 12px;
+}
+
+.orderSummaryItems__item > div:first-child > div > span:first-child {
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #212121;
+
+  display: inline-block;
+  margin-bottom: 4px;
+}
+
+.orderSummaryItems__item > div:first-child > div > span:last-child {
+  font-family: Montserrat;
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #545454;
+}
+
+.orderSummaryItems__item > div:last-child > span {
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: right;
+  color: #212121;
+}

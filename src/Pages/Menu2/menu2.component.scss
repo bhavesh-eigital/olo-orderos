@@ -1,0 +1,263 @@
+.menu {
+  overflow-y: auto;
+  height: 100vh;
+}
+
+// ------------------------  BANNER  ------------------------
+.banner {
+  background-size: cover;
+  height: 170px;
+  padding: 0 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 1;
+  margin-top: 56px;
+}
+
+.banner::before {
+  content: "";
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 10;
+}
+
+.banner > h3 {
+  margin: 0 0 4px;
+  font-family: Montserrat;
+  font-size: 28px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.36;
+  letter-spacing: normal;
+  color: white;
+  position: relative;
+  z-index: 20;
+}
+
+.banner > p {
+  margin: 4px 0;
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #ffffff;
+  position: relative;
+  z-index: 20;
+}
+
+.iconsContainer {
+  position: absolute;
+  right: 15px;
+  bottom: 0px;
+  z-index: 20;
+}
+
+.iconsContainer > img {
+  cursor: pointer;
+}
+
+.banner > button {
+  position: absolute;
+  bottom: 24px;
+  right: 40px;
+
+  background-color: white;
+
+  z-index: 99;
+  transition: all 0.25s;
+
+  &:hover {
+    transform: scale(1.1);
+    transition: all 0.5s;
+  }
+
+  &:active {
+    animation: heartbeat 0.5s;
+  }
+}
+
+.banner > button .mat-icon {
+  color: black;
+}
+
+.like {
+  background-color: white;
+  border: none;
+}
+
+.like.mat-icon {
+  color: black;
+}
+
+.unlike {
+  border: 1px solid var(--theme-global-var) !important;
+}
+
+.unlike .mat-icon {
+  color: var(--theme-global-var) !important;
+}
+
+/* ----------------------- TABS ----------------------- */
+
+.tabs {
+  max-width: 100%;
+  background: white;
+  z-index: 10;
+  overflow: hidden;
+  position: relative;
+  padding: 0 20px;
+  position: sticky;
+  top: 53px;
+  left: 0;
+  z-index: 99;
+  background: white;
+}
+
+.tabs > div {
+  display: flex;
+  overflow-x: auto;
+}
+
+.tabs > div > div {
+  flex: 1;
+  padding: 16px 10px 17px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+
+  white-space: nowrap;
+
+  cursor: pointer;
+}
+
+.tabs > div > div > span {
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.6);
+  padding: 0 8px;
+  text-decoration: none;
+
+  text-transform: uppercase;
+}
+
+.selected {
+  border-bottom: 3px solid var(--theme-global-var) !important;
+  span {
+    color: var(--theme-global-var) !important;
+    font-weight: 600 !important;
+  }
+}
+
+/* ------------------------  MAIN  ------------------------  */
+main {
+  min-height: 58vh;
+  box-shadow: 0 12px 14px 0 rgba(0, 0, 0, 0.11);
+  background-color: #ffffff;
+  padding-bottom: 80px;
+
+  position: relative;
+  z-index: 20;
+
+  margin-top: 16px;
+}
+
+main > div:nth-of-type(1) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  font-size: 24px;
+  font-weight: 400;
+  font-family: Montserrat;
+}
+
+@-webkit-keyframes heartbeat {
+  from {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-transform-origin: center center;
+    transform-origin: center center;
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+  10% {
+    -webkit-transform: scale(0.91);
+    transform: scale(0.91);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+  }
+  17% {
+    -webkit-transform: scale(0.98);
+    transform: scale(0.98);
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+  33% {
+    -webkit-transform: scale(0.87);
+    transform: scale(0.87);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+  }
+  45% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+}
+@keyframes heartbeat {
+  from {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-transform-origin: center center;
+    transform-origin: center center;
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+  10% {
+    -webkit-transform: scale(0.91);
+    transform: scale(0.91);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+  }
+  17% {
+    -webkit-transform: scale(0.98);
+    transform: scale(0.98);
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+  33% {
+    -webkit-transform: scale(0.87);
+    transform: scale(0.87);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+  }
+  45% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+}

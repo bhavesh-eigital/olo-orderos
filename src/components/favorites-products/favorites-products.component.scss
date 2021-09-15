@@ -1,0 +1,191 @@
+.wrapper {
+  transform: translateY(64px);
+}
+
+.favoriteProducts {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.favoriteProducts h1 {
+  margin: 0 165px 8px 0;
+  font-family: Montserrat;
+  font-size: 20px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #212121;
+
+  margin: 14px 0 8px;
+  align-self: flex-start;
+
+}
+
+.favoriteProducts h1 + .item {
+  margin-top: 0 !important;
+}
+
+.favoriteProducts h1 + .item:last-child {
+  margin-bottom: 16px !important;
+}
+
+
+.item {
+  display: flex;
+  justify-content: space-between;
+
+  min-height: 123px;
+  margin: 8px 20px;
+  padding: 16px;
+  border: solid 0.8px #e0e0e0;
+  background-color: #ffffff;
+
+  cursor: pointer;
+
+  position: relative;
+  width: 100%;
+
+}
+
+.item:hover {
+  background-color: #f7f7f8;
+  border-color: #bebec6;
+  transition: all 0.3s;
+}
+
+
+.item > div:first-child {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.item > div:first-child > div > p:first-child {
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #212121;
+
+  margin: 0 0 4px;
+}
+
+.item > div:first-child > div > p:nth-child(2) {
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #757575;
+}
+
+.item > div:first-child {
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #212121;
+}
+
+#itemImage {
+  max-width: 128px;
+  min-width: 128px;
+  width: 128px;
+  height: 128px;
+  min-height: 128px;
+  max-height: 128px;
+  margin: 0 0 0 16px;
+  align-self: center;
+
+  @media screen and (max-width: 365px) {
+    object-fit: cover;
+    margin-top: 16px;
+    margin-left: 0;
+    width: 40%;
+    max-width: 40%;
+    min-width: 40%;
+    height: 40%;
+    min-height: 40%;
+    max-height: 40%;
+  }
+}
+
+#like-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  width: 36px;
+  height: 36px;
+}
+
+.emptyState {
+  transform: translateY(90px);
+  min-height: 100vh;
+}
+
+.emptyState > img {
+  display: block;
+  margin: 67px auto 32px;
+}
+
+.emptyState > p:nth-of-type(1) {
+  margin: 0 auto;
+
+  font-family: Montserrat;
+  font-size: 24px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #212121;
+}
+
+.emptyState > p:nth-of-type(2) {
+  margin: 4px auto 0;
+  max-width: 250px;
+
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #545454;
+}
+
+.emptyState > button {
+  width: 100%;
+  height: 48px;
+  margin-top: 33px;
+  margin-bottom: 70px;
+
+  border-radius: 5px;
+  box-shadow: 0 10px 40px -10px rgba(33, 33, 33, 0.5);
+  border: solid 2px var(--theme-global-var);
+  background-color: #ffffff;
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: var(--theme-global-var);
+}

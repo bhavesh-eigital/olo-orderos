@@ -1,0 +1,54 @@
+<div class="modal-container">
+  <div class="title-container">
+    <span class="title">
+      Address Out of Delivery Range
+    </span>
+  </div>
+  <div class="generalPadding">
+    <div
+      style="display: flex;justify-content: center;align-items: center;text-align: center;margin-top: 32px;margin-bottom: 32px"
+      class="">
+      <img src="assets/IconsSVG/combined-shape.svg" alt="">
+    </div>
+    <div style="width: 100%" class="text-center">
+    <span class="text-message">
+      Your updated address is out of this restaurant’s delivery range
+    </span>
+    </div>
+
+    <div style="display: flex;width: 100%;justify-content: space-around;margin-top: 24px">
+      <button (click)="changeOrderType(2)" class="button-container" mat-stroked-button>
+        <span class="Change-order">
+          <img src="assets/IconsSVG/AddressValidation/pickup.svg" alt="">
+          Change to Pickup
+        </span>
+      </button>
+    <button (click)="changeOrderType(3)" class="button-container" mat-stroked-button>
+      <span class="Change-order">
+        <img src="assets/IconsSVG/AddressValidation/Shape-pink.svg" alt="">
+        Change to Curbside
+      </span>
+    </button>
+    </div>
+
+    <div class="or-option">
+      <div class="or-line"></div>
+      <span class="or-text mx-2">OR</span>
+      <div class="or-line"></div>
+    </div>
+
+    <div style="display: flex;width: 100%;justify-content: space-around">
+      <button (click)="cleanCart()" class="button-container" mat-stroked-button>
+      <span class="Cancel-Order">
+              Cancel Order
+      </span>
+      </button>
+      <button (click)="AddNewAddress()" class="button-container" mat-stroked-button>
+      <span class="Change-order">
+      Manage Delivery Address
+      </span>
+      </button>
+    </div>
+  </div>
+
+</div>

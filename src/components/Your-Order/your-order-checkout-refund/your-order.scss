@@ -1,0 +1,218 @@
+.your-order-container {
+  background-color: white;
+  height: auto;
+  width: 100%;
+  padding: 5px;
+  margin-top: 68px;
+}
+
+.your-order-checkout {
+  height: 48px;
+  border-radius: 2px;
+  background-color: var(--theme-global-var);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  text-align: center;
+}
+
+.your-order-text {
+  color: var(--theme-global-var);
+  font-family: Montserrat;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 24px;
+}
+
+.your-order-checkout-text {
+  color: #FFFFFF;
+  font-family: Montserrat;
+  font-size: 22px;
+  width: 100%;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 22px;
+}
+
+.product-container {
+  height: 475px;
+  overflow: auto;
+}
+
+.checkout-buttom {
+  height: 60px;
+  display: flex;
+  justify-content: center;
+}
+
+.number {
+  color: #FFFFFF;
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 22px;
+}
+
+.price {
+  color: #FFFFFF;
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 22px;
+  text-align: right;
+}
+
+.total {
+  color: var(--theme-global-var);
+  font-family: Montserrat;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 24px;
+}
+
+.line {
+  height: 1px;
+  width: 100%;
+  background-color: #D8D8D8;
+}
+
+.tip {
+  color: #000000;
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 19px;
+}
+
+
+.tip-price {
+  color: #000000;
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 19px;
+  text-align: right;
+}
+
+.sub-total {
+  color: #000000;
+  font-family: Montserrat;
+  font-size: 15px;
+  letter-spacing: 0;
+  line-height: 19px;
+}
+
+.sub-total-price {
+  color: #000000;
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 19px;
+  text-align: right;
+}
+
+
+.total-amount {
+  height: 24px;
+  width: 144px;
+  color: #000000;
+  font-family: Montserrat;
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 24px;
+}
+
+.total-amount-price {
+  height: 24px;
+  width: 144px;
+  color: #000000;
+  font-family: Montserrat;
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 24px;
+  text-align: right;
+}
+
+.product-container {
+  border-bottom: 1px solid #D8D8D8;
+  background-color: white;
+}
+
+.product-name {
+  color: #212121;
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 19px;
+}
+
+
+@media (max-width: 450px) {
+  .product-container {
+    height: auto;
+    min-height: 140px;
+    overflow: auto;
+  }
+
+  .your-order-container {
+    background-color: white;
+    height: auto;
+    width: 100%;
+    padding: 5px;
+    margin-top: 30px;
+  }
+}
+
+.tachado {
+  text-decoration: line-through;
+}
+
+.note {
+  height: 48px;
+  width: 100%;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(233, 30, 99, 0.16);
+}
+
+.noteText {
+  height: 32px;
+  width: 274px;
+  color: #000000;
+  font-family: Montserrat;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 16px;
+}
+
+.edit {
+  color: #0091FF;
+  font-family: Montserrat;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 15px;
+}
+
+.refund {
+  color: var(--theme-global-var);
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 19px;
+}

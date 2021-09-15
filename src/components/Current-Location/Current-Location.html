@@ -1,0 +1,60 @@
+<div class="currentLocationWrapper">
+  <div class="currentLocation">
+    <!-- <mat-icon (click)="searchLocation();$event.preventDefault();$event.stopPropagation()">location_on</mat-icon> -->
+    <app-location-on-icon
+      (click)="searchLocation();$event.preventDefault();$event.stopPropagation()"
+      style="margin-right: 13px;cursor: pointer;width: 24px;"
+    >
+    </app-location-on-icon>
+    <span (click)="searchLocation();$event.preventDefault();$event.stopPropagation()">
+      {{locationLabel}}
+    </span>
+    <button
+      mat-icon-button
+      aria-label="location menu"
+      (click)="searchLocation();$event.preventDefault();$event.stopPropagation()"
+      name="location menu"
+    >
+      <!-- <mat-icon>keyboard_arrow_down</mat-icon> -->
+      <app-arrow-down-icon></app-arrow-down-icon>
+    </button>
+
+    <div class="currentLocation__menu closeMenu" #menu [ngClass]="{'mobileDropdown': innerWidth === 755}">
+      <div style="padding: 16px;">
+        <div class="materialInputWrapper" style="width: 100%;">
+        <input
+          class="materialInput"
+          type="text" name="promo"
+          [(ngModel)]="address"
+          #addresstext
+        >
+        </div>
+      </div>
+
+      <div (click)="getLocation()">
+        <!-- <mat-icon>near_me</mat-icon> -->
+        <div style="margin-right: 16px;">
+          <app-near-me-icon></app-near-me-icon>
+        </div>
+        <span>Use My Current Location</span>
+      </div>
+
+      <mat-radio-group [(ngModel)]="addressSelected" class="radioBtnWithoutRipple">
+        <mat-radio-button
+          *ngFor="let address of customer.customerAdresses"
+          [checked]="isChecked(addressSelected, address)"
+          [value]="address"
+          (change)="setDefaultAddress(address)"
+        >
+        <div class="matRadioContent">
+          <div>{{address.customerAddress1}}</div>
+          <div>
+            <span *ngIf="address.customerAddressName">{{address.customerAddressName}} | </span>
+            <span *ngIf="address.customerMobile">{{address.customerMobile}}</span>
+          </div>
+        </div>
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+  </div>
+</div>

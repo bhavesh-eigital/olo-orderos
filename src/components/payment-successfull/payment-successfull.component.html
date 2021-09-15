@@ -1,0 +1,50 @@
+<div class="successfull">
+  <img src="assets/check-circle-success.svg" alt="success">
+
+  <div id="container-1">
+    <span>Payment Successful</span>
+    <span>Thank you for dining with us</span>
+  </div>
+
+
+  <div id="container-2">
+    <p>An Email has been sent</p>
+
+    <p class="text-capitalize">{{storeInformation.storeFrontSubdomain}}</p>
+    <p>{{storeInformation.storeFrontAddress1}}</p>
+
+    <p>If you had any issues with your order or would like to contact the restaurant, please call {{storeInformation.storeFrontSubdomain}}
+    </p>
+
+    <p>{{storeInformation.storeFrontMobile}}</p>
+  </div>
+
+  <app-collapse-header [title]="'Order Summary'" [show]="false"></app-collapse-header>
+  <div class="successfull__itemsContainer hidden">
+    <app-order-summary-items [items]="products"></app-order-summary-items>
+  </div>
+
+
+  <!-- TOTAL -->
+  <div class="successfull__total">
+    <div>
+      <span>Sub Total</span>
+      <span>{{orderInfo.subTotalAmount | currency}}</span>
+    </div>
+    <div>
+      <span>Tax</span>
+      <span>{{orderInfo.taxAmount | currency}}</span>
+    </div>
+    <div>
+      <span>Tip</span>
+      <span>{{orderInfo.tipAmount | currency}}</span>
+    </div>
+
+    <div>
+      <span>Total Amount</span>
+      <span>{{orderInfo.totalAmount + orderInfo.tipAmount | currency}}</span>
+    </div>
+  </div>
+
+  <p id="dine-again" (click)="redirectToMenu()">Close Receipt</p>
+</div>

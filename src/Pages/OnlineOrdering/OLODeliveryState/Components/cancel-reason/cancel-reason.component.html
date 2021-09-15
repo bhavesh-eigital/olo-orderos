@@ -1,0 +1,47 @@
+<ng-container>
+  <button
+    mat-raised-button
+    (click)="closeModal()"
+    id="closeBtn"
+    aria-label="closeModel"
+    style="transform: translate(465px, 18px); color: #d63447"
+  >
+    <mat-icon>close</mat-icon>
+  </button>
+</ng-container>
+<div class="modal-cancel-reason">
+  <div class="reason">
+    <div class="toggle__header" >
+      <span>Select a reason</span>
+    </div>
+    <div class="toggle__item" *ngFor="let reasonToCancel of reasonsToCancel" (click)="setReason(reasonToCancel)">
+      <div>
+        <app-unchecked-radio-button *ngIf="isReasonSelected(reasonToCancel) !== true" style="margin-right: 18px;"></app-unchecked-radio-button>
+        <app-checked-radio-button *ngIf="isReasonSelected(reasonToCancel) === true" style="margin-right: 18px;"></app-checked-radio-button>
+        <span [ngClass]="{'activated':isReasonSelected(reasonToCancel) === true}">{{reasonToCancel.reason}}</span>
+      </div>
+    </div>
+  </div>
+  <div class="note">
+    <div class="special-request">
+      <div>
+        <span>PLEASE ADD NOTE: </span>
+        <span>{{note?.length}} /200</span>
+      </div>
+      <div class="textareaWrapper">
+        <textarea
+          rows="4"
+          [(ngModel)]="note"
+          maxlength="200"
+        >
+        </textarea>
+<!--        <mat-icon *ngIf="note?.length" (click)="clearNote()">-->
+<!--          close-->
+<!--        </mat-icon>-->
+      </div>
+    </div>
+  </div>
+  <div class="btn-reason">
+    <button (click)="completeCancelOrder()" > Confirm </button>
+  </div>
+</div>

@@ -1,0 +1,362 @@
+e.profile-tile {
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 600;
+  color: #000000;
+}
+
+.card-title {
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 600;
+  color: #000000;
+}
+
+.takePicture {
+  box-sizing: border-box;
+  height: 44px;
+  width: 195px;
+  border: 2px solid var(--theme-global-var);
+  border-radius: 2px;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+.takePicture-text {
+  height: 19px;
+  width: 131px;
+  color: var(--theme-global-var);
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 19px;
+  text-align: center;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+.example-full-email {
+  width: 100%;
+}
+
+.checkout-button {
+  height: 52px;
+  width: 100%;
+  border-radius: 2px;
+  background-color: var(--theme-global-var);
+  display: flex;
+  color: white;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.checkout-button-disabled {
+  height: 52px;
+  width: 100%;
+  border-radius: 2px;
+  background-color: #d4d4d4;
+  display: flex;
+  color: white;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.btn-disable {
+  height: 52px;
+  width: 100%;
+  border-radius: 2px;
+  background-color: #d4d4d4;
+  display: flex;
+  color: #6d7278;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.example-full {
+  width: 110px;
+}
+
+@media (max-width: 450px) {
+  .example-full-name {
+    width: 84%;
+  }
+
+  .example-full-first {
+    width: 90px;
+  }
+
+  .example-full {
+    width: 90px;
+    margin-left: 20px;
+  }
+
+  .checkout-button {
+    height: 52px;
+    width: 100%;
+    border-radius: 2px;
+    background-color: var(--theme-global-var);
+    display: flex;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+    font-family: Montserrat;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .checkout-button-disabled {
+    height: 52px;
+    width: 100%;
+    background-color: #d4d4d4;
+    color: white;
+    display: flex;
+    border-radius: 2px;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+    font-family: Montserrat;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .btn-disable {
+    height: 52px;
+    width: 100%;
+    border-radius: 2px;
+    background-color: #d4d4d4;
+    display: flex;
+    color: #6d7278;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+    font-family: Montserrat;
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .customerPadding {
+    padding-right: 4%;
+    padding-left: 4%;
+  }
+  .example-full-width {
+    width: 100%;
+  }
+}
+
+.customerPadding {
+}
+
+.myAccount {
+  margin-top: 5%;
+  color: #212121;
+  font-family: Montserrat;
+  font-size: 24px;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 29px;
+}
+
+.mat-tab-label {
+  height: 48px;
+  padding: 46px 24px;
+  cursor: pointer;
+  box-sizing: border-box;
+  opacity: 0.6;
+  min-width: 200px;
+  text-align: center;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+  position: relative;
+  font-family: Montserrat !important;
+  font-weight: bold !important;
+}
+
+.default-value-style {
+  color: #4caf50;
+  font-family: Montserrat;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 28px;
+}
+
+.card-name {
+  color: #000000;
+  font-family: Montserrat;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 19px;
+}
+
+::ng-deep .mat-tab-label {
+  font-family: "Montserrat", sans-serif !important;
+}
+
+::ng-deep.mat-tab-label-active {
+  font-weight: bold !important;
+  color: var(--theme-global-var) !important;
+}
+
+::ng-deep .mat-ink-bar {
+  background-color: var(--theme-global-var) !important;
+  height: 4px !important;
+}
+
+::ng-deep .mat-tab-header-pagination-controls-enabled .mat-tab-header-pagination {
+}
+
+.account-button {
+  display: flex;
+}
+
+@media (max-width: 575px) {
+  ::ng-deep.mat-tab-label {
+    padding: 0 12px !important;
+  }
+  ::ng-deep.mat-tab-labels {
+    justify-content: space-around !important;
+  }
+  .account-button {
+    display: none !important;
+  }
+}
+
+.addresses-title {
+  color: #000000;
+  font-family: Montserrat;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 22px;
+}
+
+.addresses-line {
+  height: 1px;
+  width: 100%;
+  background-color: #e0e0e0;
+}
+
+.add-new-address {
+  color: var(--theme-global-var);
+  cursor: pointer;
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 19px;
+}
+
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+td {
+  //padding-right: 50px;
+}
+
+.nameAddress {
+  color: var(--theme-global-var);
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 19px;
+}
+
+.address-list {
+  color: #212121;
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 19px;
+}
+
+.addresses-mobile {
+  color: #000000;
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  line-height: 19px;
+}
+
+.payment-method {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .card-right {
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
+
+    & > mat-icon {
+      cursor: pointer;
+    }
+  }
+}
+
+.profile-title {
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 600;
+  color: #000000;
+}
+
+.usernameFields {
+  display: flex;
+  justify-content: space-between;
+}
+
+.usernameFields > .mat-form-field {
+  width: 48%;
+}
+
+.usernameFields > .mat-form-field > input {
+  width: 48%;
+}
+
+:host::ng-deep {
+  .country-dropdown {
+    // width: 250px;
+    width: fit-content !important;
+  }
+
+  .intl-tel-input .country-list {
+    white-space: normal !important;
+  }
+
+  .intl-tel-input .country-list,
+  .country-name,
+  .dial-code {
+    white-space: normal !important;
+  }
+}

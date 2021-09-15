@@ -1,0 +1,21 @@
+
+<ng-container>
+  <button
+    mat-raised-button
+    (click)="closeModal()"
+    id="closeBtn"
+    aria-label="closeModel"
+    style="transform: translate(555px, 18px); color: #d63447"
+  >
+    <mat-icon>close</mat-icon>
+  </button>
+  <div class="modal-request-olo">
+    <div class="instructions pb-3">
+      <span>Time has left, in order to keep ordering in delivery, you need to request again</span>
+      <small  class="pt-2">Price might vary</small>
+    </div>
+    <div class="btn-request">
+      <button (click)="confirmReRequest()" > Confirm </button>
+    </div>
+  </div>
+</ng-container>

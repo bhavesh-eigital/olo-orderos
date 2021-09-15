@@ -1,0 +1,215 @@
+.scannerOrTable {
+  min-height: 100vh;
+  position: relative;
+  overflow-y: auto;
+}
+
+.scannerOrTable {
+  // padding: 0 0px 70px;
+}
+
+.scannerOrTable > img {
+  margin-top: 16px;
+  margin-left: 13px;
+}
+
+/* ----------------------- SCANNER ----------------------- */
+
+.scannerOrTable__scanner {
+  padding: 0 20px;
+}
+
+.scannerOrTable__scanner > .mat-form-field {
+  width: 100%;
+  margin-top: 16px;
+}
+
+.scannerOrTable__scanner > .mat-form-field > .mat-select {
+  width: 100;
+}
+
+.scannerOrTable__scanner div:nth-of-type(1) {
+  margin-top: 16px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.scannerOrTable__scanner div:nth-of-type(1) > video {
+  width: 100%;
+  max-height: 600px;
+}
+
+.scannerOrTable__scanner div:nth-of-type(2) {
+  margin-top: 32px;
+  padding: 6px 8px;
+  border-radius: 4px;
+  // background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(224, 224, 224, 0.6);
+
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #212121;
+}
+
+/* ----------------------- TABLE ----------------------- */
+.scannerOrTable__tableCode {
+  margin-bottom: 131px;
+  padding: 0 20px 68px;
+}
+
+.scannerOrTable__tableCode > #close {
+  margin-top: 60px;
+  cursor: pointer;
+}
+
+.scannerOrTable__tableCode > div:first-child {
+  margin-top: 16px;
+  padding: 11px 0;
+  text-align: center;
+  background-color: #fafafa;
+
+  font-family: Montserrat;
+  font-size: 20px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #212121;
+}
+
+.scannerOrTable__tableCode > #love-burger {
+  display: block;
+  margin: 26px auto 56px;
+}
+
+.scannerOrTable__tableCode > button {
+  margin-top: 33px;
+  width: 100%;
+  height: 48px;
+
+  border-radius: 5px;
+  box-shadow: 0 10px 40px -10px rgba(33, 33, 33, 0.5);
+  border: solid 2px var(--theme-global-var);
+  background-color: #ffffff;
+
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: var(--theme-global-var);
+  transition: all 0.3s;
+}
+
+.scannerOrTable__tableCode > button:disabled {
+  background-color: #e7e7e7;
+  border: none;
+  box-shadow: none;
+  transition: all 0.3s;
+  color: #fff;
+}
+
+/* ----------------------- SLIDER ----------------------- */
+
+.scannerOrTable__slider {
+  border-radius: 24px;
+  // background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(224, 224, 224, 0.6);
+  padding: 1px;
+
+  display: flex;
+  align-items: center;
+
+  position: relative;
+
+  transition: all 0.3s;
+
+  position: absolute;
+  width: calc(100% - 40px);
+  // top: 623px;
+  // top: 643px;
+  top: 90%;
+
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+
+.scannerOrTable__slider > div {
+  padding: 13px 0;
+  text-align: center;
+
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  border-radius: 24px;
+  cursor: pointer;
+
+  z-index: 2;
+}
+
+.scannerOrTable__slider > div:nth-of-type(1) {
+  color: var(--theme-global-var);
+  flex: 1;
+}
+
+.scannerOrTable__slider > div:nth-of-type(2) {
+  color: #212121;
+  flex: 1;
+}
+
+.scannerOrTable__slider > .indicator {
+  content: "";
+  position: absolute;
+  top: 2;
+  left: 0;
+  width: 50%;
+  background-color: white;
+  border-radius: 24px;
+  z-index: 1;
+  height: 100%;
+  border-radius: 22px;
+  box-shadow: 0 3px 5px -1px rgb(0 0 0 / 20%), 0 1px 18px 0 rgb(0 0 0 / 12%), 0 6px 10px 0 rgb(0 0 0 / 14%);
+  border: solid 1.5px var(--theme-global-var);
+  background-color: #ffffff;
+}
+
+.left {
+  transition: all 0.3s;
+  transform: translateX(0);
+}
+
+.right {
+  transition: all 0.3s;
+  transform: translateX(97%);
+}
+
+.deactivated {
+  color: #212121 !important;
+  transition: all 0.3s;
+}
+
+.activated {
+  color: var(--theme-global-var) !important;
+  transition: all 0.3s;
+}
+
+.materialInputWrapper > label {
+  @media screen and (max-width: 350px) {
+    font-size: 12px !important;
+  }
+}

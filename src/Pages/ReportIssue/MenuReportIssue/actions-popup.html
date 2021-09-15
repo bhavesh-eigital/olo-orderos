@@ -1,0 +1,56 @@
+<loading *ngIf="loading ===true"></loading>
+
+
+<div *ngIf=" loading ===false">
+  <div
+    style="background-color: red;width: 100%;display: flex;justify-content:space-around;height: 50px;align-items: center"
+    class="countdown-container">
+    <img src="../../../assets/IconsSVG/Error/errorWhite-24px.svg" alt="">
+    <span class="countdown countdown-container-box">Order will be canceled in:</span>
+    <countdown class="countdown" [config]="{ leftTime: 600, format: 'mm:ss' }"></countdown>
+  </div>
+
+  <div class="content">
+    <div style="width: 64px;height: 64px;">
+      <img alt="" src="../../../assets/IconsSVG/info.svg" alt="">
+    </div>
+    <div *ngIf="!optionSelected" class="w-100">
+      <div class="title" style="margin-top: 24px;text-align: center">ACTION NEEDED
+      </div>
+      <div style="margin-bottom: 24px;text-align: center">An item you ordered is unavailable</div>
+      <div *ngFor="let product of orderRefunded.removedProducts" class="product-info w-100">
+        <div class="d-flex justify-content-between">
+          <div class="w-100 d-flex justify-content-between" style="padding-right: 0!important;">
+            <span class="product-name">{{product.productName}}</span>
+            <span class="product-name">${{(product.productTotal).toFixed(2)}}</span>
+          </div>
+
+        </div>
+        <div *ngFor="let modifier of product.modifiers" class="d-flex justify-content-between">
+          <div>{{modifier.modifierName}}</div>
+          <div class="">${{modifier.modifierOptions[0].modifierOptionsValue.toFixed(2)}}</div>
+        </div>
+      </div>
+      <div class="w-100 flex-column" style="padding-top: 24px">
+        <button class="btn-option text-b" (click)="refundOrder('complete')">REFUND ENTIRE ORDER</button>
+        <button *ngIf="isCompleteRefund() !== true" class="btn-option text-b" (click)="refundOrder('partial')">REFUND
+          ITEM
+        </button>
+        <button (click)="closeModal()" class="btn-option text-b btn-replace">REPLACE ITEM</button>
+      </div>
+    </div>
+    <div *ngIf="optionSelected" class="w-100">
+      <div class="w-100" style="text-align: center">
+        <div class="title pb-2" style="margin-top: 24px;border-bottom: 1px solid #E0E0E0">CONFIRM REFUND</div>
+        <div style="margin-bottom: 24px;margin-top: 16px;">A refund of
+          <span style="color: var(--theme-global-var);font-weight: 500"> {{amountRefunded | currency}}</span>
+          will be applied to the original payment method for the order.
+        </div>
+      </div>
+      <div class="w-100 flex-column" style="padding-top: 24px">
+        <button class="btn-option text-b" (click)="cancel()">CANCEL</button>
+        <button class="btn-option text-b btn-replace" [disabled]="clicked" (click)="refundPartialOrComplete()">CONFIRM REFUND</button>
+      </div>
+    </div>
+  </div>
+</div>  

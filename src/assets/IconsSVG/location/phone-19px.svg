@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="19px" height="19px" viewBox="0 0 19 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>phone-19px</title>
+    <g id="NavBar-Address" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Mobile-Restaurant-Home/Edit-Address" transform="translate(-36.000000, -453.000000)">
+            <g id="Pop-Up" transform="translate(20.000000, 79.000000)">
+                <g id="phone-19px" transform="translate(16.000000, 374.000000)">
+                    <polygon id="Path" points="0 0 19 0 19 19 0 19"></polygon>
+                    <path d="M16.625,12.2391667 L12.4529167,11.75625 L10.4579167,13.75125 C8.2175,12.61125 6.38083333,10.7825 5.24083333,8.53416667 L7.24375,6.53125 L6.76083333,2.375 L2.39875,2.375 C1.93958333,10.4341667 8.56583333,17.0604167 16.625,16.60125 L16.625,12.2391667 Z" id="Path" fill="#212121" fill-rule="nonzero"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

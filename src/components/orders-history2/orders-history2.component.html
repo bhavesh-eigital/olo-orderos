@@ -1,0 +1,129 @@
+<div *ngIf="!loading" style="min-height: 100vh; overflow-y: auto;">
+  <!-- ---------------------- HEADER ------------------------>
+  <app-header
+    [title]="'ORDER HISTORY'"
+    [fixed]="true"
+    [showSearcher]="false"
+    [titleTranslation]="'translateX(-42%)'"
+    [showTitle]="showTitle"
+    (openSidebar)="open=true"
+  >
+  </app-header>
+
+  <!-- ---------------------- ORDERS ------------------------>
+  <div class="ordersHistory__mainWrapper">
+    <!------------------------- TABS ------------------------->
+    <div class="tabs">
+      <div>
+        <div>
+          <span [ngClass]="{'selected': currentTab === 0}" (click)="switchTab(0)">PAST ORDERS</span>
+        </div>
+        <div>
+          <span [ngClass]="{'selected': currentTab === 1}" (click)="switchTab(1)">CURRENT ORDERS</span>
+        </div>
+      </div>
+      <div class="bottom_indicator" #indicator></div>
+    </div>
+
+    <!------------------------- CURRENT ORDERS ------------------------->
+    <div *ngIf="currentTab === 1">
+
+      <div class="ordersHistory__orders">
+        <div class="ordersHistory__order" *ngFor="let order of currentOrders">
+          <div>
+            <div>
+              <img *ngIf="order.onlineStoreLogo" [src]="order.onlineStoreLogo" alt="">
+              <div>
+                <span>{{order.onlineStoreName}}</span>
+                <span>{{(order.updatedAt * 1000) | date: 'MMM d, y h:mm a'}}</span>
+              </div>
+            </div>
+
+            <div>
+              <span>{{order.totalAmount | currency}}</span>
+              <span [ngClass]="{
+                'completed': order.onlineOrderServeStatus === 2 || order.onlineOrderServeStatus === 7 || order.onlineOrderServeStatus === 5,
+                'inProgress': order.onlineOrderServeStatus === 1 || order.onlineOrderServeStatus === 4 || order.onlineOrderServeStatus === 6,
+                'cancelled': order.onlineOrderServeStatus === 3 || order.onlineOrderServeStatus === 8
+              }">
+                {{getStatus(order.onlineOrderServeStatus) | titlecase}}
+              </span>
+            </div>
+          </div>
+          <div>
+            <button
+              mat-stroked-button
+              [routerLink]="['/orders-history', order.orderId, getOrderType()]"
+            >
+              VIEW
+            </button>
+            <button mat-stroked-button (click)="reOrder(order.orderId)">REORDER</button>
+          </div>
+        </div>
+      </div>
+      <!-- -------------------- EMPTY STATE --------------------->
+      <div class="emptyState" *ngIf="!currentOrders || !currentOrders.length">
+        <img src="assets/orders-history/home-office.svg" alt="">
+        <p>No Orders Yet</p>
+        <p>Your First order is just a couple of clicks away</p>
+        <button mat-stroked-button  [routerLink]="['/dinein']">ORDER NOW</button>
+      </div>
+
+    </div>
+
+    <div *ngIf="currentTab === 0">
+        <div class="ordersHistory__orders">
+        <div class="ordersHistory__order" *ngFor="let order of pastOrders">
+          <div>
+            <div>
+              <img *ngIf="order.onlineStoreLogo" [src]="order.onlineStoreLogo" alt="">
+              <div>
+                <span>{{order.onlineStoreName}}</span>
+                <span>{{(order.updatedAt * 1000) | date: 'MMM d, y h:mm a'}}</span>
+              </div>
+            </div>
+
+            <div>
+              <span>{{order.totalAmount | currency}}</span>
+              <span [ngClass]="{
+                'completed': order.onlineOrderServeStatus === 2 || order.onlineOrderServeStatus === 7 || order.onlineOrderServeStatus === 5,
+                'inProgress': order.onlineOrderServeStatus === 1 || order.onlineOrderServeStatus === 4 || order.onlineOrderServeStatus === 6,
+                'cancelled': order.onlineOrderServeStatus === 3 || order.onlineOrderServeStatus === 8
+              }">
+                {{getStatus(order.onlineOrderServeStatus) | titlecase}}
+              </span>
+            </div>
+          </div>
+          <div>
+            <button
+              mat-stroked-button
+              [routerLink]="['/orders-history', order.orderId, getOrderType()]"
+            >
+              VIEW
+            </button>
+            <button mat-stroked-button (click)="reOrder(order.orderId)">REORDER</button>
+          </div>
+        </div>
+      </div>
+      <!-- -------------------- EMPTY STATE --------------------->
+      <div class="emptyState" *ngIf="!pastOrders || !pastOrders.length">
+        <img src="assets/orders-history/home-office.svg" alt="">
+        <p>No Orders Yet</p>
+        <p>Your First order is just a couple of clicks away</p>
+        <button mat-stroked-button [routerLink]="['/dinein']">ORDER NOW</button>
+      </div>
+
+
+    </div>
+  </div>
+
+  <!-- -------------------- BOTTOM BAR ---------------------->
+  <app-bottom-bar></app-bottom-bar>
+
+  <!-- ---------------------- SIDEBAR ----------------------->
+  <app-sidebar [(open)]=" open"></app-sidebar>
+</div>
+
+<div *ngIf="loading" style="height: 100vh;">
+  <loading></loading>
+</div>

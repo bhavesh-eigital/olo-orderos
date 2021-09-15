@@ -1,0 +1,128 @@
+#closeBtn {
+  width: 40px;
+  height: 40px;
+
+  border-radius: 100%;
+  padding: 0;
+
+  background-color: white;
+
+  min-width: auto;
+  transform: translate(530px, 18px);
+  z-index: 9999;
+
+  @media screen and (max-width: 745px) {
+    display: none;
+  }
+}
+.modal-ticket{
+  background-color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  @media screen and (min-width: 745px) {
+    width: 560px;
+    height: 90%;
+    min-height: auto;
+    padding: 1.9rem;
+  }
+
+  span{
+    text-align: center;
+    font-weight: 700;
+    margin: 0 auto;
+  }
+
+  .note{
+
+
+    .special-request textarea {
+      width: 100%;
+      border: 2px solid #e2e2e2;
+      /* border-bottom: 2px solid #e2e2e2; */
+      /* border-right: none; */
+      /* border-left: none; */
+      margin-top: 8px;
+      padding: 8px 20px 8px 8px;
+      resize: none;
+      outline: none;
+      font-family: Montserrat;
+      font-size: 15px;
+      font-weight: normal;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      color: #424242;
+
+      @media screen and (max-width: 745px) {
+        font-size: 12px;
+      }
+    }
+  }
+  .btn-ticket{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-top: 1.3rem;
+    button {
+
+      //width: 41%;
+
+      height: 44px;
+      border-radius: 5px;
+      box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 6px 10px 0 rgba(0, 0, 0, 0.14);
+      border: solid 1.5px var(--theme-global-var);
+      background-color: #ffffff;
+
+      font-family: Montserrat;
+      font-size: 16px;
+      font-weight: 600;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      text-align: center;
+      color: var(--theme-global-var);
+
+      @media screen and (max-width: 359px) {
+        font-size: 11px;
+      }
+      &:disabled {
+        background-color: #e7e7e7;
+        border: none !important;
+        box-shadow: none;
+        transition: all 0.3s;
+        color: white;
+      }
+    }
+  }
+}
+.ticket-form-container{
+  form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 1.5rem 1.5rem 0 1.5rem;
+  }
+}
+
+.success-creation{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  span{
+    display: inline-block;
+    margin-top: 32px;
+
+    font-family: Montserrat;
+    font-size: 24px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #212121;
+  }
+}

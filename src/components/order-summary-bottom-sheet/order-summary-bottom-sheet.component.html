@@ -1,0 +1,67 @@
+<div style="height: 80vh;" *ngIf="loading">
+  <loading></loading>
+</div>
+
+<div class="bottomSheet" *ngIf="!loading">
+  <div class="bottomSheet__header">
+    <img *ngIf="cardsView && !paymentDetailView" src="assets/close.svg" alt="close" (click)="close(false)">
+    <img *ngIf="paymentDetailView && !cardsView" src="assets/order-summary/arrow-back.svg" (click)="goBackToCards()">
+    <h3>{{ cardsView ? 'Payment' : 'Payment in Process' }}</h3>
+  </div>
+
+  <div *ngIf="cardsView && !paymentDetailView" class="bottomSheet__cards">
+    <div *ngFor="let paymentMethod of paymentMethods" (click)="setDefaultCard(paymentMethod)">
+      <app-unchecked-radio-button *ngIf="!paymentMethod.isDefault" style="margin-right: 16px;"></app-unchecked-radio-button>
+      <app-checked-radio-button *ngIf="paymentMethod.isDefault" style="margin-right: 16px;"></app-checked-radio-button>
+      <img [src]="'../../assets/CreditCardicons/' + returnCardLogo(paymentMethod.card.brand)" alt="visa">
+      <span>{{ paymentMethod.card.brand | uppercase }} {{ paymentMethod.card.last4 }}</span>
+      <span *ngIf="paymentMethod.isDefault === true" id="default">DEFAULT</span>
+    </div>
+
+    <div (click)="openPaymentModal()" style="cursor: pointer;">
+      <mat-icon>add_circle_outline</mat-icon>
+      <span>Add New Card</span>
+    </div>
+  </div>
+
+  <div *ngIf="paymentDetailView && !cardsView" class="bottomSheet__reviewOrder">
+    <div>
+      <span>ORDER TYPE</span>
+      <span>Dine In</span>
+    </div>
+
+    <div>
+      <span>Payment</span>
+      <div>
+        <img [src]="'../../assets/CreditCardicons/' + returnCardLogo(getDefaultPaymentMethod().card.brand)" alt="">
+        <span>{{ getDefaultPaymentMethod().card.brand | uppercase }} {{ getDefaultPaymentMethod().card.last4 }}</span>
+      </div>
+    </div>
+
+    <div>
+      <div>
+        <span>SUBTOTAL</span>
+        <span>{{dataOrder.subTotalAmount | currency}}</span>
+      </div>
+
+      <div>
+        <span>TAX</span>
+        <span>{{dataOrder.taxAmount | currency}}</span>
+      </div>
+
+      <div>
+        <span>TIP</span>
+        <span>{{dataOrder.tipsAmount | currency}}</span>
+      </div>
+
+      <div>
+        <span>TOTAL AMOUNT</span>
+        <span>{{dataOrder.totalAmount + dataOrder.tipsAmount| currency}}</span>
+      </div>
+    </div>
+
+    <hr>
+
+    <button mat-stroked-button class="pay-btn" (click)="payOrders()">PAY & LEAVE TABLE</button>
+  </div>
+</div>

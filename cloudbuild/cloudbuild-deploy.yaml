@@ -1,0 +1,13 @@
+steps:
+  # build the container image
+- name: "gcr.io/cloud-builders/docker"
+  args: ["build", "-t", "gcr.io/$PROJECT_ID/$_TAG:$COMMIT_SHA", "."]
+  # push container image
+- name: "gcr.io/cloud-builders/docker"
+  args: ["push", "gcr.io/$PROJECT_ID/$_TAG:$COMMIT_SHA"]
+  # deploy container image to GKE
+- name: "gcr.io/cloud-builders/kubectl"
+  args: ['set', 'image','deployment/orderos', 'orderos=gcr.io/$PROJECT_ID/$_TAG:$COMMIT_SHA', '-n', '$_NAMESPACE']
+  env:
+  - 'CLOUDSDK_COMPUTE_ZONE=us-east4-a'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER_NAME'

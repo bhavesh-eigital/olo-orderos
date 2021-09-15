@@ -1,0 +1,21 @@
+steps:
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: 'bash'
+  args:
+  - '-c'
+  - |
+    echo "Deploying and building branch $BRANCH_NAME @ $REPO_NAME... "
+    case $BRANCH_NAME in
+      usa/development)
+        gcloud config set app/cloud_build_timeout 2500 && (gcloud app deploy app-development.yaml ; gcloud builds submit --timeout=2500s --config=cloudbuild/cloudbuild-deploy.yaml --substitutions=_TAG="eos-ms-online-ordering-dev",_CLUSTER_NAME="eatos-dev-stg",_NAMESPACE="development",COMMIT_SHA="$COMMIT_SHA")
+        ;;
+      usa/staging)
+        gcloud config set app/cloud_build_timeout 2500 && gcloud app deploy app-staging.yaml
+        ;;
+      usa/production)
+        gcloud config set app/cloud_build_timeout 2500 && gcloud app deploy app-production.yaml
+        ;;
+      *)
+        echo "branch $BRANCH_NAME ignored."
+    esac
+timeout: '4500s'

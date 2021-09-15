@@ -1,0 +1,271 @@
+<loading *ngIf="loading === true"></loading>
+<mat-drawer-container *ngIf="loading===false" class="example-container " style="height:100%;">
+  <mat-drawer #drawer position="end" style="height:100vh;position:fixed">
+    <account-mobile></account-mobile>
+  </mat-drawer>
+  <mat-drawer-content style="background-color: white;padding-top: 20px">
+    <div class="d-sm-block d-none">
+      <div style="background-color: white !important;">
+        <nav class="space navbar navbar-top fixed-top topbar"
+             style="background-color: white !important;">
+          <div class="space w-100 h-100 d-flex justify-content-between" style="background-color: white;">
+            <div class="d-flex">
+              <div class="d-flex flex-column" style="align-items: center;margin: auto">
+                <div class="navbar-toggler p-0" data-target="#navbarNav"
+                     (click)="goBack()"
+                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                  <Logo-NavBar></Logo-NavBar>
+                </div>
+              </div>
+            </div>
+            <div class="d-lg-flex d-sm-none account-button"
+                 style="display:flex;justify-content: center;align-items: center">
+              <!--            <Account></Account>-->
+            </div>
+
+            <div class="d-lg-none d-sm-flex" style="display:flex;justify-content: center;align-items: center">
+              <!--            <img  src="assets/IconsSVG/Account.svg" alt="">-->
+            </div>
+          </div>
+        </nav>
+        <div class="footer-offset" style=" background-color: white;">
+          <div class="row m-auto" style="justify-content: center">
+            <div class="full-width" style="vertical-align: middle;">
+              <div class="title1 pt-2">You have been refunded!</div>
+              <div class="title2">Thank you for your visit.</div>
+              <mat-divider class="divider"></mat-divider>
+              <div>
+                <table class="table">
+                  <tbody class="table-text">
+                  <tr>
+                    <td class="left ">Confirmation No.</td>
+                    <td class="right ">{{paymentInfo.paymentNumber}}</td>
+                  </tr>
+                  <tr>
+                    <td class="left">Payment Mode</td>
+                    <td class="right">{{paymentInfo.transactionIds[0].extraFields.cardType}}</td>
+                  </tr>
+                  <tr>
+                    <td class="left">Payment ID</td>
+                    <td class="right ">{{paymentInfo.paymentNumber}}</td>
+                  </tr>
+                  <tr>
+                    <td class="left">Transaction ID</td>
+                    <td class="right">{{paymentInfo.transactionIds[0].transactionNumber}}</td>
+                  </tr>
+                  <tr>
+                    <td class="left">Date</td>
+                    <td class="right">{{changeDateFormat(paymentInfo.transactionIds[0].createdAt)}}</td>
+                  </tr>
+                  <tr>
+                    <td class="left">Time</td>
+                    <td class="right">{{changeTimeFormat(paymentInfo.transactionIds[0].createdAt)}}</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+              <mat-divider class="divider"></mat-divider>
+              <div class="d-flex w-100 justify-content-between pt-2"
+                   style="border-bottom: 2px solid  var(--theme-global-var);padding-bottom: 16px">
+                <div class="amount-pay">Amount Paid</div>
+                <div class="amount-pay pink" style="text-align: right">
+                  {{currency}}{{getTotalPaymentAmount(paymentInfo.transactionIds).toFixed(2)}}</div>
+              </div>
+              <div class="box">
+                <div>
+                  <div class="title2" style="border-bottom: 1px solid #D8D8D8;font-weight: 600">How do you want to
+                    receive
+                    your digital receipt?
+                  </div>
+                  <div class="form">
+                    <div style="padding-top: 16px">
+                      <b style="font-size: 14px;justify-self: start;font-weight: bold">Email</b>
+                      <div class="form-control inputs-">
+                        <i class="mdi mdi-email" style="line-height: 40px;padding-right: 5px"></i>
+                        <input [(ngModel)]="email" matInput placeholder="elon@spacex.com" style="outline: none;">
+                        <button (click)="sendReceipt()" class="send">Send</button>
+                      </div>
+                    </div>
+                    <div style="padding-top: 8px">
+                      <b style="font-size: 14px;justify-self: start;font-weight: bold">Phone Number</b>
+                      <div style="background-color: #fff;display: inline-flex; min-height: 50px;position: relative"
+                           class="form-control justify-content-between inputs-">
+                        <ngx-intl-tel-input
+                          [inputId]="'adsasd'"
+                          [(ngModel)]="number"
+                          [cssClass]="'flag-Payments'"
+                          [preferredCountries]="preferredCountries"
+                          [enableAutoCountrySelect]="true"
+                          [enablePlaceholder]="true"
+                          [searchCountryFlag]="true"
+                          [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                          [selectFirstCountry]="true"
+                          [selectedCountryISO]="CountryISO.UnitedStates"
+                          [maxLength]="10"
+                          [tooltipField]="TooltipLabel.Name"
+                          [phoneValidation]="true"
+                          [separateDialCode]="separateDialCode">
+                        </ngx-intl-tel-input>
+                        <button (click)="sendReceiptMobile()" class="send">Send</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="w-100 d-flex justify-content-between pb-2 ">
+                    <div class="column w-100">
+                      <button (click)="redirect()" class="btn-send"><img alt="" src="assets/IconsSVG/noThanks-24px.svg">
+                        No
+                        Thanks
+                      </button>
+                    </div>
+                  </div>
+                  <div class="footer">
+                    <div class="footer-box">
+                      Digital receipts delivered by eatOS. See your digital receipt for privacy policy and preferences.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div style="width: 350px">
+              <your-order-checkout-refund [paymentInfo]="paymentInfo" [orderType]="currentOrderType"
+                                          [tips]="tipSelected"
+                                          style="width: 100%"></your-order-checkout-refund>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-sm-block d-lg-none">
+      <div style="background-color: white !important;">
+        <nav class="space navbar navbar-top fixed-top topbar"
+             style="background-color: white !important;">
+          <div class="w-100 h-100 d-flex justify-content-between" style="background-color: white;">
+            <div class="d-flex">
+              <div class="d-flex flex-column" style="align-items: center;margin: auto">
+                <div class="navbar-toggler p-0" data-target="#navbarNav"
+                     (click)="goBack()"
+                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                  <Logo-NavBar></Logo-NavBar>
+                </div>
+              </div>
+            </div>
+            <div class="d-lg-flex d-sm-none account-button"
+                 style="display:flex;justify-content: center;align-items: center">
+              <!--            <Account></Account>-->
+            </div>
+
+            <div class="d-lg-none d-sm-flex" style="display:flex;justify-content: center;align-items: center">
+              <!--            <img  src="assets/IconsSVG/Account.svg" alt="">-->
+            </div>
+          </div>
+        </nav>
+        <div class="footer-offset" style=" background-color: white;padding-left: 8px;padding-top: 30px!important;">
+          <div class="row m-auto w-100">
+            <div class="full-width" style="vertical-align: middle;margin-top: 20px!important;">
+              <div class="title1 pt-2">Your refund has been processed!</div>
+              <div class="title2">Thank you for your visit.</div>
+              <mat-divider class="divider"></mat-divider>
+              <div>
+                <table class="table">
+                  <tbody class="table-text">
+                  <tr>
+                    <td class="left ">Confirmation No.</td>
+                    <td class="right ">{{paymentInfo.paymentNumber}}</td>
+                  </tr>
+                  <tr>
+                    <td class="left">Payment Mode</td>
+                    <td class="right">{{paymentInfo.transactionIds[0].extraFields.cardType}}</td>
+                  </tr>
+                  <tr>
+                    <td class="left">Payment ID</td>
+                    <td class="right ">{{paymentInfo.paymentNumber}}</td>
+                  </tr>
+                  <tr>
+                    <td class="left">Transaction ID</td>
+                    <td class="right">{{paymentInfo.transactionIds[0].transactionNumber}}</td>
+                  </tr>
+                  <tr>
+                    <td class="left">Date</td>
+                    <td class="right">{{changeDateFormat(paymentInfo.transactionIds[0].createdAt)}}</td>
+                  </tr>
+                  <tr>
+                    <td class="left">Time</td>
+                    <td class="right">{{changeTimeFormat(paymentInfo.transactionIds[0].createdAt)}}</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+              <mat-divider class="divider"></mat-divider>
+              <div class="d-flex w-100 justify-content-between pt-2"
+                   style="border-bottom: 2px solid black;padding-bottom: 16px">
+                <div class="amount-pay">Amount Paid</div>
+                <div class="amount-pay" style="text-align: right">
+                  {{currency}}{{getTotalPaymentAmount(paymentInfo.transactionIds).toFixed(2)}}</div>
+              </div>
+              <div class="box">
+                <div>
+                  <div class="title2" style="border-bottom: 1px solid #D8D8D8;font-weight: 600">How do you want to
+                    receive
+                    your digital receipt?
+                  </div>
+                  <div class="form">
+                    <div style="padding-top: 16px">
+                      <b style="font-size: 14px;justify-self: start;font-weight: bold">Email</b>
+                      <div class="form-control inputs-">
+                        <i class="mdi mdi-email" style="line-height: 40px;padding-right: 5px"></i>
+                        <input [(ngModel)]="email" matInput placeholder="elon@spacex.com" style="outline: none;">
+                        <button (click)="sendReceipt()" class="send">Send</button>
+                      </div>
+                    </div>
+                    <div style="padding-top: 8px">
+                      <b style="font-size: 14px;justify-self: start;font-weight: bold">Phone Number</b>
+                      <div style="background-color: #fff;display: inline-flex; min-height: 50px;position: relative"
+                           class="form-control justify-content-between inputs-">
+                        <ngx-intl-tel-input class="d-flex align-items-center"
+                                            [inputId]="'adsasd'"
+                                            [cssClass]="'flags-inside-input'"
+                                            [preferredCountries]="preferredCountries"
+                                            [enableAutoCountrySelect]="true"
+                                            [enablePlaceholder]="true"
+                                            [searchCountryFlag]="true"
+                                            [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                                            [selectFirstCountry]="false"
+                                            [selectedCountryISO]="CountryISO.UnitedStates"
+                                            [maxLength]="15"
+                                            [(ngModel)]="numberPhone"
+                                            [tooltipField]="TooltipLabel.Name"
+                                            [phoneValidation]="true"
+                                            [separateDialCode]="separateDialCode">
+                        </ngx-intl-tel-input>
+                        <button (click)="sendReceiptMobileResponsive()" class="send">Send</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="w-100 d-flex justify-content-between pb-2 ">
+                    <div class="column w-100">
+                      <button (click)="redirect()" class="btn-send"><img alt="" src="assets/IconsSVG/noThanks-24px.svg">
+                        No
+                        Thanks
+                      </button>
+                    </div>
+                  </div>
+                  <div class="footer">
+                    <div class="footer-box">
+                      Digital receipts delivered by eatOS. See your digital receipt for privacy policy and preferences.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="full-width" style="border-bottom: 2px solid #000000;margin-top: 20px!important;">
+              <your-order-checkout-refund [paymentInfo]="paymentInfo" [orderType]="currentOrderType"
+                                          [tips]="tipSelected"
+                                          style="width: 100%;border: none!important;"></your-order-checkout-refund>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>
+<app-footer appConditionalFooter></app-footer>

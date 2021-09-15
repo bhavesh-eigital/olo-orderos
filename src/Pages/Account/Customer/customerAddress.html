@@ -1,0 +1,170 @@
+<div class="modalContainer">
+  <div class="py-3 px-3" style="display: flex;justify-content: space-between">
+    <div class="title">{{data.edit === true ? 'EDIT ADDRESS' : 'NEW ADDRESS'}}</div>
+    <div style="cursor: pointer" (click)="closeModal()"><img src="../../../assets/IconsSVG/close.svg" alt=""></div>
+  </div>
+
+  <div class="addresses-line mt-1"></div>
+
+
+  <form (submit)="saveAddressCustomer()" class="px-3 py-3 addressForm">
+
+    <div >
+      <mat-form-field class="">
+        <mat-label>Address Name</mat-label>
+        <input [(ngModel)]="addressName" name="addressName" matInput>
+      </mat-form-field>
+
+      <div class="ml-3" style="margin-bottom: 19px;">
+        <mat-label>Phone Number</mat-label>
+        <ngx-intl-tel-input
+          [inputId]="'number'"
+          [cssClass]="'flag-code'"
+          [preferredCountries]="preferredCountries"
+          [enableAutoCountrySelect]="true"
+          [enablePlaceholder]="true"
+          [searchCountryFlag]="true"
+          [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+          [selectFirstCountry]="true"
+          [selectedCountryISO]="CountryISO.UnitedStates"
+          [maxLength]="10"
+          [formControl]="phoneFormControl"
+          [tooltipField]="TooltipLabel.Name"
+          [phoneValidation]="true"
+          [separateDialCode]="separateDialCode"
+          [(ngModel)]="mobile">
+        </ngx-intl-tel-input>
+      </div>
+    </div>
+
+
+    <mat-form-field style="width: 100%">
+      <mat-label>Address</mat-label>
+      <input [formControl]="addressFormControl" #addresstext [(ngModel)]="address" name="address" type="text"
+             [value]="address" matInput>
+      <mat-error *ngIf="addressFormControl.hasError('required')">
+        Address is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field style="width: 100%">
+      <mat-label>Apartment, Suite, Unit...</mat-label>
+      <input [(ngModel)]="secondAddress" name="address2" matInput>
+    </mat-form-field>
+
+    <mat-form-field class="" style="width: 100%">
+      <mat-label>City</mat-label>
+      <input [(ngModel)]="city" [formControl]="cityFormControl" name="city" matInput
+             placeholder="Ex. San Francisco">
+      <mat-error *ngIf="cityFormControl.hasError('required')">
+        City is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+
+    <div class="example-full-width" cellspacing="0">
+
+      <mat-form-field>
+        <mat-label>State</mat-label>
+        <input [(ngModel)]="state" [formControl]="stateFormControl" name="state" matInput
+               placeholder="Ex. California">
+        <mat-error *ngIf="stateFormControl.hasError('required')">
+          State is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Postal Code</mat-label>
+        <input [(ngModel)]="postalCode" [formControl]="postalCodeFormControl" matInput
+               name="postal"
+               maxlength="5" placeholder="Ex. 94105">
+        <mat-error *ngIf="stateFormControl.hasError('required')">
+          Postal Code is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Country</mat-label>
+        <input [(ngModel)]="country" [value]="country" [formControl]="countryFormControl" name="country" matInput>
+        <mat-error *ngIf="countryFormControl.hasError('required')">
+          Country is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+    </div>
+
+
+    <mat-form-field appearance="standard" style="width: 100%">
+      <mat-label>Dropoff Options</mat-label>
+      <mat-select name="dropoffOptions" [(ngModel)]="dropoffOptions">
+        <mat-option value="1">
+          Delivery to my door
+        </mat-option>
+        <mat-option value="2">
+          Meet me outside
+        </mat-option>
+        <mat-option value="3">
+          Leave order at my door
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="mt-3">
+      <mat-label class="delivery-instruction">Delivery Instructions</mat-label>
+      <textarea 
+        name="deliveryNote" 
+        [(ngModel)]="deliveryNote"
+        placeholder="Add dropoff notes to help your delivery driver when they arrive to your address. (e.g. leave order at front door, I’ll meet you outside, ring doorbell, etc.)"
+        class="mt-2 instructionsTextArea"
+        matInput
+      ></textarea>
+    </div>
+
+
+    <mat-form-field appearance="standard" style="width: 100%">
+      <mat-label>If unavailable, leave items at</mat-label>
+      <mat-select name="leaveItems" [(ngModel)]="leaveItems">
+        <mat-option value="1">
+          Front Door
+        </mat-option>
+        <mat-option value="2">
+          Back Door
+        </mat-option>
+        <mat-option value="3">
+          Lobby
+        </mat-option>
+        <mat-option value="4">
+          Mailroom
+        </mat-option>
+        <mat-option value="5">
+          Garage
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+    <button
+      *ngIf="data.edit === false"
+      [class]="!disabledButton() ? 'saveAddress'  : 'saveAddress-active'"
+      [disabled]="!disabledButton()" class="my-4" type="submit" mat-stroked-button>SAVE ADDRESS
+    </button>
+
+  </form>
+  <div *ngIf="data.edit === true" class="d-flex justify-content-between px-3">
+    <button
+      (click)="deleteAddress(data.address)"
+      style="width: 204px"
+      [class]="!disabledButton() ? 'delete'  : 'delete'"
+      class="my-2" mat-stroked-button
+      [disabled]="!data?.isDeletable"
+      >DELETE
+    </button>
+    <button
+      (click)="editAddress(data.address)"
+      style="width: 204px"
+      [class]="!disabledButton() ? 'saveAddress'  : 'saveAddress-active'"
+      [disabled]="!disabledButton()" class="my-2" mat-stroked-button>SAVE CHANGES
+    </button>
+  </div>
+
+</div>

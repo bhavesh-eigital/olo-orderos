@@ -1,0 +1,18 @@
+<app-header [title]="'Cart Items'" [sticky]="true" [showSearcher]="false"></app-header>
+<div class="failView">
+  <div class="failView__successContainer">
+    <img src="assets/payment-method-modal/fail.svg" alt="">
+
+    <span>Order Placed Successfully</span>
+  </div>
+  <div>
+    <button
+      class="orderMore__btn"
+      mat-stroked-button
+      [routerLink]="['/dinein']"
+    >
+      ORDER MORE
+    </button>
+  </div>
+</div>
+<app-bottom-bar></app-bottom-bar>

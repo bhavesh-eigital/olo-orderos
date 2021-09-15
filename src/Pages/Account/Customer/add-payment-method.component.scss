@@ -1,0 +1,73 @@
+mat-dialog-content {
+  padding: 0;
+  margin: 0;
+}
+.container {
+  background: #fff;
+  padding: 0;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.body {
+  padding: 1rem;
+  font-weight: 500;
+}
+
+form {
+  padding-top: 0.76rem;
+}
+.header {
+  display: flex;
+  height: 52px;
+  align-items: center;
+  padding: 1rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+
+  & > div {
+    text-align: center;
+    margin: 0 auto;
+    font-weight: bold;
+  }
+}
+
+.footer {
+  padding: 1.24rem 0.76rem;
+  display: flex;
+  font-weight: 500;
+  // display: flex;
+}
+hr {
+  margin: 0;
+}
+
+.actions {
+  display: flex;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+.stripe-logo {
+  display: grid;
+  align-content: center;
+}
+
+.button {
+  border-radius: 4px;
+  height: 38px;
+  margin-left: 12px;
+  padding: 0 1rem;
+  color: #fff;
+  &.close-dialog {
+    background: #545454;
+  }
+  &.save-payments {
+    background: var(--theme-global-var);
+  }
+}
+
+.card-element {
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08), 0 1px 1px rgba(0, 0, 0, 0.1);
+  padding: 1rem 0.4rem;
+}

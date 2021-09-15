@@ -1,0 +1,43 @@
+mat-card {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  align-items: center;
+  font-family: "Montserrat", sans-serif;
+}
+
+img {
+  width: 78px;
+  height: 78px;
+  padding-right: 16px;
+  border-radius: 50%;
+}
+
+.info {
+  flex: 1;
+}
+
+.title {
+  border-bottom: 1px solid #b5b5b5;
+  color: var(--theme-global-var);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 22px;
+  height: 23px;
+}
+
+.products {
+  color: #47525d;
+  font-weight: 500;
+  font-size: 13px;
+  margin: 3px 0;
+}
+
+.date {
+  color: #000;
+  font-weight: 500;
+  font-size: 13px;
+}

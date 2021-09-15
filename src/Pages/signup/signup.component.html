@@ -1,0 +1,208 @@
+<app-header [showNumber]="false" [showEatosLogo]="true" (openSidebar)="open=true"></app-header>
+<div class="signin__buttons">
+    <button 
+        mat-stroked-button color="accent" 
+        [ngClass]="{'activated-button': !typeOfOrder}"
+        (click)="selectOrderType(0)"
+    >
+        ORDER AT TABLE
+    </button>
+    <button 
+        mat-stroked-button 
+        color="accent" 
+        [ngClass]="{'activated-button': typeOfOrder}"
+        (click)="selectOrderType(1)"
+    >
+        ONLINE ORDERING
+    </button>
+</div>
+
+<div class="signin__wrapper">
+
+    <form class="signup__form" #signupForm="ngForm" (ngSubmit)="register()">
+
+        <div class="materialInputWrapper" [class.borderColorOnError]="firstname.touched && !firstname.valid">
+            <label>FIRST NAME</label>
+            <input 
+                class="materialInput" 
+                type="text" 
+                matInput 
+                required 
+                name="firstname"
+                [(ngModel)]="newCustomer.customerFirstName" 
+                #firstname="ngModel"
+            >
+        </div>
+        <mat-error *ngIf="firstname.touched && firstname.hasError('required')">Firstname is required</mat-error>
+
+        <div class="materialInputWrapper" [class.borderColorOnError]="lastname.touched && !lastname.valid">
+            <label>LAST NAME</label>
+            <input 
+                class="materialInput" 
+                type="text" 
+                matInput 
+                required 
+                name="lastname"
+                [(ngModel)]="newCustomer.customerLastName" 
+                #lastname="ngModel"
+            >
+        </div>
+        <mat-error *ngIf="lastname.touched && lastname.hasError('required')">Lastname is required</mat-error>
+
+        <div class="row-form">
+            <div appearance="fill" color="accent" style="width: 100%">
+                <ngx-intl-tel-input 
+                    name="phone" 
+                    [inputId]="'adsasd'" 
+                    [cssClass]="'phoneMaterialInput'"
+                    [(ngModel)]="newCustomer.customerMobile" 
+                    [preferredCountries]="preferredCountries"
+                    [enableAutoCountrySelect]="true" 
+                    [searchCountryFlag]="true"
+                    [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                    [selectFirstCountry]="true" 
+                    [selectedCountryISO]="CountryISO.UnitedStates" 
+                    [maxLength]="10"
+                    [tooltipField]="TooltipLabel.Name" 
+                    [phoneValidation]="true" 
+                    [separateDialCode]="separateDialCode"
+                    placeholder="Phone Number" 
+                    matInput
+                >
+                </ngx-intl-tel-input>
+                <!-- <mat-error *ngIf="phone.hasError('required')">Phone is required</mat-error> -->
+            </div>
+
+        </div>
+
+        <div class="inputsContainer">
+
+            <div>
+                <div class="materialInputWrapper" [class.borderColorOnError]="!customercity.valid && customercity.touched">
+                    <label>CITY</label>
+                    <input 
+                        type="text"
+                        class="materialInput"  
+                        name="customerCity" 
+                        [(ngModel)]="newCustomer.customerCity" 
+                        #customercity="ngModel" 
+                        required
+                    >
+                </div>
+                <mat-error *ngIf="customercity.touched && customercity.hasError('required')">City is required</mat-error>
+            </div>
+
+            <div>
+                <div class="materialInputWrapper" [class.borderColorOnError]="!customerstate.valid && customerstate.touched">
+                    <label>STATE</label>
+                    <input 
+                        type="text"
+                        class="materialInput"  
+                        name="customerState" 
+                        [(ngModel)]="newCustomer.customerState" 
+                        #customerstate="ngModel" 
+                        required
+                    >
+                </div>
+                <mat-error *ngIf="customerstate.touched && customerstate.hasError('required')">City is required</mat-error>
+            </div>
+            
+            <div>
+                <div class="materialInputWrapper" [class.borderColorOnError]="!zipCode.valid && zipCode.touched">
+                    <label>ZIP CODE</label>
+                    <input 
+                        class="materialInput" 
+                        id="zipCode" 
+                        name="zipCode" 
+                        [(ngModel)]="newCustomer.customerZip" 
+                        type="number"
+                        #zipCode="ngModel" 
+                        required
+                    >
+                </div>
+                <mat-error *ngIf="zipCode.touched && zipCode.hasError('required')">Zip Code is required</mat-error>
+            </div>
+        </div>
+
+        <div class="materialInputWrapper"
+            [class.borderColorOnError]="email.touched && !email.valid">
+            <label>EMAIL</label>
+            <input 
+                class="materialInput" 
+                type="email" 
+                matInput 
+                required 
+                name="email"
+                [(ngModel)]="newCustomer.customerEmail" 
+                #email="ngModel"
+                pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+            >
+        </div>
+        <mat-error *ngIf="email.touched && email.hasError('required')">Email is require󠁧d</mat-error>
+        <mat-error *ngIf="email.hasError('pattern')">Email must be a valid email</mat-error>
+
+        <div class="materialInputWrapper" [class.borderColorOnError]="!currentPasswordFormControl.valid">
+            <label>PASSWORD</label>
+            <input 
+                class="materialInput" 
+                [type]="passwordShown ? 'text' : 'password'" 
+                required 
+                name="password"
+                [(ngModel)]="newCustomer.customerPassword" 
+                [formControl]="currentPasswordFormControl"
+            >
+            <mat-icon 
+                id="visibilityIcon" 
+                matSuffix 
+                (click)="passwordShown=!passwordShown">
+                {{passwordShown ? 'visibility' : 'visibility_off'}}
+            </mat-icon>
+        </div>
+        <mat-error *ngIf="currentPasswordFormControl.touched && currentPasswordFormControl.hasError('required')">
+            Password Is Required</mat-error>
+        <mat-error
+            *ngIf="!currentPasswordFormControl.hasError('required') && currentPasswordFormControl.hasError('strong')">
+            Password must contain: numbers, lowercase letters, uppercase letters, or special characters
+        </mat-error>
+        <mat-error *ngIf="currentPasswordFormControl.hasError('minlength')">
+            Must be at least 7 characters
+        </mat-error>
+
+
+        <div class="termsCheckbox">
+            <img *ngIf="!agreeToTheTerms" src="assets/check-box-outline-blank.svg"
+                (click)="agreeToTheTerms=!agreeToTheTerms">
+            <img *ngIf="agreeToTheTerms" src="assets/check-box-checked.svg" (click)="agreeToTheTerms=!agreeToTheTerms">
+
+            <div (click)="agreeToTheTerms=!agreeToTheTerms">I agree to the <span>Terms of Service</span></div>
+        </div>
+
+        <button mat-stroked-button color="accent" [disabled]="!signupForm.valid || !agreeToTheTerms">SIGN UP</button>
+    </form>
+
+    <ng-container *ngIf="typeOfOrder">
+        <p class="signin__orDivider">OR</p>
+    
+        <div class="signin__loginButtons">
+            <button mat-flat-button id="facebookBtn" (click)="openLoginFacebook()" aria-label="loginWithFacebook">
+                <img src="assets/facebook.svg" id="btnIcon">
+                LOG IN WITH FACEBOOK
+            </button>
+    
+            <button mat-raised-button id="googleBtn" (click)="openLoginGoogle()" aria-label="loginWithGoogle">
+                <img src="assets/IconsSVG/Google.svg" id="btnIcon">
+                LOG IN WITH GOOGLE
+            </button>
+    
+            <button mat-raised-button id="appleBtn" (click)="openLoginApple()" aria-label="loginWithApple">
+                <img src="assets/IconsSVG/Apple.svg" id="btnIcon">
+                LOG IN WITH APPLE
+            </button>
+        </div>
+    </ng-container>
+    
+
+    <div id="signupLink" [routerLink]="['/signin']">Already have an account? <span>Sign In</span></div>
+</div>
+
+<app-sidebar [(open)]="open"></app-sidebar>

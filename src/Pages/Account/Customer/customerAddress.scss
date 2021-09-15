@@ -1,0 +1,154 @@
+.title {
+  height: 29px;
+  width: 299px;
+  color: var(--theme-global-var);
+  font-family: Montserrat;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 29px;
+}
+
+.addresses-line {
+  height: 1px;
+  width: 100%;
+  background-color: #e0e0e0;
+}
+
+.addresses-title {
+  color: #000000;
+  font-family: Montserrat;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 22px;
+}
+
+.addresses-line {
+  height: 1px;
+  width: 100%;
+  background-color: #e0e0e0;
+}
+
+.add-new-address {
+  color: var(--theme-global-var);
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 19px;
+}
+
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.example-full-width > .mat-form-field {
+  width: 30%;
+}
+
+.delivery-instruction {
+  height: 19px;
+  width: 188px;
+  color: #616161;
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 19px;
+}
+
+.saveAddress {
+  border-radius: 2px;
+  height: 48px;
+  width: 100%;
+  background-color: #d4d4d4;
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: bold;
+  color: #9f9f9f;
+}
+
+.saveAddress-active {
+  border-radius: 2px;
+  height: 48px;
+  width: 100%;
+  color: white;
+  background-color: var(--theme-global-var);
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.delete {
+  box-sizing: border-box;
+  height: 48px;
+  border: 1px solid #424242;
+  border-radius: 2px;
+  background-color: #ffffff;
+}
+
+.modalContainer {
+  // height: 731px;
+  border-radius: 4px;
+  background-color: #ffffff;
+  box-shadow: 0 12px 17px 2px rgba(0, 0, 0, 0.14), 0 5px 22px 4px rgba(0, 0, 0, 0.12), 0 7px 8px -4px rgba(0, 0, 0, 0.2);
+  @media screen and (min-width: 550px) {
+    max-width: 480px;
+  }
+
+  @media screen and (max-width: 550px) {
+    min-height: 100vh;
+  }
+}
+
+.addressForm > div:first-child {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.addressForm > div:first-child > .mat-form-field,
+.addressForm > div:first-child > div {
+  width: 47%;
+}
+
+.instructionsTextArea {
+  width: 94%;
+  height: 87px;
+  border: 1px solid #616161;
+  padding: 12px !important;
+
+  @media screen and (max-width: 420px) {
+    min-height: 120px;
+  }
+}
+
+:host::ng-deep {
+  .country-dropdown {
+    // width: 250px;
+    width: fit-content !important;
+  }
+
+  .intl-tel-input .country-list {
+    white-space: normal !important;
+  }
+
+
+
+  .intl-tel-input .country-list,
+  .country-name,
+  .dial-code {
+    white-space: normal !important;
+  }
+
+}

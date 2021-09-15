@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>add-24px </title>
+    <g id="Checkout-V2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop-Checkout-V2" transform="translate(-181.000000, -622.000000)">
+            <g id="New-Address" transform="translate(165.000000, 609.000000)">
+                <g id="add-24px-" transform="translate(16.000000, 13.000000)">
+                    <polygon id="Path" points="0 0 24 0 24 24 0 24"></polygon>
+                    <polygon id="Path" fill="#E91E63" fill-rule="nonzero" points="19 13 13 13 13 19 11 19 11 13 5 13 5 11 11 11 11 5 13 5 13 11 19 11"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

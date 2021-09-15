@@ -1,0 +1,62 @@
+<div class="yourOrder">
+  <h1>{{storeInformation.storeFrontName}}</h1>
+  <div>
+    <span>{{storeInformation.storeFrontAddress1}}</span>
+    <span [routerLink]="['/home']">VIEW MENU</span>
+  </div>
+
+  <div>
+    <your-product
+      *ngFor="let product of cart"
+      (newItemEvent)="calculateTip()"
+      [product]="product"
+      [fromCheckout]="fromCheckout"
+      [currentOrderType]="currentOrderType"
+    >
+    </your-product>
+  </div>
+
+  <hr class="yourOrder__divider">
+
+  <!-- <div class="materialInputWrapper" [class.borderColorOnError]="promoCode.touched && !promoCode.valid">
+    <label style="display: flex;">
+      <mat-icon id="promoIcon">
+        sell
+      </mat-icon> ENTER PROMO CODE</label>
+    <input class="materialInput" type="text" name="promo" ngModel #promoCode="ngModel">
+  </div> -->
+
+  <!-- <hr class="yourOrder__divider"> -->
+
+  <div *ngIf="!loading" class="yourOrder__totals">
+    <div>
+      <span>Subtotal</span>
+      <span>{{currency}}{{getSubTotalAmount().toFixed(2)}}</span>
+    </div>
+
+    <div *ngIf="showTips">
+      <span>Tip</span>
+      <span>{{tips || 0  | currency}}</span>
+    </div>
+
+    <div *ngIf="orderType === 1">
+      <span>Delivery Fee</span>
+      <span>{{currency}}{{getDeliveryFee(deliveryFee)}}</span>
+    </div>
+
+    <div>
+      <span>Tax</span>
+      <span>{{currency}}{{getTaxes().toFixed(2)}}</span>
+    </div>
+
+    <!-- <div>
+      <span>Promo Code</span>
+      <span>{{currency}}0.00</span>
+    </div> -->
+
+    <div>
+      <span>Total Amount</span>
+      <span>{{currency}}{{getTotalAmount().toFixed(2)}}</span>
+    </div>
+  </div>
+</div>

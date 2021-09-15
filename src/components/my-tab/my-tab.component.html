@@ -1,0 +1,67 @@
+<div class="myTabModal__modalHeader">
+  <mat-icon (click)="close()" style="cursor: pointer;">close</mat-icon>
+  <p>{{subTotalAmount | currency}}</p>
+  <mat-icon *ngIf="!liked" (click)="liked=!liked">favorite_border</mat-icon>
+  <mat-icon *ngIf="liked" id="liked" (click)="liked=!liked">favorite</mat-icon>
+</div>
+
+<div class="myTabsModal__mainWrapper">
+  <div class="myTabModal__tabDetails">
+    <div>
+      <div>
+        <span>{{product.productName}}</span>
+        <span>{{product.productDescription}}</span>
+      </div>
+      <span>{{product.productPrice * product.productQuantity | currency}}</span>
+    </div>
+    <img *ngIf="product.productImage" [src]="product.productImage" alt="">
+  </div>
+
+  <div class="myTabModal__options">
+    <div>
+      <span>SIZE</span>
+    </div>
+    <div>
+      <span>{{product.productVariantName}}</span>
+      <span>{{product.productUnitPrice | currency}}</span>
+    </div>
+
+    <div class="add-ons">
+
+      <div class="addOnsTitle" *ngIf="product.productIngredients.length">
+        <span>INGREDIENTS</span>
+        <span>Select as many ingredients as you'd like</span>
+      </div>
+      <ng-container *ngIf="product.productIngredients.length">
+        <div *ngFor="let modifier of product.productIngredients">
+          <span>{{modifier.ingredientName}}</span>
+          <span>+{{modifier.ingredientPrice | currency}}</span>
+        </div>
+      </ng-container>
+      
+
+      <div class="addOnsTitle">
+        <span>ADD ONS</span>
+        <span>Select as many add ons as you'd like</span>
+      </div>
+      <div class="addOnsData" *ngFor="let modifier of product.productModifiers">
+        <span>{{modifier.modifierName}}</span>
+        <span>+{{modifier.modifierPrice | currency}}</span>
+      </div>
+
+      <div class="special-request">
+        <div>
+          <span>SPECIAL REQUESTS</span>
+          <span>{{product.note?.length || 0}} /200</span>
+        </div>
+        <textarea 
+          rows="6" 
+          placeholder="No substitutes. Additions may be charged extra."
+          [disabled]="true"
+          >{{product.note}}
+        </textarea>
+      </div>
+    </div>
+
+  </div>
+</div>

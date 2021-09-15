@@ -1,0 +1,104 @@
+<div class="accountAvatar" [mat-menu-trigger-for]="menu">
+  <button mat-icon-button *ngIf="customer.length === 0" aria-label="sidebar" name="sidebar">
+    <!-- <mat-icon>person</mat-icon> -->
+    <app-person-icon></app-person-icon>
+  </button>
+  <div *ngIf="customer.length !== 0">
+    <img
+      *ngIf="customer.customerPhoto"
+      height="32" width="32" style="border-radius: 50%;border: 1px solid #000000"
+      [src]="getCustomerPhoto()"
+      alt=""
+    >
+    <img *ngIf="!customer.customerPhoto"
+         src="assets/IconsSVG/Account.svg" alt="">
+  </div>
+</div>
+
+<div class="accountAvatarMobile"  (click)="openSidebar.emit()">
+  <button mat-icon-button aria-label="sidebar"  *ngIf="customer.length === 0" name="sidebar">
+    <!-- <mat-icon>person</mat-icon> -->
+    <app-person-icon></app-person-icon>
+  </button>
+  <div *ngIf="customer.length !== 0">
+    <img *ngIf="customer.customerPhoto"
+         height="32" width="32" style="border-radius: 50%;border: 1px solid #000000"
+         [src]="getCustomerPhoto()" alt="customerPhoto">
+    <img *ngIf="!customer.customerPhoto"
+         src="assets/IconsSVG/Account.svg" alt="">
+  </div>
+</div>
+
+
+<!-- ------------------------- DROPDOWN MENU  --------------------------->
+<div class="menu">
+  <mat-menu #menu="matMenu" xPosition="before" style="width: 295px;">
+
+    <div class="account__header">
+      {{customerInformation?.customerFirstName + ' ' + customerInformation?.customerLastName}}
+      <mat-icon (click)="closeMenu()">close</mat-icon>
+    </div>
+
+    <div class="account__items">
+      <div (click)="redirectHome()">
+        <mat-icon>storefront</mat-icon>
+        <div>
+          <p>Home</p>
+          <p>View the restaurants menu in order to start your order</p>
+        </div>
+      </div>
+
+      <div
+        (click)="redirectAccount()"
+        [matTooltip]="'To see profile please login'"
+        [matTooltipDisabled]="customer.length !==  0"
+      >
+        <mat-icon>person</mat-icon>
+        <div>
+          <p>Account</p>
+          <p>Edit you account details and payment methods</p>
+        </div>
+      </div>
+
+      <div
+        (click)="redirectOrders()"
+        [matTooltip]="'To see orders please login'"
+        [matTooltipDisabled]="customer.length !==  0"
+      >
+        <mat-icon>fastfood</mat-icon>
+        <div>
+          <p>Orders</p>
+          <p>View your past orders and reorder any of your favorites</p>
+        </div>
+      </div>
+
+<!--      <div-->
+<!--        (click)="redirectTickets()"-->
+<!--        [matTooltip]="'To see tickets please login'"-->
+<!--        [matTooltipDisabled]="customer.length !==  0"-->
+<!--      >-->
+<!--        <mat-icon>local_activity</mat-icon>-->
+<!--        <div>-->
+<!--          <p>Tickets</p>-->
+<!--          <p>View your current and previous tickets</p>-->
+<!--        </div>-->
+<!--      </div>-->
+
+      <!-- <div>
+        <mat-icon>support</mat-icon>
+        <div>
+          <p>Help</p>
+          <p>Contact eatOS for anything the restaurant can't help with</p>
+        </div>
+      </div> -->
+
+      <div (click)="redirectLogin()">
+        <mat-icon [ngClass]="{'rotateIcon': customer.length !== 0}">login</mat-icon>
+        <div>
+          <p>{{customer.length === 0 ? 'Sign In' : 'Sign Out'}}</p>
+        </div>
+      </div>
+    </div>
+
+  </mat-menu>
+</div>

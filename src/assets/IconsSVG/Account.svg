@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <title>Account</title>
+  <g id="Home-Screen" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <g id="eatOS-Popular-Restaurants-" transform="translate(-1243.000000, -39.000000)">
+      <g id="App-Bar-/-Top-App-Bar-/-Regular-/-Flat-/-Surface-Color" transform="translate(0.000000, 24.000000)">
+        <g id="Account" transform="translate(1243.000000, 15.000000)">
+          <polygon id="Path" points="0 0 32 0 32 32 0 32"></polygon>
+          <path
+            d="M16,2.66666667 C8.64,2.66666667 2.66666667,8.64 2.66666667,16 C2.66666667,23.36 8.64,29.3333333 16,29.3333333 C23.36,29.3333333 29.3333333,23.36 29.3333333,16 C29.3333333,8.64 23.36,2.66666667 16,2.66666667 Z M16,6.66666667 C18.2133333,6.66666667 20,8.45333333 20,10.6666667 C20,12.88 18.2133333,14.6666667 16,14.6666667 C13.7866667,14.6666667 12,12.88 12,10.6666667 C12,8.45333333 13.7866667,6.66666667 16,6.66666667 Z M16,25.6 C12.6666667,25.6 9.72,23.8933333 8,21.3066667 C8.04,18.6533333 13.3333333,17.2 16,17.2 C18.6533333,17.2 23.96,18.6533333 24,21.3066667 C22.28,23.8933333 19.3333333,25.6 16,25.6 Z"
+            id="Shape" fill="#000000" fill-rule="nonzero"></path>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

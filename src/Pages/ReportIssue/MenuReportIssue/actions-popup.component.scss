@@ -1,0 +1,71 @@
+.content {
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding-top: 24px;
+  padding-right: 16px;
+  padding-left: 16px;
+  padding-bottom: 24px;
+}
+
+.product-info {
+  border-bottom: 1px solid #e0e0e0;
+  border-top: 1px solid #e0e0e0;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.title {
+  color: #212121;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 22px;
+}
+
+.product-name {
+  color: #212121;
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 19px;
+}
+
+.btn-option {
+  height: 48px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #424242;
+  border-radius: 2px;
+  background-color: #eeeeee;
+  margin-bottom: 8px;
+}
+
+.btn-replace {
+  background-color: var(--theme-global-var) !important;
+  color: #ffffff !important;
+  border: none !important;
+}
+
+.text-b {
+  color: #424242;
+  font-weight: 600;
+}
+
+::ng-deep.mat-snack-bar-container {
+  background-color: #ffffff !important;
+  border: 2px solid #e02020;
+  color: #e02020;
+}
+
+button:disabled {
+  background-color: #e7e7e7;
+  border: none;
+  box-shadow: none;
+  transition: all 0.3s;
+}

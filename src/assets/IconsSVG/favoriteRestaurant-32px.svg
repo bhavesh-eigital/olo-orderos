@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <title>favoriteRestaurant-32px</title>
+  <g id="Home-Screen" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <g id="Selected-Restaurant-Screen" transform="translate(-847.000000, -379.000000)">
+      <g id="favoriteRestaurant-32px" transform="translate(847.000000, 379.000000)">
+        <polygon id="Path" points="0 0 32 0 32 32 0 32"></polygon>
+        <path
+          d="M29.3333333,12.32 L19.7466667,11.4933333 L16,2.66666667 L12.2533333,11.5066667 L2.66666667,12.32 L9.94666667,18.6266667 L7.76,28 L16,23.0266667 L24.24,28 L22.0666667,18.6266667 L29.3333333,12.32 Z M16,20.5333333 L10.9866667,23.56 L12.32,17.8533333 L7.89333333,14.0133333 L13.7333333,13.5066667 L16,8.13333333 L18.28,13.52 L24.12,14.0266667 L19.6933333,17.8666667 L21.0266667,23.5733333 L16,20.5333333 Z"
+          id="Shape" fill="#FFFFFF" fill-rule="nonzero"></path>
+      </g>
+    </g>
+  </g>
+</svg>

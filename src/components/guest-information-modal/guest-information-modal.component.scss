@@ -1,0 +1,166 @@
+.guestModal {
+    background-color: white;
+}
+
+.guestModal > div:first-child {
+    position: relative;
+    padding: 8px;
+}
+
+.guestModal > div:first-child > .mat-icon {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateX(-50%);
+    cursor: pointer;
+}
+main {
+    padding: 0px 20px 68px;
+}
+
+main > h6 {
+    margin: 24px auto 16px;
+    font-family: Montserrat;
+    font-size: 15px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.3px;
+    color: #212121;
+    text-align: center;
+}
+
+.guestModal__restaurantData {
+    margin-top: 24px;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 8px;
+}
+
+.guestModal__restaurantData > h3 {
+    font-family: Montserrat;
+    font-size: 24px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.58;
+    letter-spacing: normal;
+    color: #212121;
+
+    margin: 0;
+}
+
+.guestModal__restaurantData > p {
+    margin: 4px 0 0;
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #212121;
+}
+
+#warning-message {
+    margin-top: 24px;
+    padding: 12px 8px;
+    background-color: #fafafa;
+
+    font-family: Montserrat;
+    font-size: 13px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #212121;
+}
+
+.guestModal__userInfo {
+    display: flex;
+    flex-direction: column;
+}
+
+.guestModal__userInfo > div {
+    margin-top: 16px;
+}
+
+.fullnameWrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.fullnameWrapper > div {
+    width: 47% !important;
+}
+
+.submit-btn {
+    // position: absolute;
+    width: 100%;
+    height: 48px;
+
+    border-radius: 5px;
+    box-shadow: 0 10px 40px -10px rgba(33, 33, 33, 0.5);
+    border: solid 2px var(--theme-global-var);
+    background-color: #ffffff;
+
+    font-family: Montserrat;
+    font-size: 16px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: var(--theme-global-var);
+
+    margin: 55px auto 64px;
+
+    transition: all 0.3s;
+}
+
+.submit-btn:disabled {
+    background-color: #e7e7e7;
+    border: none;
+    box-shadow: none;
+    transition: all 0.3s;
+}
+
+.authenticationLinks {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 64px;
+}
+
+.authenticationLinks > div {
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: right;
+    color: #212121;
+    cursor: pointer;
+}
+
+.authenticationLinks > div > span {
+    color: var(--theme-global-var);
+    font-weight: bold;
+}
+
+.row-form {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    margin-top: 24px;
+}
+
+
+.borderColorOnError {
+    border: solid 1px #f44336;;
+    transition: all 0.3s;
+  }

@@ -1,0 +1,29 @@
+<div class="container">
+  <mat-dialog-content class="mat-typography">
+    <div class="header">
+      <div>Add a card</div>
+    </div>
+    <div class="body">
+      <div>
+        <form name="order" method="POST">
+          <iframe id="tokenframe" name="tokenframe"
+                  [src]="urlLink"
+                  frameborder="0" scrolling="no" width="100%" [height]="height">
+          </iframe>
+          <input type="hidden" name="mytoken" id="mytoken">
+        </form>
+      </div>
+      <div class="footer">
+        <div class="stripe-logo">
+          <!--          <img src="https://i.ibb.co/C0fmz78/powered-by-stripe.png" alt="" />-->
+        </div>
+        <div class="actions">
+          <button mat-stroked-button mat-dialog-close>Close</button>
+          <button mat-stroked-button (click)="saveCard()">
+            Save changes
+          </button>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+</div>

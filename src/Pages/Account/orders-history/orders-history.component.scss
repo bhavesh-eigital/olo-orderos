@@ -1,0 +1,30 @@
+mat-drawer-container {
+  height: 100%;
+}
+mat-drawer-content {
+  margin: auto;
+}
+
+.orders-list {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+}
+
+::ng-deep .mat-tab-label {
+  font-family: 'Montserrat', sans-serif !important;
+}
+
+::ng-deep.mat-tab-label-active {
+  font-weight: bold !important;
+  color: var(--theme-global-var) !important;
+}
+
+::ng-deep .mat-ink-bar {
+  background-color: var(--theme-global-var) !important;
+  height: 4px !important;
+}
+
+::ng-deep .mat-tab-body-wrapper {
+
+}

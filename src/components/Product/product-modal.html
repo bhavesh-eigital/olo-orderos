@@ -1,0 +1,119 @@
+<div *ngIf="loading=== false" class="closeButton" (click)="closeModal()">
+  <img style="margin-top: -32px" src="assets/IconsSVG/product/close.svg" alt="">
+</div>
+<div class="modal-container" *ngIf="loading=== false">
+  <div>
+    <div class="d-flex flex-wrap">
+      <div class="col-lg-12  col-sm-12 description-Information" style="overflow:auto">
+        <div>
+          <div class="product-name">{{product.productName}}</div>
+          <div class="product-description">{{product.productDescription}}</div>
+          <div class="image">
+            <img *ngIf="product.productImage !== ''" [src]="'https://'+ product.productImage"
+                 alt="" style="object-fit: cover;">
+          </div>
+          <div class="justify-content-between w-100 mt-4" style="display: flex;flex-direction: row">
+            <div class="title-modifiers">SIZE</div>
+            <div class="d-lg-none d-flex" (click)="closeModal()" style="text-align: right;cursor:pointer">
+              <img alt="" src="assets/IconsSVG/close.svg" style="width: 19px">
+            </div>
+          </div>
+          <div class="title-info pb-2">Please select your size</div>
+          <mat-divider></mat-divider>
+          <div *ngFor="let variant of product.variants" id="varints" class="mt-2">
+            <div (click)="setVariant(variant)"
+                 [ngClass]="isVariantSelected(variant)=== true ? 'modifiers-option activeModifiers' :'modifiers-option'">
+              <div [ngClass]="isVariantSelected(variant)=== true ? 'modifier-name active-text' :'modifier-name'">
+                {{variant.variantName}}
+              </div>
+              <div [ngClass]="isVariantSelected(variant)=== true ? 'modifier-price active-text' :'modifier-price'">
+                {{currency}}{{variant.variantValue.toFixed(2)}}
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div style="margin-top: 16px" *ngIf="this.product.ingredients.length !== 0">
+          <div class="title-modifiers">INGREDIENTS</div>
+          <div class="title-info pb-2">Please deselect your ingredients.</div>
+          <mat-divider></mat-divider>
+          <div *ngFor="let ingredient of this.product.ingredients" id="modifiers" class="mt-2">
+            <div (click)="setIngredients(ingredient)"
+                 [ngClass]="isIngredientSelected(ingredient) ? 'modifiers-option activeModifiers' : 'modifiers-option' ">
+              <div [ngClass]="isIngredientSelected(ingredient) === true ? 'modifier-name active-text' :'modifier-name'">
+                {{ingredient.ingredientName}}
+              </div>
+              <div
+                [ngClass]="isIngredientSelected(ingredient) === true ? 'modifier-price active-text' :'modifier-price'">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top: 16px" *ngIf="product.modifierGroups.length !== 0">
+          <div *ngFor="let modifiers of product.modifierGroups">
+            <div style="margin-top: 16px" class="title-modifiers">{{modifiers.modifierGroupName}}</div>
+            <div class="title-info pb-2">Please select your option</div>
+            <mat-divider></mat-divider>
+            <div id="ingredients" class="mt-2" *ngFor="let modifiersOption of modifiers.selectedModifiers">
+              <div (click)="setModifiers(modifiersOption,modifiers)"
+                   [ngClass]="isModifiersSelected(modifiersOption,modifiers) ? 'modifiers-option activeModifiers' : 'modifiers-option' "
+                   class="modifiers-option">
+                <div
+                  [ngClass]="isModifiersSelected(modifiersOption,modifiers)=== true ? 'modifier-name active-text' :'modifier-name'">
+                  {{ modifiersOption.modifierName }}
+                </div>
+                <div
+                  [ngClass]="isModifiersSelected(modifiersOption,modifiers)=== true ? 'modifier-price active-text' :'modifier-price'">
+                  {{ isPositiveValue( modifiersOption.modifierOptions[0].modifierOptionsValue)}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="justify-content-between w-100" style="display: flex;flex-direction: row">
+          </div>
+          <div style="margin-top: 30px">
+            <div class="justify-content-between w-100" style="display: flex;flex-direction: row">
+              <div class="title-modifiers">SPECIAL INSTRUCTIONS</div>
+            </div>
+            <div class="title-info pb-2">Add a note(extra sauce, no onions, etc)</div>
+            <mat-divider></mat-divider>
+            <mat-form-field class="w-100" appearance="outline" style="padding: 0!important;">
+                  <textarea #notes maxlength="200" class="text--area"
+                            placeholder=" "
+                            [(ngModel)]="note"
+                            [autofocus]="false"
+                            matInput style="height: 100px;width: 100%;padding:10px"></textarea>
+              <mat-hint align="end">{{notes.value.length}} / 200</mat-hint>
+            </mat-form-field>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="options-modal" style="padding: 0">
+    <div class="d-flex justify-space-between " style="padding-right: 24px">
+      <div class="buttonOption">
+        <img (click)="subtractQuantity()" style="cursor: pointer"
+             src="assets/IconsSVG/remove-32px.svg"
+             alt="">
+      </div>
+      <div class="quantity"><span class="quantity-number">{{quantity}}</span></div>
+      <div class="buttonOption">
+        <img (click)="addQuantity()" style="cursor: pointer" src="assets/IconsSVG/add-32px.svg"
+             alt="">
+      </div>
+    </div>
+    <div (click)="productAction()" class="button-card">
+      <span class="button-text">{{this.currentProduct.action === 'add' ? "Add to Cart" : "Update Order" }}</span>
+      <span class="button-text">{{currency}}{{(subTotalAmount * quantity).toFixed(2)}}</span>
+    </div>
+  </div>
+</div>
+
+<!--<loading *ngIf="loading"></loading>-->

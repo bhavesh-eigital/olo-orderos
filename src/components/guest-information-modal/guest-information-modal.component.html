@@ -1,0 +1,100 @@
+<div class="guestModal">
+    <div>
+        <mat-icon (click)="dialogRef.close()">close</mat-icon>
+    </div>
+    <main>
+        <div class="guestModal__restaurantData">
+            <h3>{{storeInformation.storeFrontName}}</h3>
+            <p>{{storeInformation.storeFrontAddress1}}</p>
+        </div>
+
+        <h6>Enter your details to being order</h6>
+
+        <form #userInformationForm="ngForm" class="guestModal__userInfo">
+
+            <div class="fullnameWrapper">
+                <div>
+                    <div class="materialInputWrapper" [class.borderColorOnError]="firstname.touched && firstname.hasError('required')">
+                        <label>FIRST NAME</label>
+                        <input class="materialInput" type="text"  name="firstname" [(ngModel)]="guestFirstname" #firstname="ngModel" required>
+                    </div>
+                    <mat-error *ngIf="firstname.touched && firstname.hasError('required')">First Name is Required</mat-error>
+                </div>
+
+                <div>
+                    <div class="materialInputWrapper" [class.borderColorOnError]="lastname.touched && lastname.hasError('required')">
+                        <label>LAST NAME</label>
+                        <input 
+                            class="materialInput" 
+                            type="text"   
+                            name="lastname" 
+                            [(ngModel)]="guestLastname" 
+                            #lastname="ngModel" 
+                            required
+                        >
+                    </div>
+                    <mat-error *ngIf="lastname.touched && lastname.hasError('required')">Last Name is Required</mat-error>
+                </div>
+
+            </div>
+
+            <div class="materialInputWrapper" [class.borderColorOnError]="(email.touched && email.hasError('required')) || email.hasError('pattern')">
+                <label>EMAIL</label>
+                <input 
+                    class="materialInput" 
+                    type="email" 
+                    name="email" 
+                    [(ngModel)]="guestEmail" 
+                    #email="ngModel" 
+                    required
+                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                >
+            </div>
+            <mat-error *ngIf="(email.touched && email.hasError('required'))">Email is Required</mat-error>
+            <mat-error *ngIf="email.hasError('pattern')">Must be an email</mat-error>
+
+            <div class="row-form">
+                <div appearance="fill" color="accent" style="width: 100%;">
+                    <ngx-intl-tel-input
+                        [inputId]="'adsasd'"
+                        [cssClass]="'phoneMaterialInput'"
+                        [ngModel]="guestPhone"
+                        [preferredCountries]="preferredCountries"
+                        [enableAutoCountrySelect]="true"
+                        [enablePlaceholder]="true"
+                        [searchCountryFlag]="true"
+                        [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                        [selectFirstCountry]="true"
+                        [selectedCountryISO]="CountryISO.UnitedStates"
+                        [maxLength]="10"
+                        [tooltipField]="TooltipLabel.Name"
+                        [phoneValidation]="true"
+                        [separateDialCode]="separateDialCode"
+                        (ngModelChange)="setPhoneNumber($event)"
+                        placeholder="Phone Number"
+                        matInput
+                        name="phone"
+                        required
+                        #phone="ngModel"
+                    >
+                    </ngx-intl-tel-input>
+                    <mat-error *ngIf="phone.hasError('required') && phone.control.touched">Phone is required</mat-error>
+                    <mat-error *ngIf="phone.hasError('validatePhoneNumber') && phone.control.touched">Phone is not valid</mat-error>
+                </div>
+              </div>
+        </form>
+
+        <br>
+
+        <div id="warning-message">
+            By providing a mobile number, you give eatOS permission to contact you using automated text messages
+            to provide transactional messages such as order status updates.
+        </div>
+        <button mat-stroked-button color="accent" class="submit-btn" (click)="beginOrder()" [disabled]="!userInformationForm.valid">BEGIN ORDER</button>
+
+        <div class="authenticationLinks">
+            <div (click)="goToLoginAndCloseModal('signin')">Back to <span>Log In</span></div>
+            <div (click)="goToLoginAndCloseModal('signup')">Back to <span>Sign Up</span></div>
+        </div>
+    </main>
+</div>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="80px" height="46px" viewBox="0 0 80 46" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <title>Search CTA</title>
+  <g id="Home-Screen" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <g id="eatOS-Home" transform="translate(-1195.000000, -468.000000)">
+      <g id="Hero-Content" transform="translate(735.000000, 250.000000)">
+        <g id="Search-CTA" transform="translate(460.000000, 218.000000)">
+          <rect id="Rectangle" fill="#E91E63" x="0" y="0" width="80" height="46" rx="2"></rect>
+          <g id="east-24px" transform="translate(24.000000, 7.000000)">
+            <rect id="Rectangle" x="0" y="0" width="32" height="32"></rect>
+            <polygon id="Path" fill="#FFFFFF" fill-rule="nonzero"
+                     points="20 6.66666667 18.12 8.54666667 24.2266667 14.6666667 2.66666667 14.6666667 2.66666667 17.3333333 24.2266667 17.3333333 18.1066667 23.4533333 20 25.3333333 29.3333333 16"></polygon>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

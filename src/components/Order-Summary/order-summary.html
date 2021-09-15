@@ -1,0 +1,284 @@
+<div class="summary-card " [ngClass]="hide  ? 'hideModal':'showModal' ">
+
+  <div *ngIf="loading=== true" style="background-color: white"
+       class="h-100 w-100 d-flex justify-content-center align-items-center  loadingOption">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </div>
+
+  <div *ngIf="loading===false && orderSelected.onlineOrderServeStatus !== 8">
+    <div class="row justify-content-between m-0 pb-2 w-100 align-items-center">
+      <div class="card-tittle">Order #{{order.orderNumber}}</div>
+      <button type="button" id="closeButton" (click)="closeDialog()">
+        <mat-icon class="btn-content">close</mat-icon>
+      </button>
+    </div>
+    <div class="title-summary mt-4 d-flex flex-row justify-content-between">
+      <span>ORDER SUMMARY</span>
+      <a *ngIf="order.olo.delivery !== ''" class="delivery-tracker" (click)="goToDeliveryTracker(order)">View Delivery Status</a>
+    </div>
+    <div *ngFor="let product of order.seats[0].orderProducts">
+      <div class="d-flex ofm-pt-12 ofm-pb-12 justify-content-between">
+        <div [ngClass]="product.productSellStatus === 6 ? 'tachado font-weight-bold ml-2': 'font-weight-bold ml-2'">
+          {{product.productQuantity}}
+        </div>
+        <div class="w-75 pl-4">
+          <span [ngClass]="product.productSellStatus === 6 ? 'tachado font-weight-bold': 'font-weight-bold'">
+            {{product.productName}}
+          </span>
+        </div>
+        <div
+          [ngClass]="product.productSellStatus === 6 ? 'tachado w-25 font-weight-bold text-end': 'w-25 font-weight-bold text-end'">
+          ${{product.productUnitPrice.toFixed(2)}}
+        </div>
+      </div>
+      <div class="ml-3" style="display: flex;width: 100%;justify-content: space-between"
+           *ngFor="let modifier of modifiers">
+        <div class="ml-4">{{modifier.modifierName}}</div>
+        <div class=mr-3>${{modifier.modifierPrice.toFixed(2)}}</div>
+      </div>
+    </div>
+    <div class="mt-2" style="border-top: 1px solid #D8D8D8"></div>
+    <div class="title-summary mt-3">TOTAL</div>
+    <div class="d-flex ofm-pr-12 ofm-pl-12 pl-3 pr-3" style="padding-top: 10px">
+      <div class="w-100 justify-content-between text--weight-bold">
+        <div class="row pad-h-tab" style="padding-bottom: 10px!important;">
+          <div class="w-50 ">Tip</div>
+          <div class="w-50 text-end">
+            ${{this.showPayments === false ? "0.00" : paymentInfo.paymentTipAmount.toFixed(2) }}</div>
+        </div>
+        <div class="row pad-h-tab">
+          <div class="w-50 flex-column">
+            Sub total
+          </div>
+          <div class="w-50 text-end ">
+            <p class="primary-text">
+              ${{order.subTotalAmount.toFixed(2)}}
+            </p>
+          </div>
+        </div>
+        <div class="row pad-h-tab">
+          <div class="w-50 flex-column">
+            Delivery Fee
+          </div>
+          <div class="w-50 text-end ">
+            <p class="primary-text">
+              ${{ order.deliveryAmount === null ? "0.00" : order.deliveryAmount.toFixed(2)}}
+            </p>
+          </div>
+        </div>
+        <div class="row pad-h-tab">
+          <div class="w-50 flex-column">
+            Tax
+          </div>
+          <div class="w-50 text-end ">
+            <p class="primary-text">
+              ${{order.taxAmount.toFixed(2)}}
+            </p>
+          </div>
+        </div>
+        <div class="row pad-h-tab text-total">
+          <div class="w-50 flex-column">
+            Total Amount
+          </div>
+          <div class="w-50 text-end">
+            <p class="primary-text ">
+              ${{(this.order.actualPaidAmount + (this.showPayments === false ? 0 : paymentInfo.paymentTipAmount)).toFixed(2) }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr style="background-color: #D8D8D8;" class="mt-2 mb-4">
+    <div *ngIf="showPayments === true" class="mt-3">
+      <div class="title-summary mt-2">PAYMENT DETAILS</div>
+      <div class="d-flex ofm-pr-12 ofm-pl-12 pl-3 pr-3" style="padding-top: 10px">
+        <div class="w-100 justify-content-between text--weight-bold">
+          <div class="row pad-h-tab">
+            <div class="w-50 flex-column">
+              Order Type
+            </div>
+            <div class="w-50 text-end ">
+              <p class="primary-text">
+                {{getOnlineOrderType(order.onlineOrderType)}}
+              </p>
+            </div>
+          </div>
+          <div class="row pad-h-tab">
+            <div class="w-50 flex-column">
+              Confirmation No.
+            </div>
+            <div class="w-50 text-end ">
+              <p class="primary-text">
+                {{paymentInfo.paymentNumber}}
+              </p>
+            </div>
+          </div>
+          <div class="row pad-h-tab">
+            <div class="w-50 flex-column">
+              Payment Mode
+            </div>
+            <div class="w-50 text-end ">
+              <p class="primary-text">
+                {{paymentInfo.transactionIds[0].extraFields.cardType}}
+              </p>
+            </div>
+          </div>
+          <div class="row pad-h-tab">
+            <div class="w-50 flex-column">
+              Payment ID
+            </div>
+            <div class="w-50 text-end ">
+              <p class="primary-text">
+                {{paymentInfo.paymentNumber}}
+              </p>
+            </div>
+          </div>
+          <div class="row pad-h-tab">
+            <div class="w-50 flex-column">
+              Transaction ID
+            </div>
+            <div class="w-50 text-end ">
+              <p class="primary-text">
+                {{paymentInfo.transactionIds[0].transactionNumber}}
+              </p>
+            </div>
+          </div>
+          <div class="row pad-h-tab">
+            <div class="w-50 flex-column">
+              Date
+            </div>
+            <div class="w-50 text-end ">
+              <p class="primary-text">
+                {{getTime(paymentInfo.transactionIds[0].createdAt)}}
+              </p>
+            </div>
+          </div>
+          <div class="row pad-h-tab">
+            <div class="w-50 flex-column">
+              Time
+            </div>
+            <div class="w-50 text-end ">
+              <p class="primary-text">
+                {{changeTimeFormat(paymentInfo.transactionIds[0].createdAt)}}
+              </p>
+            </div>
+          </div>
+          <div class="row pad-h-tab text-total">
+            <div class="w-50 flex-column">
+              Amount Paid
+            </div>
+            <div class="w-50 text-end ofm-pink-primary-text">
+              <p class="primary-text ">
+                ${{getTotalPaymentAmount(paymentInfo.transactionIds).toFixed(2)}}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex"
+         *ngIf="orderSelected.onlineOrderServeStatus === 8 || orderSelected.onlineOrderServeStatus === 7">
+      <div class="w-100 justify-content-between" style="padding-top: 10px;flex-direction: row;display: flex">
+        <div style="width: 45%;padding-right: 8px">
+          <button (click)="goReportIssue(orderSelected.orderId)" class="btn-help">
+            <span>HELP</span>
+          </button>
+        </div>
+        <div style="justify-content: end;width: 55%;display: flex">
+          <button
+            (click)="reOrder(orderSelected.orderId)"
+            class="btn-again"
+            matTooltip="Ingredients previously unselected will need to be reselected/modified"
+            [matTooltipPosition]="'above'"
+          >
+            ORDER AGAIN
+          </button>
+        </div>
+      </div>
+
+
+    </div>
+    <div class=" pt-3">
+      <div class="d-flex flex-row">
+        <button *ngIf="orderTime === 'past' && order.olo.delivery !== ''"
+          (click)="openCreateTicket(order)"
+          style="width: 77%;margin-right: 8px;"
+          class="btn-help"
+        >
+          CREATE TICKET
+        </button>
+        <button *ngIf="orderTime === 'past' && order.olo.delivery !== ''"
+                class=" btn-again"
+                (click)="seeTicket(order)"
+        >
+          SEE TICKETS
+        </button>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="loading===false && orderSelected.onlineOrderServeStatus !== 8" class="mt-4" style="background-color: white !important;">
+    <mat-accordion style="background-color: white !important;width: 100%">
+      <mat-expansion-panel style="background-color: white !important;" hideToggle  (opened)="panelOpenState = true"
+                           (closed)="panelOpenState = false">
+        <mat-expansion-panel-header style="background-color: white">
+          <mat-panel-title style="background-color: white;width:100%!important">
+            <span class="resend-title">Resend Digital Receipt</span>
+            <span>
+              <img *ngIf="panelOpenState === false" src="assets/IconsSVG/arrow_drop_down.svg" alt="">
+              <img *ngIf="panelOpenState" src="assets/IconsSVG/arrow_drop.svg" alt="">
+            </span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="form" style="background-color: white!important;">
+          <div style="padding-top: 8px">
+            <b style="font-size: 14px;justify-self: start;font-weight: bold;color: black">Email</b>
+            <div class="form-control inputs-">
+              <i class="mdi mdi-email" style="line-height: 40px;padding-right: 5px"></i>
+              <input [(ngModel)]="email" matInput placeholder="elon@spacex.com" style="outline: none;width: 100%;border: none !important;">
+              <button (click)="sendReceipt()" class="send">Send</button>
+            </div>
+          </div>
+          <div style="padding-top: 8px">
+            <b style="font-size: 14px;justify-self: start;font-weight: bold;color: black">Phone Number</b>
+            <div style="background-color: #fff;display: inline-flex; min-height: 50px;position: relative"
+                 class="form-control justify-content-between inputs-">
+              <ngx-intl-tel-input
+                class="d-flex align-items-center"
+                [inputId]="'adsasd'"
+                [cssClass]="'flags-inside-input'"
+                [preferredCountries]="preferredCountries"
+                [enableAutoCountrySelect]="true"
+                [enablePlaceholder]="true"
+                [searchCountryFlag]="true"
+                [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                [selectFirstCountry]="false"
+                [selectedCountryISO]="CountryISO.UnitedStates"
+                [maxLength]="15"
+                [(ngModel)]="numberPhone"
+                [tooltipField]="TooltipLabel.Name"
+                [phoneValidation]="true"
+                [separateDialCode]="separateDialCode"
+              >
+              </ngx-intl-tel-input>
+              <button (click)="sendReceiptMobileResponsive()" class="send">Send</button>
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+
+  <div *ngIf="loading===false && orderSelected.onlineOrderServeStatus === 8">
+    <div class="row justify-content-between m-0 pb-2 w-100 align-items-center">
+      <div class="card-tittle">Order #{{order.orderNumber}}</div>
+      <button type="button" id="closeButton" (click)="closeDialog()">
+        <mat-icon class="btn-content">close</mat-icon>
+      </button>
+    </div>
+    <div class="cancelled">
+      This order was cancelled
+    </div>
+  </div>
+
+</div>

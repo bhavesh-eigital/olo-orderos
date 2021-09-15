@@ -1,0 +1,36 @@
+<div *ngIf="products && products.length" class="wrapper">
+  <div *ngFor="let item of orderedProducts" class="favoriteProducts">
+    <h1>{{item.category}}</h1>
+
+    <div *ngFor="let product of item.products" class="item" (click)="openProduct(product.productId)">
+      <div>
+        <div>
+          <p>{{product.productName}}</p>
+          <p>{{product.productDescription}}</p>
+        </div>
+        <span>{{product.productPrice | currency}}</span>
+      </div>
+      <img
+        *ngIf="product.productImage"
+        [src]="'https://' + product.productImage"
+        [alt]="product.productName"
+        class="favoritesProduct__productImage"
+        id="itemImage"
+      >
+      <img
+        id="like-icon"
+        src="assets/menu2/favorite_clicked.svg" 
+        alt="favorite"
+        (click)="removeProduct(product);$event.preventDefault();$event.stopPropagation()"
+    >
+    </div>
+  </div>
+  
+</div>
+
+<div *ngIf="!products || !products.length" class="emptyState">
+  <img src="assets/empty-states/no-items.svg" alt="">
+  <p>You have no favorites yet</p>
+  <p>All your favorites products will be shown here</p>
+  <button mat-stroked-button [routerLink]="['/dinein']">VIEW MENU</button>
+</div>

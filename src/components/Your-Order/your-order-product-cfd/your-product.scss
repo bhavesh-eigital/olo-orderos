@@ -1,0 +1,96 @@
+.yourProduct {
+  background-color: white;
+  box-shadow: none;
+  border-radius: 0px;
+  border: solid 0.8px #e0e0e0;
+  padding: 16px;
+
+  display: flex;
+
+  margin-bottom: 4px;
+
+  & > span {
+      font-family: Montserrat;
+      font-size: 15px;
+      font-weight: 600;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      text-align: center;
+      color: #212121;
+
+      margin-right: 1rem;
+  }
+}
+
+.yourProduct > div {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.yourProduct > div > div {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+
+.yourProduct > div > div:first-of-type > span {
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #212121;
+  display: inline-block;
+  margin-bottom: 2px;
+}
+
+.yourProduct > div > div:not(:first-of-type) > span {
+  display: flex;
+  font-family: Montserrat;
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #545454;
+  margin-top: 2px;
+}
+
+
+
+.yourProduct__noteContainer {
+  margin-top: 1rem;
+  display: block !important;
+
+  & > div {
+      &:first-of-type {
+          font-family: Montserrat;
+          font-size: 13px;
+          font-weight: 500;
+          font-stretch: normal;
+          font-style: normal;
+          line-height: normal;
+          letter-spacing: normal;
+          color: #212121;
+      }
+
+      &:last-of-type {
+          margin-top: 4px;
+          font-family: Montserrat;
+          font-size: 13px;
+          font-weight: normal;
+          font-stretch: normal;
+          font-style: normal;
+          line-height: normal;
+          letter-spacing: normal;
+          color: #212121;
+      }
+  }
+}

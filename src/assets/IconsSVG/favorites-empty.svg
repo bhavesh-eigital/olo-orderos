@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="88px" height="88px" viewBox="0 0 88 88" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <title>favorites</title>
+  <g id="Empty-States" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <g id="Mobile-Favorites-Products-Empty" transform="translate(-144.000000, -276.000000)" fill="#D8D8D8"
+       fill-rule="nonzero">
+      <g id="Group-3" transform="translate(20.000000, 276.000000)">
+        <g id="favorites" transform="translate(124.000000, 0.000000)">
+          <path
+            d="M43.956,0 C19.668,0 0,19.712 0,44 C0,68.288 19.668,88 43.956,88 C68.288,88 88,68.288 88,44 C88,19.712 68.288,0 43.956,0 Z M62.612,70.4 L44,59.18 L25.388,70.4 L30.316,49.236 L13.904,35.024 L35.552,33.176 L44,13.2 L52.448,33.132 L74.096,34.98 L57.684,49.192 L62.612,70.4 Z"
+            id="Shape"></path>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

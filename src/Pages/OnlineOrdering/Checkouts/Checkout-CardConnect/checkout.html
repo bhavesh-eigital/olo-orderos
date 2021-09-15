@@ -1,0 +1,704 @@
+<!---------------------- DESKTOP CHECKOUT ---------------------->
+
+<div *ngIf="loading === false" style="padding-bottom: 80px;" class="checkout__desktop" #desktopCheckout>
+  <nav class="desktopNavbar">
+    <Logo-NavBar
+      (click)="storeInformation?.storeFrontNavbarLogo ? goBack() : null"
+      [ngStyle]="{'cursor': storeInformation?.storeFrontNavbarLogo ? 'pointer' : 'default'}"
+    >
+    </Logo-NavBar>
+    <account></account>
+  </nav>
+
+  <main>
+
+    <div class="checkout">
+      <h1>CHECKOUT</h1>
+      <app-order-type-slider
+        #slider
+        [(currentOrderType)]="currentOrderType"
+        (currentOrderTypeChange)="orderTypeSelected($event);openOrderTypeByOLO($event)"
+        [largeSize]="true"
+      >
+      </app-order-type-slider>
+
+      <div class="checkout__deliveryTime">
+        <span *ngIf="currentOrderType===1 && !btnDisabled">DELIVERY TIME</span>
+        <span *ngIf="currentOrderType===2 && !btnDisabled">PICK UP TIME</span>
+        <span *ngIf="currentOrderType===3 && !btnDisabled">PICK UP TIME</span>
+        <span *ngIf="btnDisabled">SCHEDULE YOUR ORDER</span>
+        <div></div>
+<!--        <span *ngIf="!btnDisabled">-->
+<!--          Estimated {{getOrderTypeName()}}-->
+<!--          in {{(currentOrderType === 1 ? onlineStorePrepTime + deliveryFeeTime : onlineStorePrepTime).toFixed(0)}}-->
+<!--          - -->
+<!--          {{(currentOrderType === 1 ? (onlineStorePrepTime + deliveryFeeTime + 10) : (onlineStorePrepTime + 10)).toFixed(0)}} Min-->
+<!--        </span>-->
+        <span *ngIf="currentOrderType===1 && !isOloDeliveryModal && isOloIntegrated" class="d-flex flex-column">
+          <span>Time left: {{timerExpire}} </span>
+          <small  class="pt-2">*After time is over, you will be prompted </small>
+          <small  class="pt-2">to re-request a driver</small>
+        </span>
+        <span *ngIf="btnDisabled">Select a Date & Time</span>
+      </div>
+
+
+      <div class="checkout__deliveryTimeBtns">
+        <div id="buttons">
+          <button
+            mat-stroked-button
+            color="accent"
+            (click)="setAsap()"
+            [ngClass]="{'activatedBtn': !btnDisabled}"
+            [disabled]="disabledAsSoonAsPosbile || scheduleCategoryId"
+          >
+            <span *ngIf="currentOrderType === 2 || currentOrderType === 3">
+              {{onlineStorePrepTime + ' - ' + (onlineStorePrepTime + 10) + ' Mins'}}
+            </span>
+            <span *ngIf="isOloDeliveryModal && isOloIntegrated" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+            <span  *ngIf="!isOloDeliveryModal && currentOrderType === 1 ">
+              {{ ((onlineStorePrepTime + deliveryFeeTime) / 60).toFixed(0) + ' - ' +
+                 ((onlineStorePrepTime + deliveryFeeTime) /60 + 10).toFixed(0) + ' Mins' }}
+            </span>
+          </button>
+
+          <button
+            mat-stroked-button color="accent"
+            (click)="openDateOptions()"
+            [ngClass]="{'activatedBtn': btnDisabled}"
+            [disabled]="!allowScheduledOrders || allowScheduledOrders === 'false'"
+          >
+            Schedule Order
+          </button>
+        </div>
+
+        <form *ngIf="btnDisabled === true">
+          <mat-form-field appearance="fill">
+            <mat-label>Select Day</mat-label>
+            <mat-select [(ngModel)]="prepDay" (selectionChange)="select($event.value)" name="day">
+              <mat-option *ngFor="let optionsDay of optionsDays" [value]="optionsDay">
+                {{optionsDay.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+
+          <mat-form-field appearance="fill" color="warn">
+            <mat-label>Select Time</mat-label>
+            <mat-select [(ngModel)]="prepTime" (selectionChange)="changePrepTime($event.value)" name="hours">
+              <mat-option *ngFor="let optionsHour of optionsHours" [value]="optionsHour.value">
+                {{optionsHour.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </form>
+      </div>
+
+      <div *ngIf="currentOrderType == 1" class="checkout__deliveryAddress">
+        <div>
+          <h1>DELIVERY ADDRESS</h1>
+          <span *ngIf="!showAddress" (click)="showListAddress()">CHANGE</span>
+          <span *ngIf="showAddress" (click)="showListAddress()">X</span>
+        </div>
+
+        <div *ngIf="!showAddress" class="checkout__addressCard">
+          <div>
+            {{customerDefaultAddress.customerAddressName}}
+          </div>
+          <div>
+            {{getCompleteAddress(customerDefaultAddress)}}
+          </div>
+          <div>
+            {{customerDefaultAddress.customerMobile}}
+          </div>
+          <div *ngIf="customerDefaultAddress.deliveryInstructions">
+            {{customerDefaultAddress.deliveryInstructions}}
+          </div>
+        </div>
+
+        <div *ngIf="showAddress === true" class="checkout__addressList">
+          <mat-radio-group
+            aria-label="Select an option"
+            [(ngModel)]="addressSelected"
+            style="width: 100%;"
+            class="radioBtnWithoutRipple"
+          >
+            <mat-radio-button
+              style="width: 100%"
+              class="radioBtn"
+              [value]="address"
+              (click)="changeLocation(address)"
+              *ngFor="let address of customer.customerAdresses"
+              role="radio"
+            >
+
+              <div class="addressList__nameAddress">
+                {{address.customerAddressName}}
+              </div>
+              <div class="addressList__data">
+                {{address.customerAddress1}}
+              </div>
+              <div class="addressList__data">
+                {{address.customerMobile}}
+              </div>
+              <div class="addressList__data">
+                {{address.deliveryInstructions}}
+              </div>
+
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+        <div class="or-option">
+          <div class="or-line"></div>
+          <span class="or-text mx-2">OR</span>
+          <div class="or-line"></div>
+        </div>
+
+        <div (click)="openCustomerAddressDialog(false,{})" class="addNewAddress">
+          <div class="addNewAddressButton">
+            + Add New Address
+          </div>
+        </div>
+
+      </div>
+
+      <section class="example-section mt-3">
+        <mat-checkbox [(ngModel)]="deliveryUtensils" class="utensils">Add utensils, straws, napkins, etc.
+        </mat-checkbox>
+      </section>
+
+      <div style="margin-top: 32px;" *ngIf="allowGratuity === 'true' && tipOptions.length !== 0 ">
+        <h1 class="delivery-address">TIP</h1>
+        <div class="tip-box" id="tipsBox">
+          <div (click)="selectTip(tipOptions[0]/100,0)" [ngClass]="tipSelectedIndex === 0 ?'tip-selected':'tip'">
+            <div class="tips-text-box">{{tipOptions[0]}}%</div>
+            <div class="tips-text-number">{{currency}}{{getTips(tipOptions[0]/100).toFixed(2)}}</div>
+          </div>
+          <div (click)="selectTip(tipOptions[1]/100,1)" [ngClass]="tipSelectedIndex === 1 ?'tip-selected':'tip'">
+            <div class="tips-text-box">{{tipOptions[1]}}%</div>
+            <div class="tips-text-number">{{currency}}{{getTips(tipOptions[1]/100).toFixed(2)}}</div>
+          </div>
+          <div (click)="selectTip(tipOptions[2]/100,2)" [ngClass]="tipSelectedIndex === 2 ?'tip-selected':'tip'">
+            <div class="tips-text-box">{{tipOptions[2]}}%</div>
+            <div class="tips-text-number">{{currency}}{{getTips(tipOptions[2]/100).toFixed(2)}}</div>
+          </div>
+          <div (click)="selectTip(tipOptions[3]/100,3)" [ngClass]="tipSelectedIndex === 3 ?'tip-selected':'tip'">
+            <div class="tips-text-box">{{tipOptions[3]}}%</div>
+            <div class="tips-text-number">{{currency}}{{getTips(tipOptions[3]/100).toFixed(2)}}</div>
+          </div>
+          <div (click)="selectTip(customTip,5)" [ngClass]="tipSelectedIndex === 5 ?'tip-selected':'tip'">
+            <div class="tips-text-box">CUSTOM</div>
+            <div class="tips-text-number customTip" style="transform: translateX(6px);"
+            >
+              {{currency}}
+              <input
+                maxlength="3"
+                max="3"
+                placeholder="0.00"
+                oninput="this.value = parseFloat(this.value)"
+                onpaste="return false;"
+                [(ngModel)]="customTip"
+                (ngModelChange)="selectCustomTips($event)"
+                style="width: 60px;border: none"
+                type="number"
+                #customTipInput
+                (blur)="displayFloatTip()"
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div style="margin-top: 48px;">
+        <h1 style="width: 100%" class="delivery-address">NOTE FOR THE RESTAURANT</h1>
+        <div style="width: 100%">
+          <mat-form-field style="width: 100%;" appearance="outline">
+            <textarea
+              placeholder="Extra sauces please. All of them!"
+              style="background-color: white;height: 93px"
+              matInput
+              [(ngModel)]="notes"
+            >
+            </textarea>
+          </mat-form-field>
+        </div>
+      </div>
+
+
+      <div style="margin-top: 32px;">
+        <div style="display: flex;width: 445px;justify-content: space-between; width: 100%;">
+          <h1 class="delivery-address">PAYMENTS</h1>
+          <h1 *ngIf="showPayments === false" (click)="showPaymentMethodList()" class="change">EDIT</h1>
+          <h1 *ngIf="showPayments === true" (click)="showPaymentMethodList()" class="closeChange">X</h1>
+        </div>
+
+        <div *ngIf="showPayments === false">
+          <div *ngFor="let paymentMethod of paymentMethods">
+            <div class="payment-card d-flex p-3 justify-start" style="text-align: center;align-items: center"
+                 *ngIf="paymentMethod.id === defaultPaymentMethod">
+              <img class="mr-2" [src]="'../../assets/CreditCardicons/' + returnCardLogo(paymentMethod.card.brand)"
+                   alt=""/>
+              <div class="ml-2 credit-card-name">{{ paymentMethod.card.brand | uppercase }} {{
+                paymentMethod.card.last4 }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="showPayments === true" class="address-lists mt-4">
+          <mat-radio-group
+            aria-label="Select an option"
+            [(ngModel)]="defaultPaymentMethod"
+            class="radioBtnWithoutRipple"
+          >
+            <mat-radio-button
+              style="width: 100%"
+              class="p-3"
+              (click)="setDefaultCard(paymentMethod)"
+              [value]="paymentMethod.id"
+              *ngFor="let paymentMethod of paymentMethods"
+              role="radio"
+            >
+              <div class="payment-method" style="width:100%;">
+                <div class="card-left">
+                  <img class="mr-4"
+                       [src]="'../../assets/CreditCardicons/' + returnCardLogo(paymentMethod.card.brand)" alt=""/>
+                  <span class="card-name">{{ paymentMethod.card.brand | uppercase }} {{ paymentMethod.card.last4
+                    }}</span>
+                </div>
+              </div>
+            </mat-radio-button>
+          </mat-radio-group>
+          <div (click)="openAddNewPaymentsMethods()" class="p-3 add-credit-card">
+            + Add new payment method
+          </div>
+        </div>
+
+        <div class="or-line-container">
+          <h2 class="or-line"><span class="or-line-text">OR</span></h2>
+        </div>
+
+        <div class="cardsWrapper">
+          <div>
+            <img src="../../../assets/IconsSVG/CheckoutPaymentMethods/Desktop/PayPal.svg" alt="paypal">
+          </div>
+          <div (click)="showPaymentRequest()">
+            <img src="../../../assets/IconsSVG/CheckoutPaymentMethods/Desktop/Apple.svg" alt="apple">
+          </div>
+          <div (click)="showPaymentRequest()">
+          </div>
+        </div>
+
+        <div id="commingSoon"><span>*</span>Third party payments are coming Soon!</div>
+      </div>
+
+      <button
+        mat-stroked-button
+        color="accent"
+        class="placeorderBtn"
+        [disabled]="!isValidCard() || !addressSelected || !defaultPaymentMethod || disabledButton || paymentMethods.length === 0 || (btnDisabled && (!prepDay || !prepTime))"
+        (click)="buy()"
+      > PLACE ORDER
+      </button>
+
+    </div>
+
+
+    <div class="checkout__order">
+      <your-order-checkout
+        [loading]="calculateLoading"
+        [orderType]="currentOrderType"
+        (tipSelected)="getTipSelected($event)"
+        [tips]="tipSelected"
+        [tipSelectedIndex]="tipSelectedIndex"
+        [deliveryFee]="deliveryFee"
+        [showTips]="allowGratuity === 'true'"
+        [tipOptions]="tipOptions"
+        style="width: 100%"
+        [fromCheckout]="true"
+        [currentOrderType]="currentOrderType"
+      >
+      </your-order-checkout>
+    </div>
+  </main>
+</div>
+
+<!---------------------- MOBILE CHECKOUT ---------------------->
+
+<div *ngIf="loading === false" class="checkout__mobile" #mobileCheckout>
+  <nav>
+    <button mat-icon-button>
+      <mat-icon [routerLink]="['/home']">arrow_back</mat-icon>
+    </button>
+    <span>Checkout</span>
+    <account (openSidebar)="open=true"></account>
+  </nav>
+
+  <div class="checkout__slider">
+    <app-order-type-slider
+      #slider2
+      [(currentOrderType)]="currentOrderType"
+      (currentOrderTypeChange)="orderTypeSelected($event)"
+      (previousValue)="previousOrderTypeValue=$event"
+      [largeSize]="true"
+    >
+    </app-order-type-slider>
+  </div>
+
+  <main>
+    <app-collapse-header [title]="getCollapseTitle()" [show]="true"></app-collapse-header>
+    <div class="checkout__deliveryTimeBtns">
+      <div id="buttons">
+        <button
+          mat-stroked-button color="accent"
+          (click)="setAsap()"
+          [ngClass]="{'activatedBtn': !btnDisabled}"
+          [disabled]="disabledAsSoonAsPosbile"
+        >
+          As Soon As Possible
+        </button>
+        <button
+            mat-stroked-button
+            color="accent"
+            (click)="openDateOptions()"
+            [ngClass]="{'activatedBtn': btnDisabled}"
+            [disabled]="!allowScheduledOrders || allowScheduledOrders === 'false'"
+          >
+          Schedule Order
+        </button>
+      </div>
+
+      <form *ngIf="btnDisabled === true">
+        <mat-form-field appearance="fill">
+          <mat-label>Select Day</mat-label>
+          <mat-select [(ngModel)]="prepDay" (selectionChange)="select($event.value)" name="day">
+            <mat-option *ngFor="let optionsDay of optionsDays" [value]="optionsDay">
+              {{optionsDay.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+<!--
+        <div
+          class="materialInputWrapper"
+          style="margin-top: 8px; width: 100%;">
+        <label style="display: flex;">
+          SELECT A DAY
+        </label>
+       <select
+          class="materialInput materialSelect"
+          [(ngModel)]="prepDay"
+          type="text"
+          name="day"
+          (ngModelChange)="select($event)"
+        >
+         <option *ngFor="let optionsDay of optionsDays" [value]="optionsDay.value">
+          {{optionsDay.viewValue}}
+         </option>
+       </select>
+      </div> -->
+
+
+        <mat-form-field appearance="fill" color="warn">
+          <mat-label>Select Time</mat-label>
+          <mat-select [(ngModel)]="prepTime" (selectionChange)="changePrepTime($event.value)" name="hours">
+            <mat-option *ngFor="let optionsHour of optionsHours" [value]="optionsHour.value">
+              {{optionsHour.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </form>
+    </div>
+
+    <ng-container *ngIf="currentOrderType == 1">
+      <app-collapse-header-checkout-payment
+        [title]="'DELIVERY ADDRESS'"
+        [showPayments]="showAddress"
+        (showPaymentsChange)="showAddress=!showAddress"
+        style="width: 100%;"
+      >
+      </app-collapse-header-checkout-payment>
+      <div class="checkout__deliveryAddress">
+        <div>
+          <h1>DELIVERY ADDRESS</h1>
+          <span *ngIf="!showAddress" (click)="showListAddress()">CHANGE</span>
+          <span *ngIf="showAddress" (click)="showListAddress()">X</span>
+        </div>
+
+        <div *ngIf="!showAddress" class="checkout__addressCard">
+          <div>
+            {{customerDefaultAddress.customerAddressName}}
+          </div>
+          <div>
+            {{getCompleteAddress(customerDefaultAddress)}}
+          </div>
+          <div>
+            {{customerDefaultAddress.customerMobile}}
+          </div>
+          <div *ngIf="customerDefaultAddress.deliveryInstructions">
+            {{customerDefaultAddress.deliveryInstructions}}
+          </div>
+        </div>
+
+        <div *ngIf="showAddress === true" class="checkout__addressList">
+          <mat-radio-group
+            aria-label="Select an option"
+            [(ngModel)]="addressSelected"
+            style="width: 100%;"
+            class="radioBtnWithoutRipple"
+          >
+            <mat-radio-button
+              style="width: 100%"
+              class="radioBtn"
+              [value]="address"
+              (click)="changeLocation(address);openOLODelivery()"
+              *ngFor="let address of customer.customerAdresses"
+              role="radio"
+            >
+
+              <div class="addressList__nameAddress">
+                {{address.customerAddressName}}
+              </div>
+              <div class="addressList__data">
+                {{address.customerAddress1}}
+              </div>
+              <div class="addressList__data">
+                {{address.customerMobile}}
+              </div>
+              <div class="addressList__data">
+                {{address.deliveryInstructions}}
+              </div>
+
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+        <div class="or-option">
+          <div class="or-line"></div>
+          <span class="or-text mx-2">OR</span>
+          <div class="or-line"></div>
+        </div>
+
+        <div (click)="openCustomerAddressDialog(false,{})" class="addNewAddress">
+          <div class="addNewAddressButton">
+            + Add New Address
+          </div>
+        </div>
+
+      </div>
+    </ng-container>
+
+    <app-collapse-header [title]="'ORDER SUMMARY'"></app-collapse-header>
+    <div style="width: 100%;">
+      <div *ngFor="let product of cart" class="checkout__item">
+        <div>
+          <span>{{product.quantity}}</span>
+          <div>
+            <span>{{product.productName}}</span>
+            <span>
+              {{getIngredientsAndModifiers(product).length > 30
+              ? ((getIngredientsAndModifiers(product) | slice:0:25) + '...')
+              : getIngredientsAndModifiers(product)
+              }}
+            </span>
+          </div>
+        </div>
+        <div>
+          <span>{{product.totalAmount * product.quantity | currency }}</span>
+        </div>
+      </div>
+    </div>
+
+    <ng-container *ngIf="allowGratuity === 'true'">
+      <app-collapse-header [title]="'TIP'">
+      </app-collapse-header>
+      <div style="width: 100%;">
+        <div class="tip-box" id="tipsBox">
+          <div (click)="selectTip(tipOptions[0]/100,0)" [ngClass]="tipSelectedIndex === 0 ?'tip-selected':'tip'">
+            <div class="tips-text-box">{{tipOptions[0]}}%</div>
+            <div class="tips-text-number">{{currency}}{{getTips(tipOptions[0]/100).toFixed(2)}}</div>
+          </div>
+          <div (click)="selectTip(tipOptions[1]/100,1)" [ngClass]="tipSelectedIndex === 1 ?'tip-selected':'tip'">
+            <div class="tips-text-box">{{tipOptions[1]}}%</div>
+            <div class="tips-text-number">{{currency}}{{getTips(tipOptions[1]/100).toFixed(2)}}</div>
+          </div>
+          <div (click)="selectTip(tipOptions[2]/100,2)" [ngClass]="tipSelectedIndex === 2 ?'tip-selected':'tip'">
+            <div class="tips-text-box">{{tipOptions[2]/100}}%</div>
+            <div class="tips-text-number">{{currency}}{{getTips(tipOptions[2]/100).toFixed(2)}}</div>
+          </div>
+          <div (click)="selectTip(tipOptions[3]/100,3)" [ngClass]="tipSelectedIndex === 3 ?'tip-selected':'tip'">
+            <div class="tips-text-box">{{tipOptions[3]}}%</div>
+            <div class="tips-text-number">{{currency}}{{getTips(tipOptions[3]/100).toFixed(2)}}</div>
+          </div>
+          <div (click)="selectTip(customTip,5)" [ngClass]="tipSelectedIndex === 5 ?'tip-selected':'tip'">
+            <div class="tips-text-box">CUSTOM</div>
+            <div class="tips-text-number d-flex justify-center w-100"
+                 style="align-items: center;justify-content: center;margin-left: 7px;"
+            >
+              {{currency}}
+              <input
+                maxlength="3"
+                max="3"
+                placeholder="0.00"
+                onpaste="return false;"
+                oninput="this.value = parseFloat(this.value)"
+                [(ngModel)]="customTip"
+                (ngModelChange)="selectCustomTips($event)"
+                style="width: 50px;border: none"
+                type="number"
+                #customTipInput
+                (blur)="displayFloatTip()"
+              >
+            </div>
+          </div>
+        </div>
+        <section class="example-section" style="margin-top: 27px;">
+          <mat-checkbox [(ngModel)]="deliveryUtensils" class="utensils">Add utensils, straws, napkins, etc.
+          </mat-checkbox>
+        </section>
+      </div>
+    </ng-container>
+
+
+    <!-- <app-collapse-header [title]="'PROMO CODE'"></app-collapse-header>
+    <div class="materialInputWrapper" [class.borderColorOnError]="promoCode.touched && !promoCode.valid"
+         style="margin-top: 8px; width: 100%;">
+      <label style="display: flex;">
+        <mat-icon id="promoIcon">
+          sell
+        </mat-icon>
+        ENTER PROMO CODE</label>
+      <input class="materialInput" type="text" name="promo" ngModel #promoCode="ngModel">
+    </div> -->
+
+    <app-collapse-header [title]="'TOTAL'"></app-collapse-header>
+    <div style="width: 100%; margin-top: 8px;">
+      <div class="checkout__totals">
+        <div>
+          <span>Subtotal</span>
+          <span>{{currency}}{{getSubTotalAmount().toFixed(2)}}</span>
+        </div>
+
+        <div *ngIf="allowGratuity === 'true'">
+          <span>Tip</span>
+          <span>{{tipSelected || 0  | currency}}</span>
+        </div>
+
+        <div *ngIf="currentOrderType === 1">
+          <span>Delivery Fee</span>
+          <span>{{currency}}{{getDeliveryFee(deliveryFee)}}</span>
+        </div>
+
+        <div>
+          <span>Tax</span>
+          <span>{{currency}}{{getTaxes().toFixed(2)}}</span>
+        </div>
+
+        <!-- <div>
+          <span>Promo Code</span>
+          <span>{{currency}}0.00</span>
+        </div> -->
+
+        <div>
+          <span>Total Amount</span>
+          <span>{{(((getTotalAmount() * 100 + tipSelected * 100)) / 100) | currency}}</span>
+        </div>
+      </div>
+    </div>
+
+    <app-collapse-header-checkout-payment
+      [title]="'PAYMENT'"
+      [showPayments]="showPayments"
+      (showPaymentsChange)="showPaymentMethodList()"
+      style="width: 100%;"
+    >
+    </app-collapse-header-checkout-payment>
+    <div style="width: 100%;margin-top: 8px;">
+
+      <div class="cardsWrapper">
+        <div>
+          <img src="../../../assets/IconsSVG/CheckoutPaymentMethods/Desktop/PayPal.svg" alt="paypal">
+        </div>
+        <div (click)="showPaymentRequest()">
+          <img src="../../../assets/IconsSVG/CheckoutPaymentMethods/Desktop/Apple.svg" alt="apple">
+        </div>
+        <div (click)="showPaymentRequest()">
+        </div>
+      </div>
+
+      <div class="or-line-container">
+        <h2 class="or-line"><span class="or-line-text">OR</span></h2>
+      </div>
+
+      <div *ngIf="showPayments === false">
+        <div class="mt-4" *ngFor="let paymentMethod of paymentMethods">
+          <div class="payment-card d-flex p-3 justify-start"
+               style="text-align: center;align-items: center;width: auto"
+               *ngIf="paymentMethod.id === defaultPaymentMethod">
+            <img class="mr-2" [src]="'../../assets/CreditCardicons/' + returnCardLogo(paymentMethod.card.brand)"
+                 alt=""/>
+            <div class="ml-2 credit-card-name">{{ paymentMethod.card.brand | uppercase }} {{ paymentMethod.card.last4
+              }}</div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="showPayments === true" class="address-lists mt-4" style="width: auto">
+        <mat-radio-group
+          aria-label="Select an option"
+          [(ngModel)]="defaultPaymentMethod"
+          class="radioBtnWithoutRipple"
+        >
+          <mat-radio-button
+            style="width: 100%"
+            class="borderPayment p-3"
+            (click)="setDefaultCard(paymentMethod)"
+            [value]="paymentMethod.id"
+            *ngFor="let paymentMethod of paymentMethods"
+            role="radio"
+          >
+            <div class="payment-method" style="width:100%;">
+              <div class="card-left">
+                <img
+                  class="mr-4"
+                  [src]="'../../assets/CreditCardicons/' + returnCardLogo(paymentMethod.card.brand)"
+                  alt=""
+                />
+                <span class="card-name">
+                  {{ paymentMethod.card.brand | uppercase }} {{ paymentMethod.card.last4 }}
+                </span>
+              </div>
+            </div>
+          </mat-radio-button>
+          <div (click)="openAddNewPaymentsMethods()" class="p-3 add-credit-card">
+            + Add new payment method
+          </div>
+        </mat-radio-group>
+      </div>
+    </div>
+
+    <button
+      mat-stroked-button
+      color="accent"
+      class="placeorderBtn"
+      [disabled]="!isValidCard() || !addressSelected || disabledButton || paymentMethods.length === 0 || (btnDisabled && (!prepDay || !prepTime))"
+      (click)="buy()"
+    > PLACE ORDER
+    </button>
+  </main>
+</div>
+
+<!---------------------- MOBILE SIDEBAR ---------------------->
+<app-mobile-sidebar
+  *ngIf="loading === false"
+  [(open)]="open"
+  [username]="getCustomerName()"
+  [isUserLoggedIn]="customer.length !== 0"
+>
+</app-mobile-sidebar>
+
+<!---------------------- MOBILE SIDEBAR ---------------------->
+<div *ngIf="loading === true" class="w-100" style="height: 100vh">
+  <loading></loading>
+</div>
+

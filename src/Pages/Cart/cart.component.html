@@ -1,0 +1,69 @@
+<div class="cart" *ngIf="loading=== false">
+  <app-header 
+    [title]="'Cart Items'" 
+    [showSearcher]="false" 
+    [fixed]="true" 
+    (openSidebar)="open=true"
+  >
+  </app-header>
+
+  <div class="content" *ngIf="!showSuccessView">
+    <div id="title">
+      <h3 class="text-capitalize">{{customerName}} | Table</h3>
+      <div>{{tableNumber}}</div>
+    </div>
+
+    <div *ngIf="cart.length" class="items">
+      <div *ngFor="let item of cart" class="item">
+        <div>
+          <div>
+            <span>{{item.quantity}}</span>
+            <div>
+              <p>{{item.productName}}</p>
+              <div>
+                {{getIngredientsAndModifiers(item).length > 30
+                ? ((getIngredientsAndModifiers(item) | slice:0:25) + '...')
+                : getIngredientsAndModifiers(item)
+                }}
+              </div>
+              <div *ngIf="item.note">
+                <p>Note:</p>
+                <p>{{item.note}}</p>
+              </div>
+            </div>
+          </div>
+          <span>{{item.subTotalAmount | currency}}</span>
+        </div>
+        <div>
+          <button (click)="editProduct(item)" mat-stroked-button>VIEW</button>
+          <button (click)="removeProduct(item)" mat-stroked-button>REMOVE</button>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="!cart.length" class="emptyState">
+      <img src="assets/empty-states/love-burger.svg" alt="">
+      <p>You have no items in cart</p>
+      <p>Your first order is just a couple of clicks away!</p>
+      <button mat-stroked-button [routerLink]="['/dinein']">ORDER NOW</button>
+      <app-bottom-bar></app-bottom-bar>
+    </div>
+
+    <button mat-stroked-button (click)="setButtonAction()" class="floating-btn" *ngIf="cart.length">
+      {{setTexButtonAction}}
+    </button>
+  </div>
+
+
+  <app-success-view *ngIf="showSuccessView"></app-success-view>
+
+  <app-fail-view *ngIf="failed"></app-fail-view>
+
+  <app-bottom-bar *ngIf="cart.length"></app-bottom-bar>
+</div>
+
+<div style="height: 100vh" *ngIf="loading === true">
+  <loading></loading>
+</div>
+
+<app-sidebar [(open)]="open"></app-sidebar>

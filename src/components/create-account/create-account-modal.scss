@@ -1,0 +1,267 @@
+.modal-container {
+  height: 100%;
+  background-color: white;
+  border-radius: 0px;
+  font-family: 'Montserrat', sans-serif !important;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-bottom: 1px solid #D8D8D8;
+}
+
+.title {
+  color: var(--theme-global-var);
+  font-family: Montserrat;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 0;
+  width: 85%;
+  text-align: end;
+  line-height: 29px
+}
+
+.header > .mat-icon {
+  cursor: pointer;
+}
+
+.subtitle {
+  font-family: Montserrat !important;
+  color: #212121;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 22px
+}
+
+.frm-step {
+  padding-top: 16px;
+  width: 100%;
+}
+
+.description {
+  height: 2%;
+  background-color: white;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+.textArea- {
+  height: 120px;
+  width: 100%;
+}
+
+.title-textarea {
+  color: #616161;
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 19px;
+}
+
+.btn-next {
+  border-radius: 2px;
+  background-color: #D4D4D4;
+  color: #6D7278;
+}
+
+.btn-next-selected {
+  border-radius: 2px;
+  background-color: var(--theme-global-var);
+  color: #FFFFFF;
+}
+
+.input-code {
+  height: 100%;
+  width: 70px;
+  font-size: 24px;
+  text-align: center;
+}
+
+.content-codeNumber {
+  padding-top: 22px;
+  margin-bottom: 10px
+}
+
+.back {
+  color: var(--theme-global-var);
+  cursor: pointer;
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 19px;
+  text-align: center;
+}
+
+.btnContinue {
+  width: 100%;
+  height: 56px;
+  background-color: var(--theme-global-var);
+  color: #FFFFFF;
+  font-weight: bold;
+  border-radius: 0px !important;
+  margin-top: 28px;
+}
+
+.btnContinue-disabled {
+  width: 100%;
+  height: 56px;
+  background-color: #D4D4D4;
+  color: #6d7278;
+  font-weight: bold;
+  border-radius: 0px !important;
+  margin-top: 28px;
+}
+
+input:focus {
+  outline: none;
+}
+
+.text-otp {
+  height: 50px;
+  font-size: 24px;
+  line-height: 29px;
+  font-family: Montserrat
+}
+
+#divInner {
+  left: 0;
+  position: sticky;
+}
+
+#divOuter {
+  width: 100%;
+  overflow: hidden;
+}
+
+#partitioned {
+  padding-left: 33px;
+  letter-spacing: 86px;
+  border: 0;
+  background-image: linear-gradient(to left, black 70%, rgba(255, 255, 255, 0) 0%);
+  background-position: bottom;
+  background-size: 100px 1px;
+  background-repeat: repeat-x;
+  background-position-x: 175px;
+  width: 120%;
+  min-width: 220px;
+}
+
+@media (min-width: 992px) {
+
+  .modal-container {
+
+    background-color: white;
+    border-radius: 0px;
+    margin: auto;
+  }
+
+}
+
+@media (max-width: 500px) {
+  .title {
+    font-size: 1rem;
+    width: 90%;
+  }
+  #partitioned {
+    letter-spacing: 4.7rem !important;
+    padding-left: 13px !important;
+    border: 0;
+    background-image: linear-gradient(to left, black 70%, rgba(255, 255, 255, 0) 0%);
+    background-position: bottom;
+    background-size: 23% 1px !important;
+    background-repeat: repeat-x;
+    background-position-x: 20% !important;
+    width: 120%;
+  }
+  ::ng-deep .mat-horizontal-stepper-header {
+    min-width: 30% !important;
+  }
+}
+
+::ng-deep .mat-form-field-infix {
+  display: flex;
+  width: 100%;
+}
+
+::ng-deep .mat-dialog-container {
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+}
+
+::ng-deep.mat-body, .mat-body-1, .mat-typography {
+  font: 400 14px/20px Monserrat, "Montserrat", sans-serif !important
+}
+
+::ng-deep.mat-form-field.mat-focused.mat-form-field-appearance-outline .mat-form-field-outline {
+  color: white;
+  border-radius: 0 !important;
+}
+
+::ng-deep.mat-form-field-outline-gap {
+  color: white;
+}
+
+::ng-deep.mat-form-field-appearance-outline .mat-form-field-outline {
+  color: white;
+}
+
+::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+  border: none !important;
+}
+
+::ng-deep.mat-form-field-appearance-outline .mat-form-field-infix {
+  padding: 0em 0 0em 0 !important;
+}
+
+::ng-deep.mat-form-field-appearance-outline .mat-form-field-flex {
+  padding: 0 !important;
+  margin-top: 0 !important;
+}
+
+::ng-deep .mat-step-header .mat-step-icon-selected {
+  background-color: var(--theme-global-var) !important;
+}
+
+::ng-deep .mat-step-header .mat-step-icon {
+  background-color: rgba(0, 0, 0, 0.27);
+  width: 40px;
+  height: 40px;
+}
+
+//position-stepper
+::ng-deep .mat-horizontal-stepper-header {
+  min-width: 165px;
+  padding: 15px !important;
+}
+
+::ng-deep .mat-step-label {
+  color: #000000;
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.box-otp {
+  padding-top: 28px;
+  text-align: center
+}
+
+.paddingOtp {
+  padding-left: 10%;
+  padding-right: 10%;
+  padding-bottom: 30px
+}
+
+@media (max-width: 500px) {
+  .paddingOtp {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}

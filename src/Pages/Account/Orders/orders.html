@@ -1,0 +1,180 @@
+<div *ngIf="loading === true" style="height: 100vh;">
+  <loading></loading>
+</div>
+
+<div *ngIf="!loading" style="height: 100vh; overflow-y: scroll;">
+  <nav class="desktopNavbar">
+    <Logo-NavBar
+      (click)="storeInformation?.storeFrontNavbarLogo ? goBack() : null"
+      style="cursor: pointer;"
+      [ngStyle]="{'cursor': storeInformation?.storeFrontNavbarLogo ? 'pointer' : 'default'}"
+    >
+    </Logo-NavBar>
+    <account></account>
+  </nav>
+  <div class="space" style="min-height: 100vh;">
+    <div class="w-100 cardWrapper">
+      <div class="list-card pt-2">
+        <div class="mt-5 ml-2">
+          <h1 class="myAccount">Orders</h1>
+        </div>
+        <mat-tab-group [selectedIndex]="tabSelected" color="warn">
+          <mat-tab label="PAST ORDERS">
+            <ng-container>
+              <div class="mt-4" style="max-width: 100vw; overflow-x: hidden;padding-bottom: 20px;">
+                <div *ngIf="pastOrder.length === 0" class="w-100 content--">
+                  <div class="m-auto icon-order">
+                    <img alt="" src="../../../assets/IconsSVG/emptyOrder.svg" alt="">
+                  </div>
+                  <div class="text-" style="padding-top: 16px">
+                    <div>You have no orders yet.</div>
+                    <div>Your first order is just a couple of clicks away!</div>
+                  </div>
+                  <div style="padding-top: 32px">
+                    <button (click)="goBack()" class="start-order-b">START ORDER</button>
+                  </div>
+                </div>
+                <div class="row pd-3" *ngFor="let order of customerOrders.past">
+                  <div style="margin-left: 0%;margin-right: 0%"
+                    class="col-sm-12 px-4 list-item-wrapper d-flex p-2 px-sm-3 px-md-3 px-lg-3 px-xl-3">
+                    <mat-card (click)="selectOrder(order, 'past')" class="card-top product-card mt-2"
+                      style="flex:1 ;padding: 0px; box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.2), 0px 3px 1px -2px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);">
+                      <div style="padding-left: 16px;padding-right: 16px;padding-top: 16px" class="m-0 pb-0 d-flex">
+                        <div style="width: 80px;height: 80px;margin-top: 16px">
+                          <img width="78" height="78" style="border-radius: 50px;object-fit: contain;" [src]="order.onlineStoreLogo" alt="">
+                        </div>
+                        <div class="d-flex justify-content-between" style="width: 100%;margin-left: 11px;">
+                          <div style="width: 100%">
+                            <div class="category-product-description">
+                              <div class="m-0 pb-0 ofm-pt-8 body--size-base text-principal visible restaurant-name">
+                                {{order.onlineStoreName}}
+                                <div class="rectangle"></div>
+                              </div>
+                              <div *ngFor="let product of order.products " class="order-description mt-2">
+                                {{product.productName}}</div>
+                              <div class="time-order mt-2">{{getTime(order.updatedAt)}}</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="mt-2" style="height: 32px; width: 100%;display: flex">
+                        <div [ngClass]="orderTypeStyle(order.onlineOrderServeStatus)"
+                          style="width: 50%;display: flex;justify-content: center;align-items: center">
+                          <span style="color: white">{{orderTypeStyle(order.onlineOrderServeStatus)}}</span>
+                        </div>
+                        <div style="width: 50%;display: flex;justify-content: center;align-items: center">
+                          <span class="price-order" style="color: #000000;">Total: {{order.totalAmount | currency}}</span>
+                        </div>
+                      </div>
+                    </mat-card>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </mat-tab>
+
+          <mat-tab label="CURRENT ORDERS">
+            <ng-container>
+              <div class="mt-4" style="max-width: 100vw; overflow-x: hidden;padding-bottom: 20px;">
+                <div *ngIf="orderQuantity === 0" class="w-100 content--">
+                  <div class="m-auto icon-order">
+                    <img alt="" src="../../../assets/IconsSVG/emptyOrder.svg" alt="">
+                  </div>
+                  <div class="text-" style="padding-top: 16px">
+                    <div>You have no orders yet.</div>
+                    <div>Your first order is just a couple of clicks away!</div>
+                  </div>
+                  <div style="padding-top: 32px">
+                    <button (click)="goBack()" class="start-order-b">START ORDER</button>
+                  </div>
+                </div>
+                <div class="row" *ngFor="let order of customerOrders.current">
+                  <div style="margin-left: 0%;"
+                    class=" col-sm-12 px-4 p-1 list-item-wrapper d-flex pl-lg-3 pr-lg-3 pl-xl-3  pr-xl-3 pr-rg-3 pr-sm-2 pl-sm-2">
+                    <mat-card (click)="selectOrder(order, 'current')" class="card-top product-card mt-2"
+                      style="flex:1 ;padding: 0px; box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.2), 0px 3px 1px -2px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);">
+                      <div style="padding: 16px !important" class="m-0 pb-0 d-flex">
+                        <div style="width: 80px;height: 100px;display: grid;place-content: center">
+                          <img  width="78" height="78" style="border-radius: 50px; object-fit: contain;"
+                            [src]="order.onlineStoreLogo" alt="">
+                        </div>
+                        <div class="d-flex justify-content-between" style="width: 100%;margin-left: 11px;">
+                          <div [ngStyle]="{'width': innerWidth > 448 ? '70%' : '100%'}">
+                            <div class="category-product-description">
+                              <div
+                                class="m-0 pb-0 body--size-base text-principal visible restaurant-name">
+                                {{order.onlineStoreName}}
+                              </div>
+                              <div *ngFor="let product of order.products " class="order-description mt-2">
+                                {{product.productName}}</div>
+                              <div style="width: 100%;justify-content: space-between" class="time-order mt-2 d-flex">
+                                <div>{{getTime(order.updatedAt)}}</div>
+                                <!-- <div class="Resend-Receipt" (click)="openSendReceipt(order)">Resend-Receipt</div> -->
+                              </div>
+                            </div>
+                          </div>
+                          <div style="place-content: center" [ngStyle]="{
+                            'display': innerWidth > 448 ? 'grid' : 'none',
+                            'width': innerWidth > 448 ? '30%' : '0'
+                          }">
+
+                            <button *ngIf="order.onlineOrderServeStatus === 8 || order.onlineOrderServeStatus === 7"
+                              class="reorder" mat-button>REORDER
+                            </button>
+
+                            <button (click)="goReportIssue(order.orderId)"
+                              *ngIf="order.onlineOrderServeStatus === 8 || order.onlineOrderServeStatus === 7"
+                              class="help mt-2" mat-button>HELP
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="mt-2" style="height: 32px; width: 100%;display: flex">
+                        <div
+                          [ngClass]="orderTypeStyle(order.onlineOrderServeStatus)"
+                          style="width: 50%;display: flex;justify-content: center;align-items: center"
+                        >
+                          <span style="color: white;">{{orderTypeStyle(order.onlineOrderServeStatus)}}</span>
+                        </div>
+                        <div style="width: 50%;display: flex;justify-content: center;align-items: center">
+                          <span class="price-order" style="color: #000000;">Total: {{order.totalAmount | currency}}</span>
+                        </div>
+                      </div>
+                    </mat-card>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+
+      <div class="mt-5 mb-lg-5 " style="transform: translateX(40%);">
+        <div *ngIf="orderSelected">
+          <order-summary
+            *ngIf="fullScreen"
+            (hideChange)="orderSelected={}"
+            [orderSelected]="orderSelected"
+            [orderTime] = "orderTime"
+          >
+          </order-summary>
+        </div>
+        <!-- <div *ngIf="!orderSelected">
+              <div class="summary-card" *ngIf="fullScreen"></div>
+            </div> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<app-footer *ngIf="!loading" appConditionalFooter></app-footer>
+
+<!---------------=------ MOBILE SIDEBAR ------------------------>
+<app-mobile-sidebar
+  [(open)]="open"
+  [username]="getCustomerName()"
+  [isUserLoggedIn]="customer.length !== 0"
+>
+</app-mobile-sidebar>
